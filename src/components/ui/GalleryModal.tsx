@@ -32,7 +32,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none"
+        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-6"
         onClick={handleContentClick}
         onKeyDown={handleKeyDown}
         role="dialog"
@@ -50,7 +50,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
             <X className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
           </Button>
           
-          <div className="flex flex-col items-center justify-center w-full h-full max-w-full space-y-3 sm:space-y-4">
+          <div className="flex flex-col items-center justify-center w-full h-full max-w-full space-y-3 sm:space-y-4 pt-9">
             <div className="w-full flex-1 min-h-[50vh] sm:min-h-[60vh] max-h-[80vh] flex items-center justify-center bg-muted/50 rounded-lg overflow-hidden">
               <img
                 src={imageUrl}

@@ -113,7 +113,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[85vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none"
+        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[85vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-6"
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-label="Modal de recomendações"
@@ -139,7 +139,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
           </Button>
         </DialogHeader>
         
-        <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-6 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50">
+        <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-6 pt-9 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 space-y-0">
             {recommendations.map((item) => (
               <Card
