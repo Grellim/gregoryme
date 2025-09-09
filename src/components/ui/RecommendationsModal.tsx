@@ -158,10 +158,25 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                   aria-label={`Visitar ${item.name}`}
                 >
                   <CardContent className="p-0">
-                    <div className="p-4 space-y-3">
-                      {/* Header: Image and Button */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden shadow-sm">
+                    <div className="p-4">
+                      {/* Header: Image and Button positioned top-right */}
+                      <div className="relative mb-4">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="absolute top-0 right-0 px-3 py-1.5 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
+                          onClick={(e) => handleCardClick(e, item.link)}
+                          aria-label={`Conhecer ${item.name}`}
+                        >
+                          <ExternalLink className="w-3 h-3 mr-1" />
+                          Conhecer
+                        </Button>
+                      </div>
+
+                      {/* Main content: Image left, text center */}
+                      <div className="flex items-start gap-4">
+                        {/* Image - 3x larger (36x36 vs original 12x12) */}
+                        <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden shadow-sm">
                           <img
                             src={item.imageUrl}
                             alt={`${item.name} - ${item.type === "person" ? "Pessoa" : "Canal"}`}
@@ -173,57 +188,47 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                             }}
                           />
                         </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="px-3 py-1.5 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
-                          onClick={(e) => handleCardClick(e, item.link)}
-                          aria-label={`Conhecer ${item.name}`}
-                        >
-                          <ExternalLink className="w-3 h-3 mr-1" />
-                          Conhecer
-                        </Button>
-                      </div>
 
-                      {/* Content */}
-                      <div className="space-y-2">
-                        {/* Type */}
-                        <div className="text-xs font-medium text-muted-foreground">
-                          {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
-                        </div>
-                        
-                        {/* Name */}
-                        <h3 className="text-base font-semibold text-foreground">
-                          {item.name}
-                        </h3>
-                        
-                        {/* Description */}
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {item.description}
-                        </p>
-                        
-                        {/* Social Media Icons */}
-                        <div className="flex items-center gap-2 pt-1">
-                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
-                            <Facebook className="h-3 w-3" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
-                            <Instagram className="h-3 w-3" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
-                            <Twitter className="h-3 w-3" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
-                            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M19.88 4.26a4.34 4.34 0 0 1-3.07-.87 4.22 4.22 0 0 1-1.14-2.85 4.29 4.29 0 0 1 2.85-1.14c.25 0 .5.02.75.07a4.22 4.22 0 0 1 1.61.45 4.3 4.3 0 0 1 1.58 1.45l-.05.05a4.24 4.24 0 0 1 .05-.05 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c-.05.25-.07.5-.07.75a4.29 4.29 0 0 1-1.14 2.85 4.34 4.34 0 0 1-3.07.87 4.33 4.33 0 0 1-1.44-.25 4.25 4.25 0 0 1-1.06-1.07c-.37-.59-.56-1.3-.56-2.03V5.77a1.99 1.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36V3.23a2.99 2.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36c0-.73.19-1.44.56-2.03a4.25 4.25 0 0 1 1.06-1.07 4.33 4.33 0 0 1 1.44-.25 4.34 4.34 0 0 1 3.07.87 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c0 .25-.02.5-.07.75a4.29 4.29 0 0 1-1.14 2.85z"/>
-                            </svg>
-                          </Button>
-                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
-                            <Youtube className="h-3 w-3" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Discord">
-                            <MessageCircle className="h-3 w-3" />
-                          </Button>
+                        {/* Text content - centered */}
+                        <div className="flex-1 space-y-2">
+                          {/* Type */}
+                          <div className="text-xs font-medium text-muted-foreground text-center">
+                            {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
+                          </div>
+                          
+                          {/* Name */}
+                          <h3 className="text-base font-semibold text-foreground text-center">
+                            {item.name}
+                          </h3>
+                          
+                          {/* Description */}
+                          <p className="text-sm text-muted-foreground leading-relaxed text-center">
+                            {item.description}
+                          </p>
+                          
+                          {/* Social Media Icons - centered */}
+                          <div className="flex justify-center items-center gap-2 pt-1">
+                            <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
+                              <Facebook className="h-3 w-3" />
+                            </Button>
+                            <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
+                              <Instagram className="h-3 w-3" />
+                            </Button>
+                            <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
+                              <Twitter className="h-3 w-3" />
+                            </Button>
+                            <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
+                              <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.88 4.26a4.34 4.34 0 0 1-3.07-.87 4.22 4.22 0 0 1-1.14-2.85 4.29 4.29 0 0 1 2.85-1.14c.25 0 .5.02.75.07a4.22 4.22 0 0 1 1.61.45 4.3 4.3 0 0 1 1.58 1.45l-.05.05a4.24 4.24 0 0 1 .05-.05 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c-.05.25-.07.5-.07.75a4.29 4.29 0 0 1-1.14 2.85 4.34 4.34 0 0 1-3.07.87 4.33 4.33 0 0 1-1.44-.25 4.25 4.25 0 0 1-1.06-1.07c-.37-.59-.56-1.3-.56-2.03V5.77a1.99 1.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36V3.23a2.99 2.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36c0-.73.19-1.44.56-2.03a4.25 4.25 0 0 1 1.06-1.07 4.33 4.33 0 0 1 1.44-.25 4.34 4.34 0 0 1 3.07.87 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c0 .25-.02.5-.07.75a4.29 4.29 0 0 1-1.14 2.85z"/>
+                              </svg>
+                            </Button>
+                            <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
+                              <Youtube className="h-3 w-3" />
+                            </Button>
+                            <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Discord">
+                              <MessageCircle className="h-3 w-3" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
                   </div>
