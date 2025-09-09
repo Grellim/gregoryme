@@ -93,8 +93,19 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
     window.open(link, '_blank', 'noopener,noreferrer');
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      onClose();
+    }
+  };
+
+  const handleCardClick = (e: React.MouseEvent, link: string) => {
+    e.stopPropagation();
+    handleVisit(link);
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-6xl max-h-[90vh] p-0 overflow-hidden">
         <DialogHeader className="p-6 border-b border-border">
           <DialogTitle className="text-2xl font-bold font-poppins">Pessoas e Canais Recomendados</DialogTitle>
@@ -109,7 +120,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
               <Card
                 key={item.id}
                 className="hover:shadow-lg transition-all duration-300 hover:scale-105 overflow-hidden group cursor-pointer"
-                onClick={() => handleVisit(item.link)}
+                onClick={(e) => handleCardClick(e, item.link)}
               >
                 <CardContent className="p-0">
                   <div className="aspect-square overflow-hidden">
@@ -137,6 +148,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                       variant="outline"
                       size="sm"
                       className="w-full group-hover:bg-purple-50 dark:group-hover:bg-purple-900/20"
+                      onClick={(e) => handleCardClick(e, item.link)}
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
                       Visitar
