@@ -146,7 +146,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
               {recommendations.map((item) => (
                 <Card
                   key={item.id}
-                  className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30 overflow-hidden cursor-pointer"
+                  className="border-border/50 hover:shadow-md transition-all duration-200 overflow-hidden"
                   onClick={(e) => handleCardClick(e, item.link)}
                   role="button"
                   tabIndex={0}
@@ -158,12 +158,12 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                   aria-label={`Visitar ${item.name}`}
                 >
                   <CardContent className="p-0">
-                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 hover:bg-muted/30 transition-colors duration-200">
-                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300 mx-auto sm:mx-0">
+                    <div className="flex flex-col items-start gap-4 p-4">
+                      <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden shadow-md">
                         <img
                           src={item.imageUrl}
                           alt={`${item.name} - ${item.type === "person" ? "Pessoa" : "Canal"}`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover"
                           loading="lazy"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
@@ -171,61 +171,62 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                           }}
                         />
                     
-                    <div className="flex-1 min-w-0 space-y-2 sm:space-y-3 md:space-y-4">
-                      <div className="flex items-center gap-2">
-                        <Badge
-                          variant={item.type === "person" ? "secondary" : "outline"}
-                          className="text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 h-auto whitespace-nowrap flex-shrink-0"
-                          aria-label={`Tipo: ${item.type === "person" ? "Pessoa" : "Canal"}`}
-                        >
+                    <div className="grid grid-cols-1 gap-2 p-4 w-full">
+                      {/* Type Row */}
+                      <div className="flex items-center">
+                        <span className="text-sm font-medium text-muted-foreground">
                           {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
-                        </Badge>
+                        </span>
                       </div>
                       
-                      <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold font-poppins leading-tight line-clamp-1 group-hover:text-primary transition-colors">
-                        {item.name}
-                      </h3>
+                      {/* Name Row */}
+                      <div className="flex items-center">
+                        <h3 className="text-lg font-bold text-foreground">
+                          {item.name}
+                        </h3>
+                      </div>
                       
-                      <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground leading-tight line-clamp-2 sm:line-clamp-3">
-                        {item.description}
-                      </p>
+                      {/* Description Row */}
+                      <div className="flex items-start">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
 
-                      {/* Social Media Icons */}
-                      <div className="flex gap-1 pt-1 sm:pt-2">
-                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
-                          <Facebook className="h-3 w-3" />
+                      {/* Social Media Icons Row */}
+                      <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
+                          <Facebook className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
-                          <Instagram className="h-3 w-3" />
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
+                          <Instagram className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
-                          <Twitter className="h-3 w-3" />
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
+                          <Twitter className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
-                          <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
+                          <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19.88 4.26a4.34 4.34 0 0 1-3.07-.87 4.22 4.22 0 0 1-1.14-2.85 4.29 4.29 0 0 1 2.85-1.14c.25 0 .5.02.75.07a4.22 4.22 0 0 1 1.61.45 4.3 4.3 0 0 1 1.58 1.45l-.05.05a4.24 4.24 0 0 1 .05-.05 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c-.05.25-.07.5-.07.75a4.29 4.29 0 0 1-1.14 2.85 4.34 4.34 0 0 1-3.07.87 4.33 4.33 0 0 1-1.44-.25 4.25 4.25 0 0 1-1.06-1.07c-.37-.59-.56-1.3-.56-2.03V5.77a1.99 1.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36V3.23a2.99 2.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36c0-.73.19-1.44.56-2.03a4.25 4.25 0 0 1 1.06-1.07 4.33 4.33 0 0 1 1.44-.25 4.34 4.34 0 0 1 3.07.87 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c0 .25-.02.5-.07.75a4.29 4.29 0 0 1-1.14 2.85z"/>
                           </svg>
                         </Button>
-                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
-                          <Youtube className="h-3 w-3" />
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
+                          <Youtube className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Discord">
-                          <MessageCircle className="h-3 w-3" />
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Discord">
+                          <MessageCircle className="h-4 w-4" />
                         </Button>
                       </div>
                       
-                      <div className="flex items-center justify-between pt-1 sm:pt-2 md:pt-3">
-                        <div className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium hidden sm:block">
-                          {item.type === "person" ? "💼 Profissional" : "📺 Conteúdo Digital"}
-                        </div>
+                      {/* Action Row */}
+                      <div className="flex items-center justify-end">
                         <Button
                           variant="outline"
                           size="sm"
-                          className="group-hover:bg-primary group-hover:text-primary-foreground hover:scale-105 active:scale-95 transition-all duration-200 px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 h-auto whitespace-nowrap text-xs sm:text-sm md:text-base flex-shrink-0 shadow-sm hover:shadow-md"
+                          className="px-4 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
                           onClick={(e) => handleCardClick(e, item.link)}
                           aria-label={`Conhecer ${item.name}`}
                         >
-                          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1.5 sm:mr-2 flex-shrink-0 transition-transform duration-200 group-hover:rotate-12" />
+                          <ExternalLink className="w-4 h-4 mr-2" />
                           Conhecer
                         </Button>
                       </div>
