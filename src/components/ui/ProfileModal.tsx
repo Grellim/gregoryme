@@ -127,20 +127,10 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
           </ScrollArea>
         
         <DialogFooter className="p-4 sm:p-6 lg:p-8 border-t border-border bg-muted/20 sm:bg-muted/30">
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full justify-center sm:justify-start">
-            <Button
-              onClick={() => window.open('https://github.com/gregoryvallim', '_blank')}
-              className="w-full sm:w-auto text-sm sm:text-base lg:text-lg py-3 px-6 h-auto flex-1 sm:flex-none focus-visible:ring-2 focus-visible:ring-primary"
-              size="lg"
-              variant="default"
-              aria-label="Visitar portfólio no GitHub"
-            >
-              <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 mr-2 flex-shrink-0" />
-              Ver Meu Portfólio
-            </Button>
+          <div className="flex justify-center">
             <Button
               onClick={onClose}
-              className="w-full sm:w-auto text-sm sm:text-base lg:text-lg py-3 px-6 h-auto flex-1 sm:flex-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-sm sm:text-base lg:text-lg py-3 px-6 h-auto focus-visible:ring-2 focus-visible:ring-primary"
               size="lg"
               variant="outline"
               aria-label="Fechar modal de perfil"
