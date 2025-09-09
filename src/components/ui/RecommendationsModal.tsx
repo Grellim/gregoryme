@@ -158,80 +158,74 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                   aria-label={`Visitar ${item.name}`}
                 >
                   <CardContent className="p-0">
-                    <div className="flex flex-col items-start gap-4 p-4">
-                      <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden shadow-md">
-                        <img
-                          src={item.imageUrl}
-                          alt={`${item.name} - ${item.type === "person" ? "Pessoa" : "Canal"}`}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
-                          }}
-                        />
-                    
-                    <div className="grid grid-cols-1 gap-2 p-4 w-full">
-                      {/* Type Row */}
-                      <div className="flex items-center">
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
-                        </span>
-                      </div>
-                      
-                      {/* Name Row */}
-                      <div className="flex items-center">
-                        <h3 className="text-lg font-bold text-foreground">
-                          {item.name}
-                        </h3>
-                      </div>
-                      
-                      {/* Description Row */}
-                      <div className="flex items-start">
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-
-                      {/* Social Media Icons Row */}
-                      <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
-                          <Facebook className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
-                          <Instagram className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
-                          <Twitter className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
-                          <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19.88 4.26a4.34 4.34 0 0 1-3.07-.87 4.22 4.22 0 0 1-1.14-2.85 4.29 4.29 0 0 1 2.85-1.14c.25 0 .5.02.75.07a4.22 4.22 0 0 1 1.61.45 4.3 4.3 0 0 1 1.58 1.45l-.05.05a4.24 4.24 0 0 1 .05-.05 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c-.05.25-.07.5-.07.75a4.29 4.29 0 0 1-1.14 2.85 4.34 4.34 0 0 1-3.07.87 4.33 4.33 0 0 1-1.44-.25 4.25 4.25 0 0 1-1.06-1.07c-.37-.59-.56-1.3-.56-2.03V5.77a1.99 1.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36V3.23a2.99 2.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36c0-.73.19-1.44.56-2.03a4.25 4.25 0 0 1 1.06-1.07 4.33 4.33 0 0 1 1.44-.25 4.34 4.34 0 0 1 3.07.87 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c0 .25-.02.5-.07.75a4.29 4.29 0 0 1-1.14 2.85z"/>
-                          </svg>
-                        </Button>
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
-                          <Youtube className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Discord">
-                          <MessageCircle className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      
-                      {/* Action Row */}
-                      <div className="flex items-center justify-end">
+                    <div className="p-4 space-y-3">
+                      {/* Header: Image and Button */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden shadow-sm">
+                          <img
+                            src={item.imageUrl}
+                            alt={`${item.name} - ${item.type === "person" ? "Pessoa" : "Canal"}`}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
+                            }}
+                          />
+                        </div>
                         <Button
                           variant="outline"
                           size="sm"
-                          className="px-4 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
+                          className="px-3 py-1.5 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
                           onClick={(e) => handleCardClick(e, item.link)}
                           aria-label={`Conhecer ${item.name}`}
                         >
-                          <ExternalLink className="w-4 h-4 mr-2" />
+                          <ExternalLink className="w-3 h-3 mr-1" />
                           Conhecer
                         </Button>
                       </div>
-                    </div>
-                    </div>
+
+                      {/* Content */}
+                      <div className="space-y-2">
+                        {/* Type */}
+                        <div className="text-xs font-medium text-muted-foreground">
+                          {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
+                        </div>
+                        
+                        {/* Name */}
+                        <h3 className="text-base font-semibold text-foreground">
+                          {item.name}
+                        </h3>
+                        
+                        {/* Description */}
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {item.description}
+                        </p>
+                        
+                        {/* Social Media Icons */}
+                        <div className="flex items-center gap-2 pt-1">
+                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
+                            <Facebook className="h-3 w-3" />
+                          </Button>
+                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
+                            <Instagram className="h-3 w-3" />
+                          </Button>
+                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
+                            <Twitter className="h-3 w-3" />
+                          </Button>
+                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
+                            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M19.88 4.26a4.34 4.34 0 0 1-3.07-.87 4.22 4.22 0 0 1-1.14-2.85 4.29 4.29 0 0 1 2.85-1.14c.25 0 .5.02.75.07a4.22 4.22 0 0 1 1.61.45 4.3 4.3 0 0 1 1.58 1.45l-.05.05a4.24 4.24 0 0 1 .05-.05 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c-.05.25-.07.5-.07.75a4.29 4.29 0 0 1-1.14 2.85 4.34 4.34 0 0 1-3.07.87 4.33 4.33 0 0 1-1.44-.25 4.25 4.25 0 0 1-1.06-1.07c-.37-.59-.56-1.3-.56-2.03V5.77a1.99 1.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36V3.23a2.99 2.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36c0-.73.19-1.44.56-2.03a4.25 4.25 0 0 1 1.06-1.07 4.33 4.33 0 0 1 1.44-.25 4.34 4.34 0 0 1 3.07.87 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c0 .25-.02.5-.07.75a4.29 4.29 0 0 1-1.14 2.85z"/>
+                            </svg>
+                          </Button>
+                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
+                            <Youtube className="h-3 w-3" />
+                          </Button>
+                          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Discord">
+                            <MessageCircle className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
                   </div>
                 </CardContent>
               </Card>
