@@ -19,9 +19,16 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
     }
   };
 
+  const handleContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-4xl p-0 max-h-[90vh] overflow-hidden">
+      <DialogContent
+        className="max-w-4xl max-h-[90vh] p-0"
+        onClick={handleContentClick}
+      >
         <div className="relative w-full h-full flex items-center justify-center p-4">
           <Button
             onClick={onClose}

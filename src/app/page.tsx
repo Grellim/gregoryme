@@ -381,6 +381,12 @@ export default function Home() {
         onSave={handleProfileSave}
       />
 
+      {/* Recommendations Modal */}
+      <RecommendationsModal
+        isOpen={isRecommendationsModalOpen}
+        onClose={closeRecommendationsModal}
+      />
+
       {/* Scroll to Top Button */}
       <ScrollToTop />
     </div>
