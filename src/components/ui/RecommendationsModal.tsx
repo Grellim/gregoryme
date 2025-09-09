@@ -113,7 +113,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[85vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-6"
+        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[85vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-10 w-4 scrollbar scrollbar-thumb-rounded scrollbar-track-transparent/50"
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-label="Modal de recomendações"
@@ -139,12 +139,12 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
           </Button>
         </DialogHeader>
         
-        <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-6 pt-9 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 space-y-0">
+        <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-6 pt-[35px] w-4 scrollbar scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded scrollbar-w-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 space-y-0 m-0 p-0">
             {recommendations.map((item) => (
               <Card
                 key={item.id}
-                className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30 overflow-hidden cursor-pointer"
+                className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30 overflow-hidden cursor-pointer m-0 p-0"
                 onClick={(e) => handleCardClick(e, item.link)}
                 role="button"
                 tabIndex={0}
@@ -155,9 +155,9 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                 }}
                 aria-label={`Visitar ${item.name}`}
               >
-                <CardContent className="p-0">
-                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 p-3 sm:p-4 md:p-5 hover:bg-muted/30 transition-colors duration-200">
-                    <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-0 m-0">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 p-3 sm:p-4 md:p-5 hover:bg-muted/30 transition-colors duration-200 m-0 p-0">
+                    <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300 m-0 p-0">
                       <img
                         src={item.imageUrl}
                         alt={`${item.name} - ${item.type === "person" ? "Pessoa" : "Canal"}`}
@@ -170,33 +170,31 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                       />
                     </div>
                     
-                    <div className="flex-1 min-w-0 space-y-2 sm:space-y-3">
-                      <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0 space-y-2 sm:space-y-3 m-0 p-0">
+                      <div className="flex items-center gap-2 m-0 p-0">
                         <Badge 
                           variant={item.type === "person" ? "secondary" : "outline"} 
-                          className="text-xs sm:text-sm px-2 sm:px-3 py-1 h-auto whitespace-nowrap flex-shrink-0"
+                          className="text-xs sm:text-sm px-2 sm:px-3 py-1 h-auto whitespace-nowrap flex-shrink-0 m-0 p-0"
                           aria-label={`Tipo: ${item.type === "person" ? "Pessoa" : "Canal"}`}
                         >
                           {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
                         </Badge>
                       </div>
                       
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold font-poppins leading-tight line-clamp-1 group-hover:text-primary transition-colors">
-                        {item.name}
-                      </h3>
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold font-poppins leading-tight line-clamp-1 group-hover:text-primary transition-colors m-0 p-0">{item.name}</h3>
                       
-                      <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-tight line-clamp-2 sm:line-clamp-3">
+                      <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-tight line-clamp-2 sm:line-clamp-3 m-0 p-0">
                         {item.description}
                       </p>
                       
-                      <div className="flex items-center justify-between pt-1 sm:pt-2">
-                        <div className="text-xs sm:text-sm text-muted-foreground font-medium hidden sm:block">
+                      <div className="flex items-center justify-between pt-1 sm:pt-2 m-0 p-0">
+                        <div className="text-xs sm:text-sm text-muted-foreground font-medium hidden sm:block m-0 p-0">
                           {item.type === "person" ? "💼 Profissional" : "📺 Conteúdo Digital"}
                         </div>
                         <Button
                           variant="outline"
                           size="sm"
-                          className="group-hover:bg-primary group-hover:text-primary-foreground hover:scale-105 active:scale-95 transition-all duration-200 px-3 sm:px-4 py-1.5 sm:py-2 h-auto whitespace-nowrap text-xs sm:text-sm flex-shrink-0 shadow-sm hover:shadow-md"
+                          className="group-hover:bg-primary group-hover:text-primary-foreground hover:scale-105 active:scale-95 transition-all duration-200 px-3 sm:px-4 py-1.5 sm:py-2 h-auto whitespace-nowrap text-xs sm:text-sm flex-shrink-0 shadow-sm hover:shadow-md m-0 p-0"
                           onClick={(e) => handleCardClick(e, item.link)}
                           aria-label={`Visitar ${item.name}`}
                         >

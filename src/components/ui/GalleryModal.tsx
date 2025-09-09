@@ -32,14 +32,14 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-6"
+        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-10 w-4 scrollbar scrollbar-thumb-rounded scrollbar-track-transparent/50"
         onClick={handleContentClick}
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-label={`Visualização ampliada da imagem: ${alt}`}
         aria-modal="true"
       >
-        <div className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8 max-w-full">
+        <div className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8 max-w-full m-0">
           <Button
             onClick={onClose}
             className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/80 hover:bg-black text-white rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 z-10 shadow-lg focus-visible:ring-2 focus-visible:ring-primary"
@@ -50,8 +50,8 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
             <X className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
           </Button>
           
-          <div className="flex flex-col items-center justify-center w-full h-full max-w-full space-y-3 sm:space-y-4 pt-9">
-            <div className="w-full flex-1 min-h-[50vh] sm:min-h-[60vh] max-h-[80vh] flex items-center justify-center bg-muted/50 rounded-lg overflow-hidden">
+          <div className="flex flex-col items-center justify-center w-full h-full max-w-full space-y-3 sm:space-y-4 pt-[35px] w-4 scrollbar scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded scrollbar-w-4">
+            <div className="w-full flex-1 min-h-[50vh] sm:min-h-[60vh] max-h-[80vh] flex items-center justify-center bg-muted/50 rounded-lg overflow-hidden m-0 p-0">
               <img
                 src={imageUrl}
                 alt={alt}
@@ -68,7 +68,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
               </div>
             </div>
             
-            <div className="w-full max-w-md px-2 text-center">
+            <div className="w-full max-w-md px-2 text-center m-0 p-0">
               <p className="text-xs sm:text-sm md:text-base text-muted-foreground break-words">
                 {alt}
               </p>
