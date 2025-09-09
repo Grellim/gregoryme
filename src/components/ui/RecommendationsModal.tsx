@@ -106,56 +106,54 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-6xl max-h-[90vh] p-0 overflow-hidden">
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
         <DialogHeader className="p-6 border-b border-border">
-          <DialogTitle className="text-2xl font-bold font-poppins">Pessoas e Canais Recomendados</DialogTitle>
+          <DialogTitle className="text-2xl font-bold font-poppins">Minhas Recomendações</DialogTitle>
           <DialogDescription className="mt-1">
-            Conheça profissionais e canais que inspiram e ensinam
+            Pessoas e canais que me inspiram e que recomendo para você conhecer
           </DialogDescription>
         </DialogHeader>
         
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="space-y-6">
             {recommendations.map((item) => (
-              <Card
+              <div
                 key={item.id}
-                className="hover:shadow-lg transition-all duration-300 hover:scale-105 overflow-hidden group cursor-pointer"
+                className="flex gap-6 hover:bg-muted/50 p-4 rounded-lg transition-colors cursor-pointer"
                 onClick={(e) => handleCardClick(e, item.link)}
               >
-                <CardContent className="p-0">
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={item.imageUrl}
-                      alt={item.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
-                      }}
-                    />
+                <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
+                    }}
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Badge variant={item.type === "person" ? "secondary" : "outline"} className="text-xs">
+                      {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
+                    </Badge>
                   </div>
-                  <div className="p-4 space-y-3">
-                    <div className="flex items-center gap-2">
-                      <Badge variant={item.type === "person" ? "secondary" : "outline"} className="text-xs">
-                        {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
-                      </Badge>
-                    </div>
-                    <h3 className="text-lg font-semibold font-poppins line-clamp-2">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                      {item.description}
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full group-hover:bg-purple-50 dark:group-hover:bg-purple-900/20"
-                      onClick={(e) => handleCardClick(e, item.link)}
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Visitar
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  <h3 className="text-xl font-semibold font-poppins mb-1 line-clamp-1">{item.name}</h3>
+                  <p className="text-muted-foreground mb-3 line-clamp-2">
+                    {item.description}
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-fit"
+                    onClick={(e) => handleCardClick(e, item.link)}
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Visitar
+                  </Button>
+                </div>
+              </div>
             ))}
           </div>
         </div>

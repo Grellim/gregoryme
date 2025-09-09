@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -39,6 +41,12 @@ export default function PortfolioCard({
 
   const openDetailModal = () => setIsDetailModalOpen(true);
   const closeDetailModal = () => setIsDetailModalOpen(false);
+
+  const handleDetailOpenChange = (open: boolean) => {
+    if (!open) {
+      closeDetailModal();
+    }
+  };
 
   const openGalleryModal = (imageUrl: string, alt: string) => {
     setSelectedGalleryImage(imageUrl);
@@ -109,18 +117,18 @@ export default function PortfolioCard({
       )}
 
       {/* Detail Modal */}
-      {isDetailModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="relative bg-card border border-border rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <button
+      <Dialog open={isDetailModalOpen} onOpenChange={handleDetailOpenChange}>
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-y-auto">
+          <div className="relative h-full">
+            <Button
               onClick={closeDetailModal}
               className="absolute top-4 right-4 bg-muted rounded-full p-2 text-foreground hover:bg-accent transition-colors flex items-center justify-center h-8 w-8 z-10"
               aria-label="Close modal"
+              variant="ghost"
+              size="icon"
             >
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+              <X className="h-6 w-6" />
+            </Button>
             
             <div className="p-6">
               {/* Main Image */}
@@ -134,8 +142,8 @@ export default function PortfolioCard({
 
               {/* Title and Description */}
               <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">{title}</h2>
-                <p className="text-muted-foreground mb-4">{description}</p>
+                <DialogTitle className="text-2xl font-bold mb-2">{title}</DialogTitle>
+                <DialogDescription className="text-muted-foreground mb-4">{description}</DialogDescription>
                 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -179,7 +187,7 @@ export default function PortfolioCard({
               )}
 
               {/* Action Button */}
-              <div className="flex justify-center">
+              <DialogFooter className="flex justify-center pt-6">
                 <Button
                   onClick={() => window.open(projectUrl, '_blank')}
                   className="flex items-center gap-2"
@@ -187,11 +195,11 @@ export default function PortfolioCard({
                   Quero Conhecer
                   <ExternalLink className="h-4 w-4" />
                 </Button>
-              </div>
+              </DialogFooter>
             </div>
           </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
 
       {/* Gallery Modal */}
       <GalleryModal
