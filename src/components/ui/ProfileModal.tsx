@@ -41,40 +41,29 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Editar Perfil</DialogTitle>
+          <DialogTitle>Sobre Mim</DialogTitle>
           <DialogDescription>
-            Atualize suas informações de perfil aqui. Clique em salvar quando terminar.
+            Saiba mais sobre mim.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="name">Nome</Label>
-            <Input
-              id="name"
-              {...register("name", { required: "Nome é obrigatório" })}
-              placeholder="Seu nome completo"
-            />
-            {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="bio">Bio</Label>
-            <Textarea
-              id="bio"
-              {...register("bio")}
-              placeholder="Descreva-se em poucas palavras..."
-            />
           </div>
           <div className="flex items-center space-x-4">
-            <Avatar className="w-16 h-16">
+            <Avatar className="w-64 h-64">
               <AvatarImage src="/profile.jpg" />
               <AvatarFallback>GV</AvatarFallback>
             </Avatar>
-            <p className="text-sm text-muted-foreground">Foto do perfil (padrão)</p>
+            <p className="text-sm text-muted-foreground">Gregory Vallim</p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <p className="text-sm text-muted-foreground">Gregory Vallim</p>
           </div>
           <DialogFooter>
             <Button type="submit">Salvar Alterações</Button>
           </DialogFooter>
-        </form>
       </DialogContent>
     </Dialog>
   );
