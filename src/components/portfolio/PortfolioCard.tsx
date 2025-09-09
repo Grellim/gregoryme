@@ -194,11 +194,11 @@ export default function PortfolioCard({
                       ))}
                     </div>
                   </div>
-              </div>
-            </ScrollArea>
                 )}
+                </div>
+            </ScrollArea>
               </div>
-            </div>
+
 
             {/* Action Button */}
             <DialogFooter className="p-4 sm:p-6 md:p-8 lg:p-10 border-t border-border bg-muted/20">
