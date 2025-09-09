@@ -118,7 +118,7 @@ export default function PortfolioCard({
 
       {/* Detail Modal */}
       <Dialog open={isDetailModalOpen} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-10 w-4 scrollbar scrollbar-thumb-rounded scrollbar-track-transparent/50">
+        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-6">
           <div className="flex flex-col h-full">
             <DialogHeader className="p-3 sm:p-4 md:p-6 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
               <div className="flex items-center justify-between">
@@ -140,53 +140,53 @@ export default function PortfolioCard({
               </div>
             </DialogHeader>
             
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 pt-[35px] w-4 scrollbar scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded scrollbar-w-4">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 pt-9 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded">
               {/* Content */}
-              <div className="space-y-4 sm:space-y-6 m-0 p-0">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Main Image */}
-                <div className="aspect-video max-h-[50vh] m-0 p-0">
+                <div className="aspect-video max-h-[50vh]">
                   <img
                     src={imageUrl}
                     alt={title}
-                    className="w-full h-full object-cover rounded-xl shadow-lg m-0 p-0"
+                    className="w-full h-full object-cover rounded-xl shadow-lg"
                   />
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 m-0 p-0">
+                <div className="flex flex-wrap gap-2">
                   {tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary" className="text-sm px-2.5 py-1 m-0 p-0">
+                    <Badge key={index} variant="secondary" className="text-sm px-2.5 py-1">
                       {tag}
                     </Badge>
                   ))}
                 </div>
 
                 {/* More Info */}
-                <div className="space-y-3 m-0 p-0">
-                  <h3 className="text-lg sm:text-xl font-semibold m-0 p-0">Mais sobre o projeto:</h3>
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed m-0 p-0">
+                <div className="space-y-3">
+                  <h3 className="text-lg sm:text-xl font-semibold">Mais sobre o projeto:</h3>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     {moreInfo}
                   </p>
                 </div>
 
                 {/* Gallery */}
                 {galleryImages.length > 0 && (
-                  <div className="space-y-4 m-0 p-0">
-                    <h3 className="text-lg sm:text-xl font-semibold m-0 p-0">Galeria de Imagens</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 m-0 p-0">
+                  <div className="space-y-4">
+                    <h3 className="text-lg sm:text-xl font-semibold">Galeria de Imagens</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
                       {galleryImages.map((image, index) => (
                         <div
                           key={index}
-                          className="relative group cursor-pointer rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 aspect-square m-0 p-0"
+                          className="relative group cursor-pointer rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 aspect-square"
                           onClick={() => openGalleryModal(image, `Galeria ${index + 1}`)}
                         >
                           <img
                             src={image}
                             alt={`Galeria ${index + 1}`}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 m-0 p-0"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center m-0 p-0">
-                            <Expand className="h-4 w-4 sm:h-5 sm:w-5 text-white m-0 p-0" />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <Expand className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                           </div>
                         </div>
                       ))}

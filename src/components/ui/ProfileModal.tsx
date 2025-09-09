@@ -22,7 +22,7 @@ interface ProfileModalProps {
 export default function ProfileModal({ isOpen, onClose, initialData, onSave }: ProfileModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-10 w-4 scrollbar scrollbar-thumb-rounded scrollbar-track-transparent/50">
+      <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-6">
         <DialogHeader className="p-3 sm:p-4 md:p-6 lg:p-8 border-b border-border/50">
           <div className="text-center space-y-2 sm:space-y-3">
             <DialogTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
@@ -34,10 +34,10 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
           </div>
         </DialogHeader>
         
-        <div className="w-full flex-1 overflow-y-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-[35px] w-4 scrollbar scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded scrollbar-w-4">
-          <div className="w-full space-y-4 sm:space-y-6 md:space-y-8 py-0 m-0">
+        <div className="w-full flex-1 overflow-y-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-9 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded">
+          <div className="w-full space-y-4 sm:space-y-6 md:space-y-8 py-2">
             {/* Profile Section */}
-            <section className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8 items-center justify-center lg:justify-start w-full m-0 p-0">
+            <section className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8 items-center justify-center lg:justify-start w-full">
               <div className="flex-shrink-0 order-2 lg:order-1 w-full lg:w-auto max-w-xs mx-auto lg:mx-0">
                 <div className="relative group">
                   <Avatar className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 border-4 border-primary/20 shadow-xl sm:shadow-2xl transition-all duration-300 group-hover:shadow-2xl md:group-hover:shadow-3xl mx-auto">
@@ -79,8 +79,8 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
             </section>
             
             {/* Content Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 w-full m-0 p-0">
-              <article className="space-y-3 p-4 sm:p-6 md:p-8 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full m-0 p-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 w-full">
+              <article className="space-y-3 p-4 sm:p-6 md:p-8 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full">
                 <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold flex items-center gap-2">
                   <span className="text-primary text-base sm:text-lg md:text-xl">🎯</span> Experiência
                 </h3>
@@ -90,11 +90,11 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 </p>
               </article>
               
-              <article className="space-y-3 p-4 sm:p-6 md:p-8 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full m-0 p-0">
+              <article className="space-y-3 p-4 sm:p-6 md:p-8 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full">
                 <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold flex items-center gap-2">
                   <span className="text-primary text-base sm:text-lg md:text-xl">🔧</span> Stack Tecnológica
                 </h3>
-                <div className="grid grid-cols-2 gap-1.5 sm:gap-2 md:gap-3 w-full m-0 p-0">
+                <div className="grid grid-cols-2 gap-1.5 sm:gap-2 md:gap-3 w-full">
                   <Badge variant="outline" className="text-xs sm:text-sm md:text-base justify-center py-1.5 sm:py-2">React</Badge>
                   <Badge variant="outline" className="text-xs sm:text-sm md:text-base justify-center py-1.5 sm:py-2">Next.js</Badge>
                   <Badge variant="outline" className="text-xs sm:text-sm md:text-base justify-center py-1.5 sm:py-2">TypeScript</Badge>
@@ -106,7 +106,7 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 </div>
               </article>
               
-              <article className="space-y-3 p-3 sm:p-4 md:p-6 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl sm:rounded-2xl border border-primary/20 lg:col-span-1 w-full m-0 p-0">
+              <article className="space-y-3 p-3 sm:p-4 md:p-6 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl sm:rounded-2xl border border-primary/20 lg:col-span-1 w-full">
                 <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold flex items-center gap-2">
                   <span className="text-primary text-base sm:text-lg md:text-xl">🚀</span> Minha Missão
                 </h3>
