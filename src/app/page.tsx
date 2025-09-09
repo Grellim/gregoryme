@@ -11,6 +11,7 @@ import SkillsCarousel from "@/components/ui/SkillsCarousel";
 import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import { title } from "process";
 
 const portfolioData = [
   {
@@ -180,34 +181,38 @@ export default function Home() {
                 <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                   <TagTooltip 
                     emoji="🚀"
+                    title="Inovação"
                     description="Sempre buscando inovar e criar soluções que transformam o mundo digital. A inovação é o motor que move todos os meus projetos."
                   >
                     <span className="px-4 py-2 bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium cursor-help">
-                      🚀 Inovação
+                      {emoji} {title}
                     </span>
                   </TagTooltip>
                   <TagTooltip 
                     emoji="💡"
+                    criatividade="Criatividade"
                     description="Criatividade é essencial para resolver problemas complexos. Cada projeto é uma oportunidade de pensar fora da caixa."
                   >
                     <span className="px-4 py-2 bg-pink-200 dark:bg-pink-800 text-pink-800 dark:text-pink-200 rounded-full text-sm font-medium cursor-help">
-                      💡 Criatividade
+                      {emoji} {title}
                     </span>
                   </TagTooltip>
                   <TagTooltip 
                     emoji="⚡"
+                    title="Performance"
                     description="Performance não é opcional, é obrigatório. Meus projetos são otimizados para oferecer a melhor experiência possível."
                   >
                     <span className="px-4 py-2 bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium cursor-help">
-                      ⚡ Performance
+                      {emoji} {title}
                     </span>
                   </TagTooltip>
                   <TagTooltip 
                     emoji="🌱"
+                    title="Sustentabilidade"
                     description="Desenvolvimento sustentável é o futuro. Busco criar soluções que considerem o impacto ambiental e social."
                   >
                     <span className="px-4 py-2 bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200 rounded-full text-sm font-medium cursor-help">
-                      🌱 Sustentabilidade
+                      {emoji} {title}
                     </span>
                   </TagTooltip>
                 </div>

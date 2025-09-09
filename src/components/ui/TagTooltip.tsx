@@ -6,6 +6,7 @@ interface TagTooltipProps {
   emoji: string;
   description: string;
   children: React.ReactNode;
+  title: string
 }
 
 export default function TagTooltip({ emoji, description, children }: TagTooltipProps) {
@@ -27,7 +28,7 @@ export default function TagTooltip({ emoji, description, children }: TagTooltipP
             <div className="flex items-center gap-3 mb-3">
               <span className="text-2xl">{emoji}</span>
               <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
-                {children?.toString().replace(/🚀|💡|⚡|🌱/g, '').trim()}
+                {title}
               </h4>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
