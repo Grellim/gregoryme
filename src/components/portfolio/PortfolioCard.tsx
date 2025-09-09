@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -118,39 +119,40 @@ export default function PortfolioCard({
 
       {/* Detail Modal */}
       <Dialog open={isDetailModalOpen} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-y-auto pb-6 sm:rounded-2xl focus:outline-none scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50">
+        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50">
           <div className="flex flex-col h-full">
-            <DialogHeader className="p-3 sm:p-4 md:p-6 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
+            <DialogHeader className="p-4 sm:p-6 md:p-8 lg:p-10 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
-                  <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-bold">{title}</DialogTitle>
-                  <DialogDescription className="text-sm sm:text-base text-muted-foreground">
+                  <DialogTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">{title}</DialogTitle>
+                  <DialogDescription className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground">
                     {description}
                   </DialogDescription>
                 </div>
                 <Button
                   onClick={closeDetailModal}
-                  className="bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 transition-all duration-200 flex items-center justify-center h-10 w-10 z-20 focus-visible:ring-2 focus-visible:ring-primary"
+                  className="bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 z-20 focus-visible:ring-2 focus-visible:ring-primary"
                   aria-label="Fechar modal"
                   variant="ghost"
                   size="icon"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
                 </Button>
               </div>
             </DialogHeader>
             
-            <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-5 pt-9 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50">
-              {/* Content */}
-              <div className="space-y-3 sm:space-y-4 md:space-y-5">
-                {/* Main Image */}
-                <div className="aspect-video max-h-[50vh]">
-                  <img
-                    src={imageUrl}
-                    alt={title}
-                    className="w-full h-full object-cover rounded-xl shadow-lg"
-                  />
-                </div>
+            <ScrollArea className="w-full h-[70vh] pr-4 flex-1">
+              <div className="w-full h-full pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 lg:px-10 space-y-4 sm:space-y-6 md:space-y-8">
+                {/* Content */}
+                <div className="space-y-4 sm:space-y-6 md:space-y-8">
+                  {/* Main Image */}
+                  <div className="aspect-video max-h-[50vh] flex items-center justify-center bg-muted/50 rounded-xl overflow-hidden">
+                    <img
+                      src={imageUrl}
+                      alt={title}
+                      className="w-auto h-auto max-w-full max-h-full object-contain rounded-xl shadow-lg"
+                    />
+                  </div>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
@@ -171,9 +173,9 @@ export default function PortfolioCard({
 
                 {/* Gallery */}
                 {galleryImages.length > 0 && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg sm:text-xl font-semibold">Galeria de Imagens</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1 sm:gap-2">
+                  <div className="space-y-4 sm:space-y-6 md:space-y-8">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold">Galeria de Imagens</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1 sm:gap-2 md:gap-3 lg:gap-4">
                       {galleryImages.map((image, index) => (
                         <div
                           key={index}
@@ -186,35 +188,37 @@ export default function PortfolioCard({
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <Expand className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                            <Expand className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white" />
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
+              </div>
+            </ScrollArea>
                 )}
               </div>
             </div>
 
             {/* Action Button */}
-            <DialogFooter className="p-3 sm:p-4 md:p-6 border-t border-border bg-muted/20">
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center sm:justify-start">
+            <DialogFooter className="p-4 sm:p-6 md:p-8 lg:p-10 border-t border-border bg-muted/20">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 w-full justify-end">
                 <Button
                   onClick={() => window.open(projectUrl, '_blank')}
-                  className="flex items-center gap-2 text-sm sm:text-base md:text-lg py-2.5 sm:py-3 px-4 sm:px-6 w-full sm:w-auto"
+                  className="flex items-center gap-2 text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 h-auto"
                   size="lg"
                   variant="default"
                 >
-                  <ExternalLink className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 flex-shrink-0" />
                   Quero Conhecer
                 </Button>
                 <Button
                   onClick={closeDetailModal}
-                  className="text-sm sm:text-base md:text-lg py-2.5 sm:py-3 px-4 sm:px-6 w-full sm:w-auto"
+                  className="text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 h-auto"
                   size="lg"
                   variant="outline"
                 >
-                  <X className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 flex-shrink-0" />
                   Fechar
                 </Button>
               </div>
