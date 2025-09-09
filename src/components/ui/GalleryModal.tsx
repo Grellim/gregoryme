@@ -26,7 +26,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-[40%] max-w-4xl max-h-[95vh] p-0 overflow-hidden"
+        className="max-h-[95vh] p-0 overflow-hidden"
         onClick={handleContentClick}
       >
         <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-8 max-w-full">

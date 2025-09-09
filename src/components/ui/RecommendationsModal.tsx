@@ -106,7 +106,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="w-[40%] max-w-4xl max-h-[95vh] p-0 overflow-hidden">
+      <DialogContent className="max-h-[95vh] p-0 overflow-hidden">
         <DialogHeader className="p-6 sm:p-8 md:p-10 border-b border-border">
           <DialogTitle className="text-2xl sm:text-3xl md:text-4xl font-bold font-poppins">Minhas Recomendações</DialogTitle>
           <DialogDescription className="mt-2 text-base sm:text-lg md:text-xl leading-relaxed">

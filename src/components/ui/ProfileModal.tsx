@@ -22,7 +22,7 @@ interface ProfileModalProps {
 export default function ProfileModal({ isOpen, onClose, initialData, onSave }: ProfileModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[40%] max-w-4xl max-h-[95vh] p-0 overflow-hidden">
+      <DialogContent className="max-h-[95vh] p-0 overflow-hidden">
         <DialogHeader className="p-4 sm:p-6 md:p-8">
           <div className="text-center">
             <DialogTitle className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
