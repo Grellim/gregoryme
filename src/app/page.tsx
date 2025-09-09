@@ -93,8 +93,7 @@ export default function Home() {
   const closeProfileModal = () => setIsProfileModalOpen(false);
 
   const handleProfileSave = (data: ProfileData) => {
-    console.log("Perfil atualizado:", data);
-    // Aqui você pode implementar a lógica de salvamento real, como uma chamada de API
+    // Implementar lógica de salvamento real, como uma chamada de API
   };
 
   const openRecommendationsModal = () => setIsRecommendationsModalOpen(true);
@@ -106,28 +105,30 @@ export default function Home() {
       
       <main className="pt-16">
         {/* Hero Section with Video Background */}
-        <section id="home" className="relative h-[480px] flex items-center justify-center">
+        <section id="home" className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center">
           <VideoBackground
             videoSrc="/videos/background.mp4"
             fallbackImage="/videos/placeholder.jpg"
           >
             <div className="text-center text-white px-4">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-poppins tracking-wider">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 font-poppins tracking-wider leading-tight">
                 Olá, sou <span className="text-purple-300">Gregory Vallim</span>
               </h1>
-              <p className="text-xl md:text-2xl lg:text-3xl mb-8 font-light max-w-3xl mx-auto font-inter">
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 font-light max-w-3xl mx-auto font-inter leading-relaxed">
                 Um camarada com muitas ideias
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button 
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                <button
                   onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-purple-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly"
+                  className="bg-purple-400 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly text-sm sm:text-base"
+                  aria-label="Ver projetos"
                 >
                   Ver Projetos
                 </button>
-                <button 
+                <button
                   onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-2 border-purple-400 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly"
+                  className="border-2 border-purple-400 text-purple-400 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly text-sm sm:text-base"
+                  aria-label="Entrar em contato"
                 >
                   Entrar em Contato
                 </button>
@@ -157,7 +158,7 @@ export default function Home() {
                 >
                   <img
                     src="/profile.jpg"
-                    alt="Gregory Vallim"
+                    alt="Foto de perfil de Gregory Vallim"
                     className="w-64 h-64 rounded-full object-cover shadow-2xl border-4 border-white dark:border-border"
                   />
                   <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full flex items-center justify-center">
@@ -309,7 +310,7 @@ export default function Home() {
                 Confira alguns dos meus trabalhos mais recentes e destacados
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {portfolioData.map((project) => (
                 <PortfolioCard
                   key={project.id}

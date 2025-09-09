@@ -43,16 +43,13 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
   }, [isPaused]);
 
   // Calculate visible cards (3 at a time for desktop, 1 for mobile)
-  const getVisibleCards = () => {
-    const visibleCards = [];
+  const getVisibleCards = (): Skill[] => {
+    const visibleCards: Skill[] = [];
     const cardsToShow = typeof window !== 'undefined' && window.innerWidth >= 768 ? 3 : 1;
     
     for (let i = 0; i < cardsToShow; i++) {
       const index = (currentIndex + i) % skills.length;
-      visibleCards.push({
-        ...skills[index],
-        originalIndex: index
-      });
+      visibleCards.push(skills[index]);
     }
     
     return visibleCards;

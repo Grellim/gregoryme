@@ -120,23 +120,23 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
         aria-label="Modal de recomendações"
         aria-modal="true"
       >
-        <DialogHeader className="p-4 sm:p-6 md:p-8 lg:p-10 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10 pl-9">
-          <div className="text-left space-y-2 sm:space-y-3 ml-[35px]">
-            <DialogTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-poppins leading-tight">
+        <DialogHeader className="p-4 sm:p-6 lg:p-8 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
+          <div className="text-left space-y-4 sm:space-y-6 px-4 sm:px-6">
+            <DialogTitle className="text-xl sm:text-2xl lg:text-3xl font-bold font-poppins leading-tight">
               Minhas Recomendações
             </DialogTitle>
-            <DialogDescription className="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed px-4 sm:px-6">
+            <DialogDescription className="text-xs sm:text-sm lg:text-base leading-relaxed">
               Pessoas e canais que me inspiram e que recomendo para você conhecer. Cada um deles tem algo especial para oferecer no mundo da tecnologia e desenvolvimento.
             </DialogDescription>
           </div>
           <Button
             onClick={onClose}
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 z-20 focus-visible:ring-2 focus-visible:ring-primary"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 z-20 focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Fechar modal de recomendações"
             variant="ghost"
             size="icon"
           >
-            <X className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
+            <X className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7" />
           </Button>
         </DialogHeader>
         
@@ -214,13 +214,14 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
             </div>
           </div>
         </ScrollArea>
-        <DialogFooter className="p-4 sm:p-6 md:p-8 lg:p-10 border-t border-border/50 flex justify-end">
+        <DialogFooter className="p-4 sm:p-6 lg:p-8 border-t border-border/50 flex justify-end">
           <Button
             onClick={onClose}
-            className="text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 h-auto focus-visible:ring-2 focus-visible:ring-primary"
+            className="text-sm sm:text-base lg:text-lg py-3 px-6 h-auto focus-visible:ring-2 focus-visible:ring-primary"
             variant="outline"
+            aria-label="Fechar modal de recomendações"
           >
-            <X className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 flex-shrink-0" />
+            <X className="w-4 h-4 sm:w-5 lg:w-6 mr-2 flex-shrink-0" />
             Fechar
           </Button>
         </DialogFooter>

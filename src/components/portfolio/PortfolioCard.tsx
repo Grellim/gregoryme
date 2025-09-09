@@ -58,22 +58,22 @@ export default function PortfolioCard({
 
   return (
     <>
-      <Card className="h-full flex flex-col bg-card border-border hover:shadow-lg transition-shadow duration-300">
+      <Card className="h-full flex flex-col bg-card border-border card-friendly hover:shadow-lg transition-all duration-300">
         <CardHeader className="p-0">
           <div className="relative group cursor-pointer" onClick={openImageModal}>
             <img
               src={imageUrl}
               alt={title}
-              className="w-full h-48 object-cover rounded-t-lg"
+              className="w-full h-48 object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-t-lg">
               <Expand className="h-8 w-8 text-white" />
             </div>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 p-6">
-          <CardTitle className="text-xl mb-2">{title}</CardTitle>
-          <CardDescription className="text-muted-foreground mb-4">
+        <CardContent className="flex-1 p-4 sm:p-6">
+          <CardTitle className="text-lg sm:text-xl mb-2">{title}</CardTitle>
+          <CardDescription className="text-muted-foreground mb-4 text-sm sm:text-base">
             {description}
           </CardDescription>
           <div className="flex flex-wrap gap-2 mb-4">
@@ -84,8 +84,8 @@ export default function PortfolioCard({
             ))}
           </div>
         </CardContent>
-        <CardFooter className="p-6 pt-0">
-          <Button onClick={openDetailModal} className="w-full">
+        <CardFooter className="p-4 sm:p-6 pt-0">
+          <Button onClick={openDetailModal} className="w-full" aria-label={`Saiba mais sobre ${title}`}>
             Saiba Mais
           </Button>
         </CardFooter>
@@ -119,7 +119,7 @@ export default function PortfolioCard({
 
       {/* Detail Modal */}
       <Dialog open={isDetailModalOpen} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50">
+        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50" role="dialog" aria-label={`Detalhes do projeto ${title}`}>
           <div className="flex flex-col h-full">
             <DialogHeader className="p-4 sm:p-6 md:p-8 lg:p-10 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
               <div className="flex items-center justify-between">
@@ -132,7 +132,7 @@ export default function PortfolioCard({
                 <Button
                   onClick={closeDetailModal}
                   className="bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 z-20 focus-visible:ring-2 focus-visible:ring-primary"
-                  aria-label="Fechar modal"
+                  aria-label="Fechar modal de detalhes"
                   variant="ghost"
                   size="icon"
                 >
@@ -149,7 +149,7 @@ export default function PortfolioCard({
                   <div className="aspect-video max-h-[50vh] flex items-center justify-center bg-muted/50 rounded-xl overflow-hidden">
                     <img
                       src={imageUrl}
-                      alt={title}
+                      alt={`${title} - Imagem principal`}
                       className="w-auto h-auto max-w-full max-h-full object-contain rounded-xl shadow-lg"
                     />
                   </div>
@@ -175,12 +175,15 @@ export default function PortfolioCard({
                 {galleryImages.length > 0 && (
                   <div className="space-y-4 sm:space-y-6 md:space-y-8">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-semibold">Galeria de Imagens</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1 sm:gap-2 md:gap-3 lg:gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3">
                       {galleryImages.map((image, index) => (
                         <div
                           key={index}
                           className="relative group cursor-pointer rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 aspect-square"
                           onClick={() => openGalleryModal(image, `Galeria ${index + 1}`)}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`Ver imagem da galeria ${index + 1}`}
                         >
                           <img
                             src={image}
@@ -196,9 +199,8 @@ export default function PortfolioCard({
                   </div>
                 )}
                 </div>
-            </ScrollArea>
               </div>
-
+            </ScrollArea>
 
             {/* Action Button */}
             <DialogFooter className="p-4 sm:p-6 md:p-8 lg:p-10 border-t border-border bg-muted/20">
@@ -208,6 +210,7 @@ export default function PortfolioCard({
                   className="flex items-center gap-2 text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 h-auto"
                   size="lg"
                   variant="default"
+                  aria-label={`Visitar projeto ${title}`}
                 >
                   <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 flex-shrink-0" />
                   Quero Conhecer
@@ -217,6 +220,7 @@ export default function PortfolioCard({
                   className="text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 h-auto"
                   size="lg"
                   variant="outline"
+                  aria-label="Fechar detalhes do projeto"
                 >
                   <X className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 flex-shrink-0" />
                   Fechar
