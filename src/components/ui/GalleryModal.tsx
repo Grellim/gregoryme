@@ -26,10 +26,10 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-[95vw] max-w-6xl max-h-[95vh] p-0 sm:w-[90vw]"
+        className="w-[40%] max-w-4xl max-h-[95vh] p-0 overflow-hidden"
         onClick={handleContentClick}
       >
-        <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-8">
+        <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-8 max-w-full">
           <Button
             onClick={onClose}
             className="absolute top-4 right-4 bg-black/80 hover:bg-black text-white rounded-full p-3 transition-all duration-200 flex items-center justify-center h-12 w-12 z-10 shadow-lg sm:h-14 sm:w-14"
@@ -39,7 +39,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
           >
             <X className="h-6 w-6 sm:h-7 sm:w-7" />
           </Button>
-          <div className="flex items-center justify-center w-full h-full">
+          <div className="flex items-center justify-center w-full h-full max-w-full">
             <img
               src={imageUrl}
               alt={alt}

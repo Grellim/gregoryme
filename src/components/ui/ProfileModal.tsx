@@ -22,7 +22,7 @@ interface ProfileModalProps {
 export default function ProfileModal({ isOpen, onClose, initialData, onSave }: ProfileModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[40%] max-h-[95vh] p-0">
+      <DialogContent className="w-[40%] max-w-4xl max-h-[95vh] p-0 overflow-hidden">
         <DialogHeader className="p-4 sm:p-6 md:p-8">
           <div className="text-center">
             <DialogTitle className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
@@ -33,7 +33,7 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
             </DialogDescription>
           </div>
         </DialogHeader>
-        <div className="w-full h-[calc(95vh-120px)] overflow-y-auto px-4 sm:px-6 md:px-8">
+        <div className="w-full h-[calc(95vh-120px)] overflow-y-auto px-4 sm:px-6 md:px-8 max-w-full">
           <div className="w-full space-y-6 sm:space-y-8">
             {/* Profile Section */}
             <div className="flex flex-col lg:flex-row gap-6 items-center w-full">

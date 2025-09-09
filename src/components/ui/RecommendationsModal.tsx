@@ -106,7 +106,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-7xl w-[98vw] max-h-[95vh] sm:w-[95vw] md:w-[92vw] p-0 overflow-hidden">
+      <DialogContent className="w-[40%] max-w-4xl max-h-[95vh] p-0 overflow-hidden">
         <DialogHeader className="p-6 sm:p-8 md:p-10 border-b border-border">
           <DialogTitle className="text-2xl sm:text-3xl md:text-4xl font-bold font-poppins">Minhas Recomendações</DialogTitle>
           <DialogDescription className="mt-2 text-base sm:text-lg md:text-xl leading-relaxed">
@@ -114,7 +114,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
           </DialogDescription>
         </DialogHeader>
         
-        <div className="p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[calc(95vh-140px)]">
+        <div className="p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[calc(95vh-140px)] max-w-full">
           <div className="space-y-6 sm:space-y-8">
             {recommendations.map((item) => (
               <div
