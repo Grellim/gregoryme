@@ -201,6 +201,11 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                         <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
                           <Twitter className="h-3 w-3" />
                         </Button>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
+                          <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.88 4.26a4.34 4.34 0 0 1-3.07-.87 4.22 4.22 0 0 1-1.14-2.85 4.29 4.29 0 0 1 2.85-1.14c.25 0 .5.02.75.07a4.22 4.22 0 0 1 1.61.45 4.3 4.3 0 0 1 1.58 1.45l-.05.05a4.24 4.24 0 0 1 .05-.05 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c-.05.25-.07.5-.07.75a4.29 4.29 0 0 1-1.14 2.85 4.34 4.34 0 0 1-3.07.87 4.33 4.33 0 0 1-1.44-.25 4.25 4.25 0 0 1-1.06-1.07c-.37-.59-.56-1.3-.56-2.03V5.77a1.99 1.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36V3.23a2.99 2.99 0 0 1 .56-1.36 1.98 1.98 0 0 1 1.36-.56c.69 0 1.34.19 1.91.56a1.99 1.99 0 0 1 .83 1.36c0 .25.02.5.07.75a1.99 1.99 0 0 1-.07.75 1.98 1.98 0 0 1-.56 1.06 1.99 1.99 0 0 1-1.06.56 1.98 1.98 0 0 1-1.36.07 1.99 1.99 0 0 1-1.36-.56 1.98 1.98 0 0 1-.56-1.36c0-.73.19-1.44.56-2.03a4.25 4.25 0 0 1 1.06-1.07 4.33 4.33 0 0 1 1.44-.25 4.34 4.34 0 0 1 3.07.87 4.3 4.3 0 0 1 1.45 1.58 4.22 4.22 0 0 1 .45 1.61c0 .25-.02.5-.07.75a4.29 4.29 0 0 1-1.14 2.85z"/>
+                          </svg>
+                        </Button>
                         <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
                           <Youtube className="h-3 w-3" />
                         </Button>
