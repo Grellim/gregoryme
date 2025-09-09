@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useForm } from "react-hook-form";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,30 +20,15 @@ interface ProfileModalProps {
 }
 
 export default function ProfileModal({ isOpen, onClose, initialData, onSave }: ProfileModalProps) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileData>({
-    defaultValues: initialData,
-  });
-
-  React.useEffect(() => {
-    if (isOpen) {
-      reset(initialData);
-    }
-  }, [isOpen, initialData, reset]);
-
-  const onSubmit = (data: ProfileData) => {
-    onSave(data);
-    onClose();
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full h-[95vh] p-0">
+      <DialogContent className="w-[40%] max-h-[95vh] p-0">
         <DialogHeader className="p-4 sm:p-6 md:p-8">
           <div className="text-center">
             <DialogTitle className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
               Sobre Mim
             </DialogTitle>
-            <DialogDescription className="text-sm sm:text-base md:text-lg px-4">
+            <DialogDescription className="text-sm sm:text-base md:text-lg">
               Saiba mais sobre mim e meu trabalho como desenvolvedor full-stack especializado em soluções modernas e inovadoras que transformam negócios e experiências digitais.
             </DialogDescription>
           </div>
