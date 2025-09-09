@@ -85,7 +85,7 @@ export default function PortfolioCard({
           </div>
         </CardContent>
         <CardFooter className="p-4 sm:p-6 pt-0">
-          <Button onClick={openDetailModal} className="w-full" aria-label={`Saiba mais sobre ${title}`}>
+          <Button onClick={openDetailModal} className="w-full cursor-pointer transition-all duration-200 hover:scale-105" aria-label={`Saiba mais sobre ${title}`}>
             Saiba Mais
           </Button>
         </CardFooter>
