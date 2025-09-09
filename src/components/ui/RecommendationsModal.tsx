@@ -112,15 +112,15 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent 
-        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none"
+      <DialogContent
+        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[85vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none"
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-label="Modal de recomendações"
         aria-modal="true"
       >
-        <DialogHeader className="p-2 sm:p-3 md:p-4 lg:p-6 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
-          <div className="text-center space-y-2">
+        <DialogHeader className="p-2 sm:p-3 md:p-4 lg:p-6 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10 pl-9">
+          <div className="text-left space-y-2 ml-[35px]">
             <DialogTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-poppins leading-tight">
               Minhas Recomendações
             </DialogTitle>
@@ -139,8 +139,8 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
           </Button>
         </DialogHeader>
         
-        <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-6 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
-          <div className="space-y-2 sm:space-y-3 md:space-y-4">
+        <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-6 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 space-y-0">
             {recommendations.map((item) => (
               <Card
                 key={item.id}
@@ -196,11 +196,11 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                         <Button
                           variant="outline"
                           size="sm"
-                          className="group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 px-3 sm:px-4 py-1.5 sm:py-2 h-auto whitespace-nowrap text-xs sm:text-sm flex-shrink-0"
+                          className="group-hover:bg-primary group-hover:text-primary-foreground hover:scale-105 active:scale-95 transition-all duration-200 px-3 sm:px-4 py-1.5 sm:py-2 h-auto whitespace-nowrap text-xs sm:text-sm flex-shrink-0 shadow-sm hover:shadow-md"
                           onClick={(e) => handleCardClick(e, item.link)}
                           aria-label={`Visitar ${item.name}`}
                         >
-                          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 flex-shrink-0" />
+                          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 flex-shrink-0 transition-transform duration-200 group-hover:rotate-12" />
                           Visitar
                         </Button>
                       </div>
