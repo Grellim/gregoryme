@@ -145,11 +145,11 @@ export default function PortfolioCard({
               <ScrollArea className="w-full flex-1 relative">
                 <div className="w-full h-full p-4 sm:p-6 space-y-4 max-h-full overflow-y-auto">
                   {/* Main Image */}
-                  <div className="w-full aspect-video max-h-48 sm:max-h-64 flex items-center justify-center bg-muted/50 rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="w-full aspect-video max-h-48 sm:max-h-64 mx-auto flex items-center justify-center bg-muted/50 rounded-lg overflow-hidden flex-shrink-0">
                     <img
                       src={imageUrl}
                       alt={`${title} - Imagem principal`}
-                      className="w-full h-full object-cover rounded-lg"
+                      className="max-w-full max-h-full object-contain rounded-lg"
                       loading="lazy"
                     />
                   </div>
