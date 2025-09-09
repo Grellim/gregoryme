@@ -106,54 +106,54 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-6xl w-[95vw] max-h-[90vh] sm:w-[90vw] p-0 overflow-hidden">
-        <DialogHeader className="p-8 border-b border-border">
-          <DialogTitle className="text-3xl font-bold font-poppins">Minhas Recomendações</DialogTitle>
-          <DialogDescription className="mt-2 text-lg">
-            Pessoas e canais que me inspiram e que recomendo para você conhecer. Cada um deles tem algo especial para oferecer.
+      <DialogContent className="max-w-7xl w-[98vw] max-h-[95vh] sm:w-[95vw] md:w-[92vw] p-0 overflow-hidden">
+        <DialogHeader className="p-6 sm:p-8 md:p-10 border-b border-border">
+          <DialogTitle className="text-2xl sm:text-3xl md:text-4xl font-bold font-poppins">Minhas Recomendações</DialogTitle>
+          <DialogDescription className="mt-2 text-base sm:text-lg md:text-xl leading-relaxed">
+            Pessoas e canais que me inspiram e que recomendo para você conhecer. Cada um deles tem algo especial para oferecer no mundo da tecnologia e desenvolvimento.
           </DialogDescription>
         </DialogHeader>
         
-        <div className="p-8 overflow-y-auto max-h-[calc(90vh-160px)]">
-          <div className="space-y-8">
+        <div className="p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[calc(95vh-140px)]">
+          <div className="space-y-6 sm:space-y-8">
             {recommendations.map((item) => (
               <div
                 key={item.id}
-                className="group flex gap-8 hover:bg-muted/50 p-6 rounded-xl transition-all duration-300 cursor-pointer border border-border hover:border-primary/50 hover:shadow-lg"
+                className="group flex gap-6 sm:gap-8 hover:bg-muted/30 p-4 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border border-border hover:border-primary/30 hover:shadow-xl"
                 onClick={(e) => handleCardClick(e, item.link)}
               >
-                <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-lg">
+                <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-shadow">
                   <img
                     src={item.imageUrl}
                     alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-300"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
                     }}
                   />
                 </div>
-                <div className="flex-1 min-w-0 py-2">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Badge variant={item.type === "person" ? "secondary" : "outline"} className="text-base px-3 py-1">
+                <div className="flex-1 min-w-0 py-1 sm:py-2">
+                  <div className="flex items-center gap-3 mb-2 sm:mb-3">
+                    <Badge variant={item.type === "person" ? "secondary" : "outline"} className="text-sm sm:text-base px-2 sm:px-3 py-1 h-auto whitespace-nowrap">
                       {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
                     </Badge>
                   </div>
-                  <h3 className="text-2xl font-bold font-poppins mb-3 line-clamp-1 group-hover:text-primary transition-colors">{item.name}</h3>
-                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed line-clamp-3">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-poppins mb-1 sm:mb-2 line-clamp-1 group-hover:text-primary transition-colors">{item.name}</h3>
+                  <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-3 sm:mb-4 leading-tight line-clamp-2 sm:line-clamp-3">
                     {item.description}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm text-muted-foreground">
-                      {item.type === "person" ? "💼 Profissional" : "📺 Conteúdo"}
+                  <div className="flex items-center justify-between pt-2">
+                    <div className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium">
+                      {item.type === "person" ? "💼 Profissional" : "📺 Conteúdo Digital"}
                     </div>
                     <Button
                       variant="outline"
-                      size="lg"
-                      className="group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 px-6 py-2"
+                      size="sm sm:md"
+                      className="group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 px-4 sm:px-6 py-2 h-auto whitespace-nowrap text-sm sm:text-base"
                       onClick={(e) => handleCardClick(e, item.link)}
                     >
-                      <ExternalLink className="w-5 h-5 mr-2" />
+                      <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                       Visitar Agora
                     </Button>
                   </div>
