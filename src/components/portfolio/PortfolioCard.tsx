@@ -119,114 +119,115 @@ export default function PortfolioCard({
 
       {/* Detail Modal */}
       <Dialog open={isDetailModalOpen} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[90vh] p-0 rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50" role="dialog" aria-label={`Detalhes do projeto ${title}`}>
-          <div className="flex flex-col h-full">
-            <DialogHeader className="p-4 sm:p-6 md:p-8 lg:p-10 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
+        <DialogContent className="w-full max-w-4xl mx-auto max-h-[85vh] p-0 rounded-2xl focus:outline-none border border-border/50 overflow-hidden" role="dialog" aria-label={`Detalhes do projeto ${title}`}>
+          <div className="flex flex-col h-full max-h-[85vh] overflow-hidden">
+            {/* Header */}
+            <div className="flex-shrink-0 p-4 sm:p-6 border-b border-border/50 bg-background/95 backdrop-blur-sm z-10">
               <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <DialogTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">{title}</DialogTitle>
-                  <DialogDescription className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground">
-                    {description}
-                  </DialogDescription>
+                <div className="space-y-2">
+                  <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold line-clamp-1">{title}</DialogTitle>
+                  <DialogDescription className="text-sm text-muted-foreground line-clamp-2">{description}</DialogDescription>
                 </div>
                 <Button
                   onClick={closeDetailModal}
-                  className="bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 z-20 focus-visible:ring-2 focus-visible:ring-primary"
+                  className="ml-2 flex-shrink-0 bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 transition-all duration-200"
                   aria-label="Fechar modal de detalhes"
                   variant="ghost"
                   size="icon"
                 >
-                  <X className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
+                  <X className="h-5 w-5" />
                 </Button>
               </div>
-            </DialogHeader>
+            </div>
             
-            <ScrollArea className="w-full h-[60vh] sm:h-[65vh] lg:h-[70vh] pr-4 flex-1">
-              <div className="w-full h-full pt-2 sm:pt-4 px-4 sm:px-6 md:px-8 lg:px-10 space-y-2 sm:space-y-4 lg:space-y-6">
-                {/* Content */}
-                <div className="space-y-2 sm:space-y-4 lg:space-y-6">
+            {/* Content Area */}
+            <div className="flex-1 overflow-hidden flex">
+              <ScrollArea className="w-full flex-1 relative">
+                <div className="w-full h-full p-4 sm:p-6 space-y-4 max-h-full overflow-y-auto">
                   {/* Main Image */}
-                  <div className="aspect-video max-h-[50vh] flex items-center justify-center bg-muted/50 rounded-xl overflow-hidden">
+                  <div className="w-full aspect-video max-h-48 sm:max-h-64 flex items-center justify-center bg-muted/50 rounded-lg overflow-hidden flex-shrink-0">
                     <img
                       src={imageUrl}
                       alt={`${title} - Imagem principal`}
-                      className="w-auto h-auto max-w-full max-h-full object-contain rounded-xl shadow-lg"
+                      className="w-full h-full object-cover rounded-lg"
+                      loading="lazy"
                     />
                   </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary" className="text-sm px-2.5 py-1">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* More Info */}
-                <div className="space-y-2">
-                  <h3 className="text-lg sm:text-xl font-semibold">Mais sobre o projeto:</h3>
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    {moreInfo}
-                  </p>
-                </div>
-
-                {/* Gallery */}
-                {galleryImages.length > 0 && (
-                  <div className="space-y-2 sm:space-y-4 lg:space-y-6">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold">Galeria de Imagens</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1 sm:gap-2">
-                      {galleryImages.map((image, index) => (
-                        <div
-                          key={index}
-                          className="relative group cursor-pointer rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 aspect-square"
-                          onClick={() => openGalleryModal(image, `Galeria ${index + 1}`)}
-                          role="button"
-                          tabIndex={0}
-                          aria-label={`Ver imagem da galeria ${index + 1}`}
-                        >
-                          <img
-                            src={image}
-                            alt={`Galeria ${index + 1}`}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <Expand className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((tag, index) => (
+                      <Badge key={index} variant="secondary" className="text-xs sm:text-sm">
+                        {tag}
+                      </Badge>
+                    ))}
                   </div>
-                )}
-                </div>
-              </div>
-            </ScrollArea>
 
-            {/* Action Button */}
-            <DialogFooter className="p-4 sm:p-6 md:p-8 lg:p-10 border-t border-border bg-muted/20">
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 w-full justify-end">
+                  {/* More Info */}
+                  <div className="space-y-2">
+                    <h3 className="text-base sm:text-lg font-semibold">Mais sobre o projeto:</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4 sm:line-clamp-6">
+                      {moreInfo}
+                    </p>
+                  </div>
+
+                  {/* Gallery */}
+                  {galleryImages.length > 0 && (
+                    <div className="space-y-3">
+                      <h3 className="text-base sm:text-lg font-semibold">Galeria de Imagens</h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-64 overflow-y-auto rounded-lg border border-border/20 p-2">
+                        {galleryImages.map((image, index) => (
+                          <div
+                            key={index}
+                            className="relative group cursor-pointer rounded overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 aspect-square flex-shrink-0"
+                            onClick={() => openGalleryModal(image, `Galeria ${index + 1}`)}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`Ver imagem da galeria ${index + 1}`}
+                          >
+                            <img
+                              src={image}
+                              alt={`Galeria ${index + 1}`}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                              <Expand className="h-4 w-4 text-white" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </ScrollArea>
+            </div>
+
+            {/* Footer */}
+            <div className="flex-shrink-0 p-4 sm:p-6 border-t border-border/50 bg-muted/20">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-end">
                 <Button
                   onClick={() => window.open(projectUrl, '_blank')}
-                  className="flex items-center gap-2 text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 h-auto"
-                  size="lg"
+                  className="flex items-center gap-2 text-sm sm:text-base py-2.5 px-4 sm:px-6"
+                  size="sm"
                   variant="default"
                   aria-label={`Visitar projeto ${title}`}
                 >
-                  <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 flex-shrink-0" />
+                  <ExternalLink className="w-4 h-4 mr-2 flex-shrink-0" />
                   Quero Conhecer
                 </Button>
                 <Button
                   onClick={closeDetailModal}
-                  className="text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 h-auto"
-                  size="lg"
+                  className="text-sm sm:text-base py-2.5 px-4 sm:px-6"
+                  size="sm"
                   variant="outline"
                   aria-label="Fechar detalhes do projeto"
                 >
-                  <X className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 flex-shrink-0" />
+                  <X className="w-4 h-4 mr-2 flex-shrink-0" />
                   Fechar
                 </Button>
               </div>
-            </DialogFooter>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
