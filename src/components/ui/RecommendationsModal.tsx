@@ -106,52 +106,57 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
-        <DialogHeader className="p-6 border-b border-border">
-          <DialogTitle className="text-2xl font-bold font-poppins">Minhas Recomendações</DialogTitle>
-          <DialogDescription className="mt-1">
-            Pessoas e canais que me inspiram e que recomendo para você conhecer
+      <DialogContent className="max-w-6xl w-[95vw] max-h-[90vh] sm:w-[90vw] p-0 overflow-hidden">
+        <DialogHeader className="p-8 border-b border-border">
+          <DialogTitle className="text-3xl font-bold font-poppins">Minhas Recomendações</DialogTitle>
+          <DialogDescription className="mt-2 text-lg">
+            Pessoas e canais que me inspiram e que recomendo para você conhecer. Cada um deles tem algo especial para oferecer.
           </DialogDescription>
         </DialogHeader>
         
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-          <div className="space-y-6">
+        <div className="p-8 overflow-y-auto max-h-[calc(90vh-160px)]">
+          <div className="space-y-8">
             {recommendations.map((item) => (
               <div
                 key={item.id}
-                className="flex gap-6 hover:bg-muted/50 p-4 rounded-lg transition-colors cursor-pointer"
+                className="group flex gap-8 hover:bg-muted/50 p-6 rounded-xl transition-all duration-300 cursor-pointer border border-border hover:border-primary/50 hover:shadow-lg"
                 onClick={(e) => handleCardClick(e, item.link)}
               >
-                <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden">
+                <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-lg">
                   <img
                     src={item.imageUrl}
                     alt={item.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
                     }}
                   />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Badge variant={item.type === "person" ? "secondary" : "outline"} className="text-xs">
+                <div className="flex-1 min-w-0 py-2">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Badge variant={item.type === "person" ? "secondary" : "outline"} className="text-base px-3 py-1">
                       {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
                     </Badge>
                   </div>
-                  <h3 className="text-xl font-semibold font-poppins mb-1 line-clamp-1">{item.name}</h3>
-                  <p className="text-muted-foreground mb-3 line-clamp-2">
+                  <h3 className="text-2xl font-bold font-poppins mb-3 line-clamp-1 group-hover:text-primary transition-colors">{item.name}</h3>
+                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed line-clamp-3">
                     {item.description}
                   </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-fit"
-                    onClick={(e) => handleCardClick(e, item.link)}
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Visitar
-                  </Button>
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm text-muted-foreground">
+                      {item.type === "person" ? "💼 Profissional" : "📺 Conteúdo"}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 px-6 py-2"
+                      onClick={(e) => handleCardClick(e, item.link)}
+                    >
+                      <ExternalLink className="w-5 h-5 mr-2" />
+                      Visitar Agora
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}

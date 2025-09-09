@@ -26,24 +26,26 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="max-w-4xl max-h-[90vh] p-0"
+        className="w-[95vw] max-w-6xl max-h-[95vh] p-0 sm:w-[90vw]"
         onClick={handleContentClick}
       >
-        <div className="relative w-full h-full flex items-center justify-center p-4">
+        <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-8">
           <Button
             onClick={onClose}
-            className="absolute top-4 right-4 bg-muted rounded-full p-2 text-foreground hover:bg-accent transition-colors flex items-center justify-center h-8 w-8 z-10"
+            className="absolute top-4 right-4 bg-black/80 hover:bg-black text-white rounded-full p-3 transition-all duration-200 flex items-center justify-center h-12 w-12 z-10 shadow-lg sm:h-14 sm:w-14"
             aria-label="Close modal"
             variant="ghost"
             size="icon"
           >
-            <X className="h-8 w-8" />
+            <X className="h-6 w-6 sm:h-7 sm:w-7" />
           </Button>
-          <img
-            src={imageUrl}
-            alt={alt}
-            className="max-w-full max-h-full object-contain rounded-lg"
-          />
+          <div className="flex items-center justify-center w-full h-full">
+            <img
+              src={imageUrl}
+              alt={alt}
+              className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
+            />
+          </div>
         </div>
       </DialogContent>
     </Dialog>
