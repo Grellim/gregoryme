@@ -122,8 +122,8 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                     }`}>
                       {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
                     </span>
-                    <h3 className="text-lg font-semibold font-poppins">{item.name}</h3>
                   </div>
+                  <h3 className="text-lg font-semibold font-poppins">{item.name}</h3>
                   
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {item.description}
