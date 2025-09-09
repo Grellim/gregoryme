@@ -88,10 +88,11 @@ export default function PortfolioCard({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
           onClick={closeImageModal}
         >
-          <div className="relative max-w-4xl max-h-full">
+          <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={closeImageModal}
-              className="absolute -top-10 right-0 text-white hover:text-gray-300 z-10"
+              className="absolute top-4 right-4 bg-muted rounded-full p-2 text-foreground hover:bg-accent transition-colors flex items-center justify-center h-8 w-8 z-10"
+              aria-label="Close modal"
             >
               <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -110,10 +111,11 @@ export default function PortfolioCard({
       {/* Detail Modal */}
       {isDetailModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="relative bg-card border border-border rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="relative bg-card border border-border rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={closeDetailModal}
-              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground z-10"
+              className="absolute top-4 right-4 bg-muted rounded-full p-2 text-foreground hover:bg-accent transition-colors flex items-center justify-center h-8 w-8 z-10"
+              aria-label="Close modal"
             >
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

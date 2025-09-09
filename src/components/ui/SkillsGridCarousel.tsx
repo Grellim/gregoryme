@@ -59,7 +59,7 @@ export default function SkillsGridCarousel({ skills }: SkillsGridCarouselProps) 
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-500 ease-in-out">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 transition-all duration-500 ease-in-out">
           {getVisibleCards().map((skill, index) => (
             <div
               key={`${skill.title}-${index}`}

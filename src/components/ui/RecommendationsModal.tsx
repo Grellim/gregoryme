@@ -66,6 +66,22 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
       link: "https://discord.gg/devbrasil",
       type: "channel"
     },
+    {
+      id: "7",
+      name: "João Doe",
+      description: "Desenvolvedor full-stack apaixonado por JavaScript e tecnologias modernas. Compartilha projetos open-source e tutoriais práticos.",
+      imageUrl: "/person1.jpg",
+      link: "https://github.com/joaodoe",
+      type: "person"
+    },
+    {
+      id: "8",
+      name: "TechTalk YT",
+      description: "Canal do YouTube sobre desenvolvimento web, mobile e tendências em IA. Conteúdo atualizado semanalmente com dicas práticas.",
+      imageUrl: "/channel1.jpg",
+      link: "https://youtube.com/techtalkyt",
+      type: "channel"
+    },
   ];
 
   const handleVisit = (link: string) => {
@@ -83,7 +99,8 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
           </div>
           <button
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="absolute top-4 right-4 bg-muted rounded-full p-2 text-foreground hover:bg-accent transition-colors flex items-center justify-center h-8 w-8 z-10"
+            aria-label="Close modal"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
