@@ -1,42 +1,81 @@
 "use client";
 
+import * as React from "react";
+import { useForm } from "react-hook-form";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+interface ProfileData {
+  name: string;
+  bio: string;
+}
+
 interface ProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  imageUrl: string;
-  name: string;
+  initialData: ProfileData;
+  onSave: (data: ProfileData) => void;
 }
 
-export default function ProfileModal({ isOpen, onClose, imageUrl, name }: ProfileModalProps) {
-  if (!isOpen) return null;
+export default function ProfileModal({ isOpen, onClose, initialData, onSave }: ProfileModalProps) {
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileData>({
+    defaultValues: initialData,
+  });
+
+  React.useEffect(() => {
+    if (isOpen) {
+      reset(initialData);
+    }
+  }, [isOpen, initialData, reset]);
+
+  const onSubmit = (data: ProfileData) => {
+    onSave(data);
+    onClose();
+  };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
-      onClick={onClose}
-    >
-      <div className="relative max-w-2xl max-h-full">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 bg-muted rounded-full p-2 text-foreground hover:bg-accent transition-colors flex items-center justify-center h-8 w-8 z-10"
-          aria-label="Close modal"
-        >
-          <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        <div className="bg-card border border-border rounded-lg p-6">
-          <img
-            src={imageUrl}
-            alt={name}
-            className="w-full max-w-md mx-auto rounded-lg shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          />
-          <div className="text-center mt-4">
-            <h3 className="text-xl font-semibold">{name}</h3>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Editar Perfil</DialogTitle>
+          <DialogDescription>
+            Atualize suas informações de perfil aqui. Clique em salvar quando terminar.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name">Nome</Label>
+            <Input
+              id="name"
+              {...register("name", { required: "Nome é obrigatório" })}
+              placeholder="Seu nome completo"
+            />
+            {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
           </div>
-        </div>
-      </div>
-    </div>
+          <div className="space-y-2">
+            <Label htmlFor="bio">Bio</Label>
+            <Textarea
+              id="bio"
+              {...register("bio")}
+              placeholder="Descreva-se em poucas palavras..."
+            />
+          </div>
+          <div className="flex items-center space-x-4">
+            <Avatar className="w-16 h-16">
+              <AvatarImage src="/profile.jpg" />
+              <AvatarFallback>GV</AvatarFallback>
+            </Avatar>
+            <p className="text-sm text-muted-foreground">Foto do perfil (padrão)</p>
+          </div>
+          <DialogFooter>
+            <Button type="submit">Salvar Alterações</Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -75,12 +75,27 @@ const portfolioData = [
   },
 ];
 
+interface ProfileData {
+  name: string;
+  bio: string;
+}
+
 export default function Home() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isRecommendationsModalOpen, setIsRecommendationsModalOpen] = useState(false);
 
+  const profileData: ProfileData = {
+    name: "Gregory Vallim",
+    bio: "Sou um desenvolvedor full-stack com experiência em criar aplicações web e mobile modernas, focando em performance, segurança e experiência do usuário."
+  };
+
   const openProfileModal = () => setIsProfileModalOpen(true);
   const closeProfileModal = () => setIsProfileModalOpen(false);
+
+  const handleProfileSave = (data: ProfileData) => {
+    console.log("Perfil atualizado:", data);
+    // Aqui você pode implementar a lógica de salvamento real, como uma chamada de API
+  };
 
   const openRecommendationsModal = () => setIsRecommendationsModalOpen(true);
   const closeRecommendationsModal = () => setIsRecommendationsModalOpen(false);
@@ -362,8 +377,8 @@ export default function Home() {
       <ProfileModal
         isOpen={isProfileModalOpen}
         onClose={closeProfileModal}
-        imageUrl="/profile.jpg"
-        name="Gregory Vallim"
+        initialData={profileData}
+        onSave={handleProfileSave}
       />
 
       {/* Scroll to Top Button */}
