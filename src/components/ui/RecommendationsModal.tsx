@@ -214,17 +214,6 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
             </div>
           </div>
         </ScrollArea>
-        <DialogFooter className="p-4 sm:p-6 lg:p-8 border-t border-border/50 flex justify-end">
-          <Button
-            onClick={onClose}
-            className="text-sm sm:text-base lg:text-lg py-3 px-6 h-auto focus-visible:ring-2 focus-visible:ring-primary"
-            variant="outline"
-            aria-label="Fechar modal de recomendações"
-          >
-            <X className="w-4 h-4 sm:w-5 lg:w-6 mr-2 flex-shrink-0" />
-            Fechar
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
