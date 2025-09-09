@@ -119,8 +119,8 @@ export default function PortfolioCard({
 
       {/* Detail Modal */}
       <Dialog open={isDetailModalOpen} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="w-full max-w-4xl mx-auto max-h-[85vh] p-0 rounded-2xl focus:outline-none border border-border/50 overflow-hidden" role="dialog" aria-label={`Detalhes do projeto ${title}`}>
-          <div className="flex flex-col h-full max-h-[85vh] overflow-hidden">
+        <DialogContent className="w-full max-w-4xl mx-auto max-h-screen p-0 rounded-2xl focus:outline-none border border-border/50 overflow-hidden" role="dialog" aria-label={`Detalhes do projeto ${title}`}>
+          <div className="flex flex-col h-full max-h-screen overflow-hidden">
             {/* Header */}
             <div className="flex-shrink-0 p-4 sm:p-6 border-b border-border/50 bg-background/95 backdrop-blur-sm z-10">
               <div className="flex items-center justify-between">

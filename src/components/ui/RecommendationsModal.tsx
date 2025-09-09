@@ -114,7 +114,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[85vh] p-0 overflow-y-auto pb-[25px] rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50"
+        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-screen p-0 overflow-y-auto pb-[25px] rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50"
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-label="Modal de recomendações"
@@ -140,7 +140,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
           </Button>
         </DialogHeader>
         
-        <ScrollArea className="w-full h-[70vh] pr-4 flex-1">
+        <ScrollArea className="w-full pr-4 flex-1">
           <div className="w-full h-full pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 lg:px-10 space-y-4 sm:space-y-6 md:space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 space-y-0">
               {recommendations.map((item) => (
