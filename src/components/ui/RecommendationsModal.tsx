@@ -5,7 +5,8 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogD
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, X, Facebook, Instagram, Twitter, Youtube, Linkedin, Github, MessageCircle, Users, Globe, Film } from "lucide-react";
+import { X } from "lucide-react";
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaLinkedin, FaGithub, FaDiscord, FaExternalLinkAlt } from 'react-icons/fa';
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Recommendation {
@@ -230,17 +231,17 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                           <div className="flex items-center gap-2 pt-1 flex-wrap">
                             {item.facebook && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="Facebook" onClick={(e) => { e.stopPropagation(); window.open(item.facebook, '_blank'); }}>
-                                <Facebook className="h-3 w-3" />
+                                <FaFacebook className="h-3 w-3" />
                               </Button>
                             )}
                             {item.instagram && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="Instagram" onClick={(e) => { e.stopPropagation(); window.open(item.instagram, '_blank'); }}>
-                                <Instagram className="h-3 w-3" />
+                                <FaInstagram className="h-3 w-3" />
                               </Button>
                             )}
                             {item.twitter && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="Twitter" onClick={(e) => { e.stopPropagation(); window.open(item.twitter, '_blank'); }}>
-                                <Twitter className="h-3 w-3" />
+                                <FaTwitter className="h-3 w-3" />
                               </Button>
                             )}
                             {item.tiktok && (
@@ -252,27 +253,35 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                             )}
                             {item.discord && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="Discord" onClick={(e) => { e.stopPropagation(); window.open(item.discord, '_blank'); }}>
-                                <MessageCircle className="h-3 w-3" />
+                                <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                                  <path d="M20.854 5.146a.5.5 0 0 0-.5-.5h-1.5v-1.5a.5.5 0 0 0-.5-.5h-1.5v-1.5a.5.5 0 0 0-.5-.5h-1.5v1.5a.5.5 0 0 0-.5.5v1.5h-1.5a.5.5 0 0 0-.5.5v1.5h-1.5a.5.5 0 0 0-.5.5v1.5h1.5a.5.5 0 0 0 .5.5h1.5v1.5a.5.5 0 0 0 .5.5h1.5v-1.5a.5.5 0 0 0 .5-.5v-1.5h1.5a.5.5 0 0 0 .5-.5v-1.5h-1.5a.5.5 0 0 0-.5-.5zM14.25 18.75a.5.5 0 0 1-.5.5h-1.5v1.5a.5.5 0 0 1-.5.5h-1.5v-1.5a.5.5 0 0 1-.5-.5v-1.5h1.5a.5.5 0 0 1 .5-.5h1.5v-1.5a.5.5 0 0 1 .5-.5h1.5v1.5a.5.5 0 0 1 .5.5v1.5h-1.5z" fill="currentColor"/>
+                                  <path d="M14.25 18.75a.5.5 0 0 1-.5.5h-1.5v1.5a.5.5 0 0 1-.5.5h-1.5v-1.5a.5.5 0 0 1-.5-.5v-1.5h1.5a.5.5 0 0 1 .5-.5h1.5v-1.5a.5.5 0 0 1 .5-.5h1.5v1.5a.5.5 0 0 1 .5.5v1.5h-1.5z" fill="currentColor"/>
+                                </svg>
                               </Button>
                             )}
                             {item.linkedin && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="LinkedIn" onClick={(e) => { e.stopPropagation(); window.open(item.linkedin, '_blank'); }}>
-                                <Linkedin className="h-3 w-3" />
+                                <FaLinkedin className="h-3 w-3" />
                               </Button>
                             )}
                             {item.github && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="GitHub" onClick={(e) => { e.stopPropagation(); window.open(item.github, '_blank'); }}>
-                                <Github className="h-3 w-3" />
+                                <FaGithub className="h-3 w-3" />
+                              </Button>
+                            )}
+                            {item.discord && (
+                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="Discord" onClick={(e) => { e.stopPropagation(); window.open(item.discord, '_blank'); }}>
+                                <FaDiscord className="h-3 w-3" />
                               </Button>
                             )}
                             {item.youtube && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="YouTube" onClick={(e) => { e.stopPropagation(); window.open(item.youtube, '_blank'); }}>
-                                <Youtube className="h-3 w-3" />
+                                <FaYoutube className="h-3 w-3" />
                               </Button>
                             )}
                             {item.website && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" aria-label="Website" onClick={(e) => { e.stopPropagation(); window.open(item.website, '_blank'); }}>
-                                <ExternalLink className="h-3 w-3" />
+                                <FaExternalLinkAlt className="h-3 w-3" />
                               </Button>
                             )}
                           </div>
@@ -288,7 +297,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                           onClick={(e) => handleCardClick(e, item.link)}
                           aria-label={`Conhecer ${item.name}`}
                         >
-                          <ExternalLink className="w-4 h-4 mr-2" />
+                          <FaExternalLinkAlt className="w-4 h-4 mr-2" />
                           Conhecer
                         </Button>
                       </div>
