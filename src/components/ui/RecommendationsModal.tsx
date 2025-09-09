@@ -142,7 +142,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
         
         <ScrollArea className="w-full pr-4 flex-1">
           <div className="w-full h-full pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 lg:px-10 space-y-4 sm:space-y-6 md:space-y-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 space-y-0">
+            <div className="grid grid-cols-1 gap-4 space-y-0">
               {recommendations.map((item) => (
                 <Card
                   key={item.id}
