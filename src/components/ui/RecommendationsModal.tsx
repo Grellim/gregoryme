@@ -1,5 +1,12 @@
 "use client";
 
+import * as React from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink } from "lucide-react";
+
 interface Recommendation {
   id: string;
   name: string;
@@ -15,8 +22,6 @@ interface RecommendationsModalProps {
 }
 
 export default function RecommendationsModal({ isOpen, onClose }: RecommendationsModalProps) {
-  if (!isOpen) return null;
-
   const recommendations: Recommendation[] = [
     {
       id: "1",
@@ -89,75 +94,60 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={onClose}>
-      <div className="relative bg-card border border-border rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-border">
-          <div>
-            <h2 className="text-2xl font-bold font-poppins">Pessoas e Canais Recomendados</h2>
-            <p className="text-muted-foreground mt-1">Conheça profissionais e canais que inspiram e ensinam</p>
-          </div>
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 bg-muted rounded-full p-2 text-foreground hover:bg-accent transition-colors flex items-center justify-center h-8 w-8 z-10"
-            aria-label="Close modal"
-          >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Content */}
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-6xl max-h-[90vh] p-0 overflow-hidden">
+        <DialogHeader className="p-6 border-b border-border">
+          <DialogTitle className="text-2xl font-bold font-poppins">Pessoas e Canais Recomendados</DialogTitle>
+          <DialogDescription className="mt-1">
+            Conheça profissionais e canais que inspiram e ensinam
+          </DialogDescription>
+        </DialogHeader>
+        
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {recommendations.map((item) => (
-              <div
+              <Card
                 key={item.id}
-                className="bg-background border border-border rounded-lg p-4 hover:shadow-lg transition-all duration-300 hover:scale-105"
+                className="hover:shadow-lg transition-all duration-300 hover:scale-105 overflow-hidden group cursor-pointer"
+                onClick={() => handleVisit(item.link)}
               >
-                {/* Image */}
-                <div className="aspect-square mb-4 overflow-hidden rounded-lg">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = item.type === "person" ? "/profile.jpg" : "/project1.jpg";
-                    }}
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <span className={`px-2 py-1 rounded text-xs font-medium ${
-                      item.type === "person" 
-                        ? "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200" 
-                        : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                    }`}>
-                      {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
-                    </span>
+                <CardContent className="p-0">
+                  <div className="aspect-square overflow-hidden">
+                    <img
+                      src={item.imageUrl}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
+                      }}
+                    />
                   </div>
-                  <h3 className="text-lg font-semibold font-poppins">{item.name}</h3>
-                  
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
-
-                  <button
-                    onClick={() => handleVisit(item.link)}
-                    className="w-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-lg"
-                  >
-                    Visitar
-                  </button>
-                </div>
-              </div>
+                  <div className="p-4 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Badge variant={item.type === "person" ? "secondary" : "outline"} className="text-xs">
+                        {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
+                      </Badge>
+                    </div>
+                    <h3 className="text-lg font-semibold font-poppins line-clamp-2">{item.name}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                      {item.description}
+                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full group-hover:bg-purple-50 dark:group-hover:bg-purple-900/20"
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Visitar
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
