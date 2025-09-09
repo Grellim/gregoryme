@@ -5,11 +5,11 @@ import { useState } from "react";
 interface TagTooltipProps {
   emoji: string;
   description: string;
+  title: string;
   children: React.ReactNode;
-  title: string
 }
 
-export default function TagTooltip({ emoji, description, children }: TagTooltipProps) {
+export default function TagTooltip({ emoji, description, title, children }: TagTooltipProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
