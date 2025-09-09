@@ -9,6 +9,7 @@ import ProfileModal from "@/components/ui/ProfileModal";
 import TagTooltip from "@/components/ui/TagTooltip";
 import SkillsCarousel from "@/components/ui/SkillsCarousel";
 import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
+import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 
