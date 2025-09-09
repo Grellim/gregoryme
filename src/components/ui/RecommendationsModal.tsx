@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -142,7 +142,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
         
         <ScrollArea className="w-full h-[70vh] pr-4 flex-1">
           <div className="w-full h-full pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 lg:px-10 space-y-4 sm:space-y-6 md:space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 space-y-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 space-y-0">
               {recommendations.map((item) => (
                 <Card
                   key={item.id}
@@ -214,6 +214,16 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
             </div>
           </div>
         </ScrollArea>
+        <DialogFooter className="p-4 sm:p-6 md:p-8 lg:p-10 border-t border-border/50 flex justify-end">
+          <Button
+            onClick={onClose}
+            className="text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 h-auto focus-visible:ring-2 focus-visible:ring-primary"
+            variant="outline"
+          >
+            <X className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 flex-shrink-0" />
+            Fechar
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
