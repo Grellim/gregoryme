@@ -9,7 +9,6 @@ import ProfileModal from "@/components/ui/ProfileModal";
 import TagTooltip from "@/components/ui/TagTooltip";
 import SkillsCarousel from "@/components/ui/SkillsCarousel";
 import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
-import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 
@@ -105,10 +104,16 @@ export default function Home() {
                 Um camarada com muitas ideias
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-purple-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly">
+                <button 
+                  onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-purple-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly"
+                >
                   Ver Projetos
                 </button>
-                <button className="border-2 border-purple-400 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly">
+                <button 
+                  onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="border-2 border-purple-400 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly"
+                >
                   Entrar em Contato
                 </button>
               </div>
@@ -200,16 +205,6 @@ export default function Home() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
-                    Ver Recomendações
-                  </button>
-                </div>
-                
-                {/* Recommendations Button */}
-                <div className="mt-6">
-                  <button
-                    onClick={openRecommendationsModal}
-                    className="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 shadow-lg"
-                  >
                     Ver Recomendações
                   </button>
                 </div>
