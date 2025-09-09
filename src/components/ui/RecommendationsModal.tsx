@@ -158,8 +158,8 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                   aria-label={`Visitar ${item.name}`}
                 >
                   <CardContent className="p-0">
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 hover:bg-muted/30 transition-colors duration-200">
-                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300">
+                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 hover:bg-muted/30 transition-colors duration-200">
+                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300 mx-auto sm:mx-0">
                         <img
                           src={item.imageUrl}
                           alt={`${item.name} - ${item.type === "person" ? "Pessoa" : "Canal"}`}

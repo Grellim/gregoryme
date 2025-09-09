@@ -98,7 +98,7 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                   <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold flex items-center gap-2 p-0 m-0">
                     <span className="text-primary text-base sm:text-lg md:text-xl lg:text-2xl">🔧</span> Stack Tecnológica
                   </h3>
-                  <div className="grid grid-cols-2 gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 w-full">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 w-full">
                     <Badge variant="outline" className="text-xs sm:text-sm md:text-base justify-center py-1.5 sm:py-2 md:py-2.5 lg:py-3 p-0 m-0">React</Badge>
                     <Badge variant="outline" className="text-xs sm:text-sm md:text-base justify-center py-1.5 sm:py-2 md:py-2.5 lg:py-3 p-0 m-0">Next.js</Badge>
                     <Badge variant="outline" className="text-xs sm:text-sm md:text-base justify-center py-1.5 sm:py-2 md:py-2.5 lg:py-3 p-0 m-0">TypeScript</Badge>

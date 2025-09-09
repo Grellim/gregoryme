@@ -52,7 +52,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
             <X className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
           </Button>
           
-          <div className="flex flex-col items-center justify-center w-full h-full max-w-full space-y-3 sm:space-y-4 md:space-y-6">
+          <div className="flex flex-col items-center justify-center w-full h-full max-w-full space-y-4 sm:space-y-6 md:space-y-8">
             <div className="w-full flex-1 min-h-[50vh] sm:min-h-[60vh] md:min-h-[70vh] max-h-[70vh] flex items-center justify-center bg-muted/50 rounded-lg overflow-hidden">
               <img
                 src={imageUrl}
@@ -68,6 +68,11 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
               <div className="hidden absolute inset-0 flex items-center justify-center bg-muted text-muted-foreground">
                 <span className="text-sm sm:text-base md:text-lg">Imagem não disponível</span>
               </div>
+            </div>
+            <div className="w-full px-4 sm:px-6 md:px-8 text-center">
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground break-words">
+                {alt}
+              </p>
             </div>
             
             <div className="w-full max-w-md px-4 sm:px-6 text-center">
