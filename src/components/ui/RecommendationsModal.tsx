@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogD
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, X } from "lucide-react";
+import { ExternalLink, X, Facebook, Instagram, Twitter, Youtube, MessageCircle } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Recommendation {
@@ -142,7 +142,7 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
         
         <ScrollArea className="w-full pr-4 flex-1">
           <div className="w-full h-full pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 lg:px-10 space-y-4 sm:space-y-6 md:space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 space-y-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 space-y-0">
               {recommendations.map((item) => (
                 <Card
                   key={item.id}
@@ -189,6 +189,25 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                       <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground leading-tight line-clamp-2 sm:line-clamp-3">
                         {item.description}
                       </p>
+
+                      {/* Social Media Icons */}
+                      <div className="flex gap-1 pt-1 sm:pt-2">
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
+                          <Facebook className="h-3 w-3" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
+                          <Instagram className="h-3 w-3" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
+                          <Twitter className="h-3 w-3" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
+                          <Youtube className="h-3 w-3" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors" aria-label="Discord">
+                          <MessageCircle className="h-3 w-3" />
+                        </Button>
+                      </div>
                       
                       <div className="flex items-center justify-between pt-1 sm:pt-2 md:pt-3">
                         <div className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium hidden sm:block">
@@ -199,10 +218,10 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                           size="sm"
                           className="group-hover:bg-primary group-hover:text-primary-foreground hover:scale-105 active:scale-95 transition-all duration-200 px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 h-auto whitespace-nowrap text-xs sm:text-sm md:text-base flex-shrink-0 shadow-sm hover:shadow-md"
                           onClick={(e) => handleCardClick(e, item.link)}
-                          aria-label={`Visitar ${item.name}`}
+                          aria-label={`Conhecer ${item.name}`}
                         >
                           <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1.5 sm:mr-2 flex-shrink-0 transition-transform duration-200 group-hover:rotate-12" />
-                          Visitar
+                          Conhecer
                         </Button>
                       </div>
                     </div>
