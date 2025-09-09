@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, X } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Recommendation {
   id: string;
@@ -113,104 +114,106 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[85vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-6"
+        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[85vh] p-0 overflow-y-auto pb-[25px] rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50"
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-label="Modal de recomendações"
         aria-modal="true"
       >
-        <DialogHeader className="p-2 sm:p-3 md:p-4 lg:p-6 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10 pl-9">
-          <div className="text-left space-y-2 ml-[35px]">
+        <DialogHeader className="p-4 sm:p-6 md:p-8 lg:p-10 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10 pl-9">
+          <div className="text-left space-y-2 sm:space-y-3 ml-[35px]">
             <DialogTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-poppins leading-tight">
               Minhas Recomendações
             </DialogTitle>
-            <DialogDescription className="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed px-2">
+            <DialogDescription className="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed px-4 sm:px-6">
               Pessoas e canais que me inspiram e que recomendo para você conhecer. Cada um deles tem algo especial para oferecer no mundo da tecnologia e desenvolvimento.
             </DialogDescription>
           </div>
           <Button
             onClick={onClose}
-            className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-1.5 sm:p-2 transition-all duration-200 flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 z-20 focus-visible:ring-2 focus-visible:ring-primary"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 z-20 focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Fechar modal de recomendações"
             variant="ghost"
             size="icon"
           >
-            <X className="h-4 w-4 sm:h-5 sm:w-5" />
+            <X className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
           </Button>
         </DialogHeader>
         
-        <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-6 pt-9 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 space-y-0">
-            {recommendations.map((item) => (
-              <Card
-                key={item.id}
-                className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30 overflow-hidden cursor-pointer"
-                onClick={(e) => handleCardClick(e, item.link)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    handleCardClick(e as any, item.link);
-                  }
-                }}
-                aria-label={`Visitar ${item.name}`}
-              >
-                <CardContent className="p-0">
-                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 p-3 sm:p-4 md:p-5 hover:bg-muted/30 transition-colors duration-200">
-                    <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300">
-                      <img
-                        src={item.imageUrl}
-                        alt={`${item.name} - ${item.type === "person" ? "Pessoa" : "Canal"}`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
-                        }}
-                      />
-                    </div>
+        <ScrollArea className="w-full h-[70vh] pr-4 flex-1">
+          <div className="w-full h-full pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 lg:px-10 space-y-4 sm:space-y-6 md:space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 space-y-0">
+              {recommendations.map((item) => (
+                <Card
+                  key={item.id}
+                  className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30 overflow-hidden cursor-pointer"
+                  onClick={(e) => handleCardClick(e, item.link)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      handleCardClick(e as any, item.link);
+                    }
+                  }}
+                  aria-label={`Visitar ${item.name}`}
+                >
+                  <CardContent className="p-0">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 hover:bg-muted/30 transition-colors duration-200">
+                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300">
+                        <img
+                          src={item.imageUrl}
+                          alt={`${item.name} - ${item.type === "person" ? "Pessoa" : "Canal"}`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = item.type === "person" ? "/profile.jpg" : "/channel1.jpg";
+                          }}
+                        />
                     
-                    <div className="flex-1 min-w-0 space-y-2 sm:space-y-3">
+                    <div className="flex-1 min-w-0 space-y-2 sm:space-y-3 md:space-y-4">
                       <div className="flex items-center gap-2">
-                        <Badge 
-                          variant={item.type === "person" ? "secondary" : "outline"} 
-                          className="text-xs sm:text-sm px-2 sm:px-3 py-1 h-auto whitespace-nowrap flex-shrink-0"
+                        <Badge
+                          variant={item.type === "person" ? "secondary" : "outline"}
+                          className="text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 h-auto whitespace-nowrap flex-shrink-0"
                           aria-label={`Tipo: ${item.type === "person" ? "Pessoa" : "Canal"}`}
                         >
                           {item.type === "person" ? "👤 Pessoa" : "📺 Canal"}
                         </Badge>
                       </div>
                       
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold font-poppins leading-tight line-clamp-1 group-hover:text-primary transition-colors">
+                      <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold font-poppins leading-tight line-clamp-1 group-hover:text-primary transition-colors">
                         {item.name}
                       </h3>
                       
-                      <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-tight line-clamp-2 sm:line-clamp-3">
+                      <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground leading-tight line-clamp-2 sm:line-clamp-3">
                         {item.description}
                       </p>
                       
-                      <div className="flex items-center justify-between pt-1 sm:pt-2">
-                        <div className="text-xs sm:text-sm text-muted-foreground font-medium hidden sm:block">
+                      <div className="flex items-center justify-between pt-1 sm:pt-2 md:pt-3">
+                        <div className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium hidden sm:block">
                           {item.type === "person" ? "💼 Profissional" : "📺 Conteúdo Digital"}
                         </div>
                         <Button
                           variant="outline"
                           size="sm"
-                          className="group-hover:bg-primary group-hover:text-primary-foreground hover:scale-105 active:scale-95 transition-all duration-200 px-3 sm:px-4 py-1.5 sm:py-2 h-auto whitespace-nowrap text-xs sm:text-sm flex-shrink-0 shadow-sm hover:shadow-md"
+                          className="group-hover:bg-primary group-hover:text-primary-foreground hover:scale-105 active:scale-95 transition-all duration-200 px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 h-auto whitespace-nowrap text-xs sm:text-sm md:text-base flex-shrink-0 shadow-sm hover:shadow-md"
                           onClick={(e) => handleCardClick(e, item.link)}
                           aria-label={`Visitar ${item.name}`}
                         >
-                          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 flex-shrink-0 transition-transform duration-200 group-hover:rotate-12" />
+                          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1.5 sm:mr-2 flex-shrink-0 transition-transform duration-200 group-hover:rotate-12" />
                           Visitar
                         </Button>
                       </div>
                     </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

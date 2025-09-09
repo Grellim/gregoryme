@@ -118,7 +118,7 @@ export default function PortfolioCard({
 
       {/* Detail Modal */}
       <Dialog open={isDetailModalOpen} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-hidden sm:rounded-2xl focus:outline-none pb-6">
+        <DialogContent className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-[95vh] p-0 overflow-y-auto pb-6 sm:rounded-2xl focus:outline-none scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50">
           <div className="flex flex-col h-full">
             <DialogHeader className="p-3 sm:p-4 md:p-6 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
               <div className="flex items-center justify-between">
@@ -140,9 +140,9 @@ export default function PortfolioCard({
               </div>
             </DialogHeader>
             
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 pt-9 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent/50 scrollbar-thumb-rounded">
+            <div className="flex-1 overflow-y-auto p-2 sm:p-3 md:p-4 lg:p-5 pt-9 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50">
               {/* Content */}
-              <div className="space-y-4 sm:space-y-6">
+              <div className="space-y-3 sm:space-y-4 md:space-y-5">
                 {/* Main Image */}
                 <div className="aspect-video max-h-[50vh]">
                   <img
@@ -173,7 +173,7 @@ export default function PortfolioCard({
                 {galleryImages.length > 0 && (
                   <div className="space-y-4">
                     <h3 className="text-lg sm:text-xl font-semibold">Galeria de Imagens</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1 sm:gap-2">
                       {galleryImages.map((image, index) => (
                         <div
                           key={index}
