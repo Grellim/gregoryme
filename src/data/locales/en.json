@@ -1,0 +1,43 @@
+{
+  "site": {
+    "title": "Gregory Vallim - Personal Portfolio",
+    "description": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊",
+    "keywords": ["Gregory Vallim", "portfolio", "development", "projects", "professional", "web", "mobile", "ui", "ux"],
+    "author": "Gregory Vallim"
+  },
+  "hero": {
+    "title": "Hello, I'm Gregory Vallim",
+    "subtitle": "A guy with lots of ideas 🚀",
+    "ctaText": "View Projects"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I'm a full-stack developer with experience in creating modern web and mobile applications, focusing on performance, security, and user experience. I'm passionate about technology and innovation, always seeking to create solutions that transform the way people interact with the digital world.",
+    "skills": ["React", "Next.js", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"]
+  },
+  "contact": {
+    "title": "Let's chat?",
+    "email": "gregory@example.com",
+    "phone": "(11) 99999-9999",
+    "address": "São Paulo, SP, Brazil"
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "github": "GitHub"
+  },
+  "social": {
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "email": "Email",
+    "discord": "Discord"
+  },
+  "metadata": {
+    "ogTitle": "Gregory Vallim - Personal Portfolio",
+    "ogDescription": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊",
+    "twitterTitle": "Gregory Vallim - Personal Portfolio",
+    "twitterDescription": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊"
+  }
+}

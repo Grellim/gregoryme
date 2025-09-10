@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { navbarMenu } from "@/data/navbar";
-import { siteConfig } from "@/data/config";
+import { getNavbarMenu } from "@/data/navbar";
+import { getSiteConfig } from "@/data/config";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,10 +18,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = navbarMenu.map(item => ({
+  const lang = 'pt-BR'; // Default language, can be made dynamic later
+  const navbarMenuItems = getNavbarMenu(lang);
+  const siteConfigData = getSiteConfig(lang);
+  
+  const navItems = navbarMenuItems.map(item => ({
     name: item.label,
     href: item.href,
-  })).filter(item => !item.href.startsWith('http')); // Only internal links for main nav
+    external: item.external || false,
+  })); // Include all links, no filtering
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -48,6 +53,8 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
+                  target={item.external ? "_blank" : "_self"}
+                  rel={item.external ? "noopener noreferrer" : undefined}
                   className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:bg-accent/50 relative group"
                 >
                   {item.name}
@@ -59,11 +66,11 @@ export default function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button 
+            <Button
               className="bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              {siteConfig.hero.ctaText}
+              {siteConfigData.hero.ctaText}
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -89,6 +96,8 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
+                  target={item.external ? "_blank" : "_self"}
+                  rel={item.external ? "noopener noreferrer" : undefined}
                   className="text-muted-foreground hover:text-foreground block px-3 py-2 rounded-md text-base font-medium transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -96,14 +105,14 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="px-3 py-2">
-                <Button 
+                <Button
                   className="w-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-semibold"
                   onClick={() => {
                     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
                 >
-                  {siteConfig.hero.ctaText}
+                  {siteConfigData.hero.ctaText}
                 </Button>
               </div>
             </div>

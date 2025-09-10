@@ -1,0 +1,43 @@
+{
+  "site": {
+    "title": "Gregory Vallim - Portfólio Pessoal",
+    "description": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
+    "keywords": ["Gregory Vallim", "portfólio", "desenvolvimento", "projetos", "profissional", "web", "mobile", "ui", "ux"],
+    "author": "Gregory Vallim"
+  },
+  "hero": {
+    "title": "Olá, sou Gregory Vallim",
+    "subtitle": "Um camarada com muitas ideias 🚀",
+    "ctaText": "Ver Projetos"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "description": "Sou um desenvolvedor full-stack com experiência em criar aplicações web e mobile modernas, focando em performance, segurança e experiência do usuário. Sou apaixonado por tecnologia e inovação, sempre buscando criar soluções que transformem a maneira como as pessoas interagem com o mundo digital.",
+    "skills": ["React", "Next.js", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"]
+  },
+  "contact": {
+    "title": "Bora trocar ideia?",
+    "email": "gregory@example.com",
+    "phone": "(11) 99999-9999",
+    "address": "São Paulo, SP, Brasil"
+  },
+  "navbar": {
+    "home": "Início",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "contact": "Contato",
+    "github": "GitHub"
+  },
+  "social": {
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "email": "Email",
+    "discord": "Discord"
+  },
+  "metadata": {
+    "ogTitle": "Gregory Vallim - Portfólio Pessoal",
+    "ogDescription": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
+    "twitterTitle": "Gregory Vallim - Portfólio Pessoal",
+    "twitterDescription": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊"
+  }
+}

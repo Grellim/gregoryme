@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { getSiteConfig, getLocale } from "@/data/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,29 +25,33 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
+const defaultLang = 'pt-BR';
+const defaultLocale = getLocale(defaultLang);
+const defaultSiteConfig = getSiteConfig(defaultLang);
+
 export const metadata: Metadata = {
-  title: "Gregory Vallim - Portfólio Pessoal",
-  description: "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
-  keywords: ["Gregory Vallim", "portfólio", "desenvolvimento", "projetos", "profissional", "web", "mobile", "ui", "ux"],
-  authors: [{ name: "Gregory Vallim" }],
+  title: defaultSiteConfig.title,
+  description: defaultSiteConfig.description,
+  keywords: defaultSiteConfig.keywords,
+  authors: [{ name: defaultSiteConfig.author }],
   openGraph: {
-    title: "Gregory Vallim - Portfólio Pessoal",
-    description: "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
+    title: defaultLocale.metadata.ogTitle,
+    description: defaultLocale.metadata.ogDescription,
     type: "website",
-    siteName: "Gregory Vallim",
+    siteName: defaultSiteConfig.title,
     locale: "pt_BR",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gregory Vallim - Portfólio Pessoal",
-    description: "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
+    title: defaultLocale.metadata.twitterTitle,
+    description: defaultLocale.metadata.twitterDescription,
   },
   other: {
     "twitter:image": "/profile.jpg",
     "og:image": "/profile.jpg",
     "og:image:width": "1200",
     "og:image:height": "630",
-    "og:image:alt": "Gregory Vallim - Desenvolvedor Full Stack",
+    "og:image:alt": `${defaultSiteConfig.author} - Desenvolvedor Full Stack`,
   },
 };
 

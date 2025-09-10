@@ -10,6 +10,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project1',
     liveUrl: 'https://plataformaweb.gregoryvallim.com',
     featured: true,
+    galleryImages: ['/gallery1.jpg', '/gallery2.jpg'],
   },
   {
     id: '2',
@@ -20,6 +21,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project2',
     liveUrl: 'https://appmobile.gregoryvallim.com',
     featured: true,
+    galleryImages: ['/gallery1.jpg'],
   },
   {
     id: '3',
@@ -30,6 +32,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project3',
     liveUrl: 'https://dashboardanalytics.gregoryvallim.com',
     featured: false,
+    galleryImages: ['/gallery2.jpg', '/gallery1.jpg'],
   },
   {
     id: '4',
@@ -40,6 +43,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project4',
     liveUrl: 'https://financaspessoais.gregoryvallim.com',
     featured: false,
+    galleryImages: ['/gallery1.jpg', '/gallery2.jpg'],
   },
   {
     id: '5',
@@ -50,6 +54,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project5',
     liveUrl: 'https://plataformaia.gregoryvallim.com',
     featured: false,
+    galleryImages: ['/gallery2.jpg'],
   },
   {
     id: '6',
@@ -60,5 +65,6 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project6',
     liveUrl: 'https://ecommercerevolucionario.gregoryvallim.com',
     featured: false,
+    galleryImages: ['/gallery1.jpg', '/gallery2.jpg'],
   },
 ];

@@ -14,6 +14,7 @@ export interface PortfolioProject {
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  galleryImages: string[];
 }
 
 export interface Recommendation {
