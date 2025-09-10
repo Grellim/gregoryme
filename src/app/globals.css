@@ -171,6 +171,6 @@
 /* Video background full coverage */
 video {
   object-fit: cover !important;
-  width: 100vw !important;
-  height: 100vh !important;
+  width: 100% !important;
+  height: 80% !important;
 }
