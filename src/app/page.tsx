@@ -11,70 +11,20 @@ import SkillsCarousel from "@/components/ui/SkillsCarousel";
 import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
-import { title } from "process";
+import { siteConfig } from "@/data/config";
 
-const portfolioData = [
-  {
-    id: "1",
-    title: "Plataforma Web Moderna",
-    description: "Uma plataforma web completa com design responsivo e funcionalidades avançadas para gestão de projetos.",
-    imageUrl: "/project1.jpg",
-    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-    projectUrl: "https://github.com/gregoryvallim/project1",
-    moreInfo: "Este projeto foi desenvolvido utilizando as mais modernas tecnologias de desenvolvimento web. A plataforma oferece uma interface intuitiva e eficiente para gestão de projetos, com foco em用户体验 e performance. O sistema inclui dashboards analíticos, gerenciamento de usuários e integração com APIs externas.",
-    galleryImages: ["/gallery1.jpg", "/gallery2.jpg"],
-  },
-  {
-    id: "2",
-    title: "Aplicativo Mobile",
-    description: "Aplicativo mobile nativo com funcionalidades inovadoras e interface amigável.",
-    imageUrl: "/project2.jpg",
-    tags: ["React Native", "Firebase", "Node.js", "MongoDB"],
-    projectUrl: "https://github.com/gregoryvallim/project2",
-    moreInfo: "Aplicativo mobile desenvolvido para oferecer uma experiência completa aos usuários. Com recursos como autenticação segura, notificações push e sincronização de dados em tempo real. O aplicativo foi projetado para ser intuitivo e acessível, atendendo às necessidades do público-alvo.",
-    galleryImages: ["/gallery1.jpg"],
-  },
-  {
-    id: "3",
-    title: "Dashboard Analytics",
-    description: "Sistema de analytics com visualização de dados em tempo real e relatórios personalizados.",
-    imageUrl: "/project3.jpg",
-    tags: ["Vue.js", "D3.js", "Python", "PostgreSQL"],
-    projectUrl: "https://github.com/gregoryvallim/project3",
-    moreInfo: "Dashboard analytics poderoso que transforma dados brutos em insights acionáveis. Com visualizações interativas, filtros avançados e capacidade de exportação de relatórios. O sistema foi otimizado para lidar com grandes volumes de dados e fornecer análises em tempo real.",
-    galleryImages: ["/gallery2.jpg", "/gallery1.jpg"],
-  },
-  {
-    id: "4",
-    title: "App de Finanças Pessoais",
-    description: "Aplicativo completo para gestão financeira com inteligência artificial e insights personalizados.",
-    imageUrl: "/project4.jpg",
-    tags: ["Flutter", "Dart", "TensorFlow", "SQLite"],
-    projectUrl: "https://github.com/gregoryvallim/project4",
-    moreInfo: "Aplicativo revolucionário de finanças pessoais que utiliza IA para oferecer insights personalizados sobre hábitos de consumo. Com recursos como categorização automática de gastos, metas financeiras e projeções inteligentes. O app ajuda os usuários a tomar melhores decisões financeiras.",
-    galleryImages: ["/gallery1.jpg", "/gallery2.jpg"],
-  },
-  {
-    id: "5",
-    title: "Plataforma de IA",
-    description: "Sistema de machine learning para automação de tarefas e análise preditiva de dados.",
-    imageUrl: "/project5.jpg",
-    tags: ["Python", "TensorFlow", "Docker", "AWS"],
-    projectUrl: "https://github.com/gregoryvallim/project5",
-    moreInfo: "Plataforma de inteligência artificial que automatiza tarefas complexas e fornece análises preditivas. O sistema utiliza modelos de machine learning treinados para identificar padrões e fazer previsões precisas. Ideal para empresas que buscam otimizar processos e tomar decisões baseadas em dados.",
-    galleryImages: ["/gallery2.jpg"],
-  },
-  {
-    id: "6",
-    title: "E-commerce Revolucionário",
-    description: "Plataforma de e-commerce com experiência de compra imersiva e personalização avançada.",
-    imageUrl: "/project6.jpg",
-    tags: ["Next.js", "Stripe", "Prisma", "Redis"],
-    projectUrl: "https://github.com/gregoryvallim/project6",
-    moreInfo: "Plataforma de e-commerce que revoluciona a experiência de compra online. Com sistema de recomendação por IA, realidade aumentada para visualização de produtos e checkout simplificado. A plataforma oferece uma experiência personalizada para cada usuário, aumentando a conversão e a satisfação do cliente.",
-    galleryImages: ["/gallery1.jpg", "/gallery2.jpg"],
-  },
-];
+import { portfolioProjects } from "@/data/portfolio";
+
+const portfolioData = portfolioProjects.map(project => ({
+  id: project.id,
+  title: project.title,
+  description: project.description,
+  imageUrl: project.image,
+  tags: project.technologies,
+  projectUrl: project.githubUrl || project.liveUrl || '#',
+  moreInfo: project.description, // Using description as moreInfo for now
+  galleryImages: [], // Will need to add this to the data structure later
+}));
 
 interface ProfileData {
   name: string;
@@ -86,8 +36,8 @@ export default function Home() {
   const [isRecommendationsModalOpen, setIsRecommendationsModalOpen] = useState(false);
 
   const profileData: ProfileData = {
-    name: "Gregory Vallim",
-    bio: "Sou um desenvolvedor full-stack com experiência em criar aplicações web e mobile modernas, focando em performance, segurança e experiência do usuário."
+    name: siteConfig.author,
+    bio: siteConfig.about.description,
   };
 
   const openProfileModal = () => setIsProfileModalOpen(true);
@@ -108,15 +58,15 @@ export default function Home() {
         {/* Hero Section with Video Background */}
         <section id="home" className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center">
           <VideoBackground
-            videoSrc="/videos/background.mp4"
+            videoSrc={siteConfig.videoBackgroundUrl}
             fallbackImage="/videos/placeholder.jpg"
           >
             <div className="text-center text-white px-4">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 font-poppins tracking-wider leading-tight">
-                Olá, sou <span className="text-purple-300">Gregory Vallim</span>
+                {siteConfig.hero.title}
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 font-light max-w-3xl mx-auto font-inter leading-relaxed">
-                Um camarada com muitas ideias
+                {siteConfig.hero.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
                 <button
@@ -124,14 +74,14 @@ export default function Home() {
                   className="bg-purple-400 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly text-sm sm:text-base"
                   aria-label="Ver projetos"
                 >
-                  Ver Projetos
+                  {siteConfig.hero.ctaText}
                 </button>
                 <button
                   onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
                   className="border-2 border-purple-400 text-purple-400 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly text-sm sm:text-base"
                   aria-label="Entrar em contato"
                 >
-                  Entrar em Contato
+                  {siteConfig.contact.title}
                 </button>
               </div>
             </div>
@@ -142,10 +92,9 @@ export default function Home() {
         <section id="about" className="py-20 px-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12 animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">Sobre Mim</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfig.about.title}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto font-inter">
-                Sou um desenvolvedor full-stack com experiência em criar aplicações web e mobile modernas, 
-                focando em performance, segurança e experiência do usuário.
+                {siteConfig.about.description}
               </p>
             </div>
             
@@ -172,11 +121,9 @@ export default function Home() {
 
               {/* Profile Content */}
               <div className="flex-1 text-center lg:text-left">
-                <h3 className="text-2xl font-bold mb-4 font-poppins">Desenvolvedor Revolucionário</h3>
+                <h3 className="text-2xl font-bold mb-4 font-poppins">{siteConfig.about.title}</h3>
                 <p className="text-lg text-muted-foreground mb-6 font-inter leading-relaxed">
-                  Sou apaixonado por tecnologia e inovação, sempre buscando criar soluções que transformem 
-                  a maneira como as pessoas interagem com o mundo digital. Com uma visão revolucionária, 
-                  desenvolvo projetos que combinam criatividade, funcionalidade e impacto social.
+                  {siteConfig.about.description}
                 </p>
                 <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                   <TagTooltip
@@ -235,72 +182,17 @@ export default function Home() {
             {/* Skills Grid Carousel */}
             <SkillsGridCarousel 
               skills={[
-                {
-                  title: "Desenvolvimento Web",
-                  description: "Criação de aplicações web modernas e responsivas utilizando as tecnologias mais recentes. Foco em performance, segurança e experiência do usuário.",
+                ...siteConfig.about.skills.map((skill, index) => ({
+                  title: skill,
+                  description: `Expertise em ${skill} para desenvolvimento de aplicações modernas e escaláveis.`,
                   icon: (
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    <svg key={index} className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   ),
-                  color: "bg-purple-400",
-                  emoji: "🚀",
-                },
-                {
-                  title: "Desenvolvimento Mobile",
-                  description: "Desenvolvimento de aplicativos nativos e híbridos para iOS e Android. Experiência completa desde o design até a publicação nas stores.",
-                  icon: (
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                  ),
-                  color: "bg-pink-400",
-                  emoji: "📱",
-                },
-                {
-                  title: "UI/UX Design",
-                  description: "Design de interfaces intuitivas e experiências memoráveis. Foco em usabilidade, acessibilidade e design centrado no usuário.",
-                  icon: (
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  ),
-                  color: "bg-blue-400",
-                  emoji: "🎨",
-                },
-                {
-                  title: "Inteligência Artificial",
-                  description: "Implementação de soluções de IA e machine learning para automatizar tarefas e fornecer insights inteligentes em aplicações.",
-                  icon: (
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  ),
-                  color: "bg-green-400",
-                  emoji: "🤖",
-                },
-                {
-                  title: "Cloud & DevOps",
-                  description: "Experiência com cloud computing, containerização e CI/CD. Implementação de infraestrutura escalável e confiável.",
-                  icon: (
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-                    </svg>
-                  ),
-                  color: "bg-indigo-400",
-                  emoji: "☁️",
-                },
-                {
-                  title: "Banco de Dados",
-                  description: "Design e otimização de bancos de dados relacionais e NoSQL. Experiência com modelagem de dados e performance tuning.",
-                  icon: (
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                    </svg>
-                  ),
-                  color: "bg-yellow-400",
-                  emoji: "🗄️",
-                },
+                  color: ["bg-purple-400", "bg-pink-400", "bg-blue-400", "bg-green-400", "bg-indigo-400", "bg-yellow-400"][index % 6],
+                  emoji: ["🚀", "📱", "🎨", "🤖", "☁️", "🗄️"][index % 6],
+                })),
               ]}
             />
           </div>
@@ -310,9 +202,9 @@ export default function Home() {
         <section id="projects" className="py-20 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Meus Projetos</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">{siteConfig.hero.ctaText}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Confira alguns dos meus trabalhos mais recentes e destacados
+                {siteConfig.about.description}
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -336,9 +228,9 @@ export default function Home() {
         {/* Contact Section */}
         <section id="contact" className="py-20 px-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
           <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">Bora trocar ideia?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfig.contact.title}</h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto font-inter">
-              Quer saber mais sobre os projetos? Sou maluco e tenho muitos, então se tiver algo aqui que você queira saber, converse comigo.
+              {siteConfig.contact.title} - {siteConfig.description}
             </p>
             
             {/* Social Media Icons */}
@@ -367,7 +259,7 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="mailto:gregory@example.com" className="bg-purple-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly inline-block">
-                Enviar Email
+                {siteConfig.contact.email}
               </a>
               <a href="https://discord.gg/gregoryvallim" target="_blank" rel="noopener noreferrer" className="border-2 border-purple-400 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly inline-block">
                 Discord

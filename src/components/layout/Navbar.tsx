@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { navbarMenu } from "@/data/navbar";
+import { siteConfig } from "@/data/config";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,12 +18,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { name: "Início", href: "#home" },
-    { name: "Sobre", href: "#about" },
-    { name: "Projetos", href: "#projects" },
-    { name: "Contato", href: "#contact" },
-  ];
+  const navItems = navbarMenu.map(item => ({
+    name: item.label,
+    href: item.href,
+  })).filter(item => !item.href.startsWith('http')); // Only internal links for main nav
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -63,7 +63,7 @@ export default function Navbar() {
               className="bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Vamos Conversar
+              {siteConfig.hero.ctaText}
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -103,7 +103,7 @@ export default function Navbar() {
                     setIsMenuOpen(false);
                   }}
                 >
-                  Vamos Conversar
+                  {siteConfig.hero.ctaText}
                 </Button>
               </div>
             </div>
