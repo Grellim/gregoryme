@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { getSiteConfig, getLocale } from "@/data/config";
+import { generateJsonLdScript } from "@/data/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -60,8 +61,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLdScript = generateJsonLdScript();
+
   return (
     <html lang="pt-BR" suppressHydrationWarning className="dark">
+      <head dangerouslySetInnerHTML={{ __html: jsonLdScript }} />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${poppins.variable} antialiased bg-background text-foreground`}
       >

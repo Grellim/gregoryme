@@ -1,3 +1,49 @@
+import { getSiteConfig, getLocale, getSocialLinks, getFooterButtons } from "@/data/config";
+import { portfolioProjects } from "@/data/portfolio";
+
+interface SiteConfigProps {
+  siteConfigData: any;
+  locale: any;
+  socialLinks: any[];
+  footerButtons: any[];
+  portfolioData: any[];
+}
+
+const lang = 'pt-BR';
+
+async function getPageProps() {
+  const siteConfigData = getSiteConfig(lang);
+  const locale = getLocale(lang);
+  const socialLinks = getSocialLinks(lang);
+  const footerButtons = getFooterButtons(lang);
+
+  const portfolioData = portfolioProjects.map(project => ({
+    id: project.id,
+    title: project.title,
+    description: project.description,
+    imageUrl: project.image,
+    tags: project.technologies,
+    projectUrl: project.githubUrl || project.liveUrl || '#',
+    moreInfo: project.description,
+    galleryImages: [],
+  }));
+
+  return {
+    siteConfigData,
+    locale,
+    socialLinks,
+    footerButtons,
+    portfolioData,
+  };
+}
+
+export default async function Page() {
+  const { siteConfigData, locale, socialLinks, footerButtons, portfolioData } = await getPageProps();
+
+  return <Home siteConfigData={siteConfigData} locale={locale} socialLinks={socialLinks} footerButtons={footerButtons} portfolioData={portfolioData} />;
+}
+
+// Client Component
 "use client";
 
 import { useState } from "react";
@@ -13,27 +59,7 @@ import { skillsData } from "@/data/skills";
 import { profileData } from "@/data/profile";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
-import { getSiteConfig, getLocale, getSocialLinks, getFooterButtons } from "@/data/config";
-
-import { portfolioProjects } from "@/data/portfolio";
 import { FaDiscord, FaInstagram, FaTiktok, FaTwitter } from "react-icons/fa";
-
-const lang = 'pt-BR';
-const siteConfigData = getSiteConfig(lang);
-const locale = getLocale(lang);
-const socialLinks = getSocialLinks(lang);
-const footerButtons = getFooterButtons(lang);
-
-const portfolioData = portfolioProjects.map(project => ({
-  id: project.id,
-  title: project.title,
-  description: project.description,
-  imageUrl: project.image,
-  tags: project.technologies,
-  projectUrl: project.githubUrl || project.liveUrl || '#',
-  moreInfo: project.description, // Using description as moreInfo for now
-  galleryImages: [], // Will need to add this to the data structure later
-}));
 
 interface ProfileData {
   name: string;
@@ -53,7 +79,7 @@ interface ProfileData {
   };
 }
 
-export default function Home() {
+export function Home({ siteConfigData, locale, socialLinks, footerButtons, portfolioData }: SiteConfigProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isRecommendationsModalOpen, setIsRecommendationsModalOpen] = useState(false);
 
@@ -121,7 +147,7 @@ export default function Home() {
             <div className="flex flex-col lg:flex-row items-center gap-12 mb-16">
               {/* Profile Photo */}
               <div className="flex-shrink-0">
-                <div 
+                <div
                   className="relative group cursor-pointer"
                   onClick={openProfileModal}
                 >
