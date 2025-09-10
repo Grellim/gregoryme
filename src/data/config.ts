@@ -1,4 +1,4 @@
-import type { SiteConfig, SocialLink, Locale } from './types';
+import type { SiteConfig, SocialLink, Locale, FooterButton } from './types';
 import ptBR from './locales/pt-BR.json';
 import en from './locales/en.json';
 
