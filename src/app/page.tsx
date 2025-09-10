@@ -1,49 +1,3 @@
-import { getSiteConfig, getLocale, getSocialLinks, getFooterButtons } from "@/data/config";
-import { portfolioProjects } from "@/data/portfolio";
-
-interface SiteConfigProps {
-  siteConfigData: any;
-  locale: any;
-  socialLinks: any[];
-  footerButtons: any[];
-  portfolioData: any[];
-}
-
-const lang = 'pt-BR';
-
-async function getPageProps() {
-  const siteConfigData = getSiteConfig(lang);
-  const locale = getLocale(lang);
-  const socialLinks = getSocialLinks(lang);
-  const footerButtons = getFooterButtons(lang);
-
-  const portfolioData = portfolioProjects.map(project => ({
-    id: project.id,
-    title: project.title,
-    description: project.description,
-    imageUrl: project.image,
-    tags: project.technologies,
-    projectUrl: project.githubUrl || project.liveUrl || '#',
-    moreInfo: project.description,
-    galleryImages: [],
-  }));
-
-  return {
-    siteConfigData,
-    locale,
-    socialLinks,
-    footerButtons,
-    portfolioData,
-  };
-}
-
-export default async function Page() {
-  const { siteConfigData, locale, socialLinks, footerButtons, portfolioData } = await getPageProps();
-
-  return <Home siteConfigData={siteConfigData} locale={locale} socialLinks={socialLinks} footerButtons={footerButtons} portfolioData={portfolioData} />;
-}
-
-// Client Component
 "use client";
 
 import { useState } from "react";
@@ -77,6 +31,14 @@ interface ProfileData {
     title: string;
     description: string;
   };
+}
+
+interface SiteConfigProps {
+  siteConfigData: any;
+  locale: any;
+  socialLinks: any[];
+  footerButtons: any[];
+  portfolioData: any[];
 }
 
 export function Home({ siteConfigData, locale, socialLinks, footerButtons, portfolioData }: SiteConfigProps) {
@@ -295,16 +257,16 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
                 >
                   <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                     {link.icon === 'twitter' && (
-                      <FaTwitter className="w-15 h15"/>
+                      <FaTwitter className="w-8 h-8"/>
                     )}
                     {link.icon === 'instagram' && (
-                      <FaInstagram className="w-15 h15"/>
+                      <FaInstagram className="w-8 h-8"/>
                     )}
                     {link.icon === 'email' && (
                       <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     )}
                     {link.icon === 'tiktok' && (
-                      <FaTiktok className="w-15 h15"/>
+                      <FaTiktok className="w-8 h-8"/>
                     )}
                   </svg>
                 </a>
@@ -346,4 +308,42 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
       <ScrollToTop />
     </div>
   );
+}
+
+// Server Component Wrapper
+import { getSiteConfig, getLocale, getSocialLinks, getFooterButtons } from "@/data/config";
+import { portfolioProjects } from "@/data/portfolio";
+
+const lang = 'pt-BR';
+
+async function getPageProps() {
+  const siteConfigData = getSiteConfig(lang);
+  const locale = getLocale(lang);
+  const socialLinks = getSocialLinks(lang);
+  const footerButtons = getFooterButtons(lang);
+
+  const portfolioData = portfolioProjects.map(project => ({
+    id: project.id,
+    title: project.title,
+    description: project.description,
+    imageUrl: project.image,
+    tags: project.technologies,
+    projectUrl: project.githubUrl || project.liveUrl || '#',
+    moreInfo: project.description,
+    galleryImages: [],
+  }));
+
+  return {
+    siteConfigData,
+    locale,
+    socialLinks,
+    footerButtons,
+    portfolioData,
+  };
+}
+
+export default async function Page() {
+  const { siteConfigData, locale, socialLinks, footerButtons, portfolioData } = await getPageProps();
+
+  return <Home siteConfigData={siteConfigData} locale={locale} socialLinks={socialLinks} footerButtons={footerButtons} portfolioData={portfolioData} />;
 }
