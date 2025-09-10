@@ -60,7 +60,7 @@ export function getSocialLinks(lang: string = 'pt-BR'): SocialLink[] {
     {
       name: locale.social.discord,
       url: 'https://discord.gg/gregoryvallim',
-      icon: 'tiktok',
+      icon: 'discord',
     },
   ];
 }

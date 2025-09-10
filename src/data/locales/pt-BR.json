@@ -83,6 +83,15 @@
       "creativity": "💡 Criatividade",
       "performance": "⚡ Performance",
       "sustainability": "🌱 Sustentabilidade"
+    },
+    "projectDetails": {
+      "knowMore": "Saiba Mais",
+      "visitProject": "Quero Conhecer",
+      "close": "Fechar",
+      "moreAbout": "Mais sobre o projeto:",
+      "gallery": "Galeria de Imagens",
+      "closeDetails": "Fechar detalhes do projeto",
+      "viewGalleryImage": "Ver imagem da galeria"
     }
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Locale } from "@/data/types";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { X } from "lucide-react";
@@ -19,6 +20,7 @@ interface PortfolioCardProps {
   projectUrl: string;
   moreInfo: string;
   galleryImages: string[];
+  locale: Locale;
 }
 
 export default function PortfolioCard({
@@ -30,6 +32,7 @@ export default function PortfolioCard({
   projectUrl,
   moreInfo,
   galleryImages,
+  locale,
 }: PortfolioCardProps) {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
@@ -85,8 +88,8 @@ export default function PortfolioCard({
           </div>
         </CardContent>
         <CardFooter className="p-4 sm:p-6 pt-0">
-          <Button onClick={openDetailModal} className="w-full cursor-pointer transition-all duration-200 hover:scale-105" aria-label={`Saiba mais sobre ${title}`}>
-            Saiba Mais
+          <Button onClick={openDetailModal} className="w-full cursor-pointer transition-all duration-200 hover:scale-105" aria-label={`${locale.ui.projectDetails.knowMore} sobre ${title}`}>
+            {locale.ui.projectDetails.knowMore}
           </Button>
         </CardFooter>
       </Card>
@@ -165,7 +168,7 @@ export default function PortfolioCard({
 
                   {/* More Info */}
                   <div className="space-y-2">
-                    <h3 className="text-base sm:text-lg font-semibold">Mais sobre o projeto:</h3>
+                    <h3 className="text-base sm:text-lg font-semibold">{locale.ui.projectDetails.moreAbout}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4 sm:line-clamp-6">
                       {moreInfo}
                     </p>
@@ -174,16 +177,16 @@ export default function PortfolioCard({
                   {/* Gallery */}
                   {galleryImages.length > 0 && (
                     <div className="space-y-3">
-                      <h3 className="text-base sm:text-lg font-semibold">Galeria de Imagens</h3>
+                      <h3 className="text-base sm:text-lg font-semibold">{locale.ui.projectDetails.gallery}</h3>
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-64 overflow-y-auto rounded-lg border border-border/20 p-2">
                         {galleryImages.map((image, index) => (
                           <div
                             key={index}
                             className="relative group cursor-pointer rounded overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 aspect-square flex-shrink-0"
-                            onClick={() => openGalleryModal(image, `Galeria ${index + 1}`)}
+                            onClick={() => openGalleryModal(image, `${locale.ui.projectDetails.viewGalleryImage} ${index + 1}`)}
                             role="button"
                             tabIndex={0}
-                            aria-label={`Ver imagem da galeria ${index + 1}`}
+                            aria-label={`${locale.ui.projectDetails.viewGalleryImage} ${index + 1}`}
                           >
                             <img
                               src={image}
@@ -211,20 +214,20 @@ export default function PortfolioCard({
                   className="flex items-center gap-2 text-sm sm:text-base py-2.5 px-4 sm:px-6"
                   size="sm"
                   variant="default"
-                  aria-label={`Visitar projeto ${title}`}
+                  aria-label={`${locale.ui.projectDetails.visitProject} ${title}`}
                 >
                   <ExternalLink className="w-4 h-4 mr-2 flex-shrink-0" />
-                  Quero Conhecer
+                  {locale.ui.projectDetails.visitProject}
                 </Button>
                 <Button
                   onClick={closeDetailModal}
                   className="text-sm sm:text-base py-2.5 px-4 sm:px-6"
                   size="sm"
                   variant="outline"
-                  aria-label="Fechar detalhes do projeto"
+                  aria-label={locale.ui.projectDetails.closeDetails}
                 >
                   <X className="w-4 h-4 mr-2 flex-shrink-0" />
-                  Fechar
+                  {locale.ui.projectDetails.close}
                 </Button>
               </div>
             </div>

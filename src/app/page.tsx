@@ -14,30 +14,14 @@ import { profileData } from "@/data/profile";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import { FaDiscord, FaInstagram, FaTiktok, FaTwitter } from "react-icons/fa";
-
-interface ProfileData {
-  name: string;
-  subtitle: string;
-  badges: string[];
-  experience: {
-    title: string;
-    description: string;
-  };
-  techStack: {
-    title: string;
-    skills: string[];
-  };
-  mission: {
-    title: string;
-    description: string;
-  };
-}
+import { SiteConfig, Locale, SocialLink, FooterButton } from "@/data/types";
+import { ProfileData } from "@/data/profile";
 
 interface SiteConfigProps {
-  siteConfigData: any;
-  locale: any;
-  socialLinks: any[];
-  footerButtons: any[];
+  siteConfigData: SiteConfig;
+  locale: Locale;
+  socialLinks: SocialLink[];
+  footerButtons: FooterButton[];
   portfolioData: any[];
 }
 
@@ -193,8 +177,8 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
                 title: skill.name,
                 description: skill.description,
                 icon: (
-                  <svg key={index} className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  <svg key={index} className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d={skill.icon} />
                   </svg>
                 ),
                 color: ["bg-purple-400", "bg-pink-400", "bg-blue-400", "bg-green-400", "bg-indigo-400", "bg-yellow-400"][index % 6],
@@ -226,6 +210,7 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
                   projectUrl={project.projectUrl}
                   moreInfo={project.moreInfo}
                   galleryImages={project.galleryImages}
+                  locale={locale}
                 />
               ))}
             </div>
@@ -246,29 +231,24 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
                 <a
                   key={link.icon}
                   href={link.url}
-                  target={link.icon === 'email' ? '_self' : '_blank'}
-                  rel={link.icon === 'email' ? undefined : 'noopener noreferrer'}
+                  target={link.icon === 'mail' ? '_self' : '_blank'}
+                  rel={link.icon === 'mail' ? undefined : 'noopener noreferrer'}
                   className={`text-muted-foreground transition-colors hover:text-${
                     link.icon === 'twitter' ? 'blue' :
                     link.icon === 'instagram' ? 'pink' :
-                    link.icon === 'email' ? 'red' :
+                    link.icon === 'mail' ? 'red' :
                     'indigo'
                   }-400`}
                 >
-                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    {link.icon === 'twitter' && (
-                      <FaTwitter className="w-8 h-8"/>
-                    )}
-                    {link.icon === 'instagram' && (
-                      <FaInstagram className="w-8 h-8"/>
-                    )}
-                    {link.icon === 'email' && (
-                      <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    )}
-                    {link.icon === 'tiktok' && (
-                      <FaTiktok className="w-8 h-8"/>
-                    )}
-                  </svg>
+                  {link.icon === 'twitter' && <FaTwitter className="w-8 h-8" />}
+                  {link.icon === 'instagram' && <FaInstagram className="w-8 h-8" />}
+                  {link.icon === 'mail' && (
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  )}
+                  {link.icon === 'discord' && <FaDiscord className="w-8 h-8" />}
+                  {link.icon === 'tiktok' && <FaTiktok className="w-8 h-8" />}
                 </a>
               ))}
             </div>
@@ -330,7 +310,7 @@ async function getPageProps() {
     tags: project.technologies,
     projectUrl: project.githubUrl || project.liveUrl || '#',
     moreInfo: project.description,
-    galleryImages: [],
+    galleryImages: project.galleryImages,
   }));
 
   return {

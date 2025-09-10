@@ -1,4 +1,5 @@
 import { getSiteConfig, getLocale } from './config';
+import * as crypto from 'crypto';
 import { profileData } from './profile';
 
 const lang = 'pt-BR';
@@ -40,7 +41,7 @@ export function getPersonSchema(): PersonSchema {
 
 export function getContentHash(data: any): string {
   // Simple hash for content integrity (in production, use crypto.subtle.digest)
-  const hash = require('crypto').createHash('sha256');
+  const hash = crypto.createHash('sha256');
   hash.update(JSON.stringify(data));
   return hash.digest('hex').slice(0, 16); // Shortened for demo
 }

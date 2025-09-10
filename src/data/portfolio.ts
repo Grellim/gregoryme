@@ -54,7 +54,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project5',
     liveUrl: 'https://plataformaia.gregoryvallim.com',
     featured: false,
-    galleryImages: ['./public/gallery2.jpg'],
+    galleryImages: ['/gallery2.jpg'],
   },
   {
     id: '6',
@@ -65,6 +65,6 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project6',
     liveUrl: 'https://ecommercerevolucionario.gregoryvallim.com',
     featured: false,
-    galleryImages: ['/piblic/gallery1.jpg', './gallery2.jpg'],
+    galleryImages: ['/gallery1.jpg', '/gallery2.jpg'],
   },
 ];

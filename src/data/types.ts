@@ -107,6 +107,15 @@ export interface Locale {
       performance: string;
       sustainability: string;
     };
+    projectDetails: {
+      knowMore: string;
+      visitProject: string;
+      close: string;
+      moreAbout: string;
+      gallery: string;
+      closeDetails: string;
+      viewGalleryImage: string;
+    };
   };
 }
 

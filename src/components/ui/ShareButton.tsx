@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Share2, MessageCircle, Facebook, Twitter, Instagram, Mail } from "lucide-react";
+import { Share2, MessageCircle, Facebook, Twitter, Instagram, Mail, Users } from "lucide-react";
+import { getSiteConfig, getLocale, getSocialLinks } from "@/data/config";
 import { Button } from "@/components/ui/button";
 
 export default function ShareButton() {
@@ -44,7 +45,7 @@ export default function ShareButton() {
         } else {
           // Instagram doesn't support direct URL sharing, so we copy to clipboard
           navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-          alert(locale.social.instagram || 'Link copiado! Cole no Instagram para compartilhar.');
+          alert(locale.social.instagram || 'Link copied! Paste on Instagram to share.');
         }
         break;
       case 'discord':
@@ -54,7 +55,7 @@ export default function ShareButton() {
         } else {
           // Fallback: copy to clipboard
           navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-          alert(locale.social.discord || 'Link copiado para o Discord!');
+          alert(locale.social.discord || 'Link copied for Discord!');
         }
         break;
       case 'email':
@@ -76,7 +77,7 @@ export default function ShareButton() {
         } else {
           // Fallback: copy to clipboard
           navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-          alert(locale.ui.share?.copied || 'Link copiado para a área de transferência!');
+          alert('Link copied to clipboard!');
         }
     }
     setIsOpen(false);
@@ -91,7 +92,7 @@ export default function ShareButton() {
         className="flex items-center gap-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white font-poppins"
       >
         <Share2 className="h-4 w-4" />
-        {locale.ui?.share?.button || 'Compartilhar'}
+        Share
       </Button>
 
       {isOpen && (
@@ -140,7 +141,7 @@ export default function ShareButton() {
                 onClick={() => handleShare('discord')}
                 className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50"
               >
-                <Discord className="h-4 w-4" />
+                <Users className="h-4 w-4" />
                 {locale.social.discord}
               </Button>
               <Button
