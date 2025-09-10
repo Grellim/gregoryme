@@ -33,8 +33,8 @@ export function getPersonSchema(): PersonSchema {
       'https://github.com/gregoryvallim',
       'https://linkedin.com/in/gregoryvallim'
     ],
-    keywords: ['Gregory Vallim', 'Projetista', 'Comunicador', 'projetos'],
-    knowsAbout: ['Desenvolvimento Web', 'UI/UX Design', 'Full-Stack Development', 'Inovação Digital']
+    keywords: ['Gregory Vallim', 'Projetista', 'Comunicador', 'projetos', 'desenvolvimento'],
+    knowsAbout: ['Desenvolvimento de projeto', 'Comunicação', 'Projeto', 'Inovação Digital']
   };
 }
 
