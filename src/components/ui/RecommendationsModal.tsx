@@ -144,47 +144,47 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                             )}
                             {item.facebook && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Facebook" onClick={(e) => { e.stopPropagation(); window.open(item.facebook, '_blank'); }}>
-                                <FaFacebook className="h-5 w-5" />
+                                <FaFacebook className="h-8 w-8" />
                               </Button>
                             )}
                             {item.instagram && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Instagram" onClick={(e) => { e.stopPropagation(); window.open(item.instagram, '_blank'); }}>
-                                <FaInstagram className="h-5 w-5" />
+                                <FaInstagram className="h-8 w-8" />
                               </Button>
                             )}
                             {item.twitter && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Twitter" onClick={(e) => { e.stopPropagation(); window.open(item.twitter, '_blank'); }}>
-                                <FaTwitter className="h-5 w-5" />
+                                <FaTwitter className="h-8 w-8" />
                               </Button>
                             )}
                             {item.tiktok && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="TikTok" onClick={(e) => { e.stopPropagation(); window.open(item.tiktok, '_blank'); }}>
-                                <FaTiktok className="h-5 w-5" />
+                                <FaTiktok className="h-8 w-8" />
                               </Button>
                             )}
                             {item.discord && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Discord" onClick={(e) => { e.stopPropagation(); window.open(item.discord, '_blank'); }}>
-                                <FaDiscord className="h-5 w-5" />
+                                <FaDiscord className="h-8 w-8" />
                               </Button>
                             )}
                             {item.linkedin && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="LinkedIn" onClick={(e) => { e.stopPropagation(); window.open(item.linkedin, '_blank'); }}>
-                                <FaLinkedin className="h-5 w-5" />
+                                <FaLinkedin className="h-8 w-8" />
                               </Button>
                             )}
                             {item.github && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="GitHub" onClick={(e) => { e.stopPropagation(); window.open(item.github, '_blank'); }}>
-                                <FaGithub className="h-5 w-5" />
+                                <FaGithub className="h-8 w-8" />
                               </Button>
                             )}
                             {item.youtube && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="YouTube" onClick={(e) => { e.stopPropagation(); window.open(item.youtube, '_blank'); }}>
-                                <FaYoutube className="h-5 w-5" />
+                                <FaYoutube className="h-8 w-8" />
                               </Button>
                             )}
                             {item.website && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Website" onClick={(e) => { e.stopPropagation(); window.open(item.website, '_blank'); }}>
-                                <FaExternalLinkAlt className="h-5 w-5" />
+                                <FaExternalLinkAlt className="h-8 w-8" />
                               </Button>
                             )}
                           </div>

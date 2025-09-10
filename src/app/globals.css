@@ -167,3 +167,10 @@
   transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
+
+/* Video background full coverage */
+video {
+  object-fit: cover !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}

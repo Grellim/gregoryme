@@ -47,7 +47,7 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
       
       <main className="pt-16">
         {/* Hero Section with Video Background */}
-        <section id="home" className="relative min-h-[63vh] sm:min-h-[72vh] flex items-center justify-center">
+        <section id="home" className="relative h-screen flex items-center justify-center pb-16">
           <VideoBackground
             videoSrc={siteConfigData.videoBackgroundUrl}
             fallbackImage="/videos/placeholder.jpg"
