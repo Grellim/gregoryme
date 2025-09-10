@@ -9,10 +9,12 @@ import { X } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaLinkedin, FaGithub, FaDiscord, FaExternalLinkAlt, FaTiktok } from 'react-icons/fa';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { recommendations } from "@/data/recommendations";
-import { getSiteConfig } from "@/data/config";
+import { getSiteConfig, getLocale } from "@/data/config";
 import type { Recommendation } from "@/data/types";
 
-const siteConfigData = getSiteConfig('pt-BR');
+const lang = 'pt-BR';
+const siteConfigData = getSiteConfig(lang);
+const locale = getLocale(lang);
 
 
 interface RecommendationsModalProps {
@@ -52,16 +54,16 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
         <DialogHeader className="p-4 sm:p-6 lg:p-8 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
           <div className="text-left space-y-4 sm:space-y-6 px-4 sm:px-6">
             <DialogTitle className="text-xl sm:text-2xl lg:text-3xl font-bold font-poppins leading-tight">
-              {siteConfigData.hero.ctaText} - Recomendações
+              {locale.ui.recommendations.title}
             </DialogTitle>
             <DialogDescription className="text-xs sm:text-sm lg:text-base leading-relaxed">
-              {siteConfigData.description}
+              {locale.ui.recommendations.description}
             </DialogDescription>
           </div>
           <Button
             onClick={onClose}
             className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 z-20 focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="Fechar modal de recomendações"
+            aria-label={locale.ui.recommendations.close}
             variant="ghost"
             size="icon"
           >
@@ -151,10 +153,10 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
                           size="sm"
                           className="w-full px-4 py-2 text-sm font-medium border-primary/50 hover:bg-primary hover:text-primary-foreground transition-all duration-200 cursor-pointer"
                           onClick={handleCardClick}
-                          aria-label={`Conhecer ${item.name}`}
+                          aria-label={`${locale.ui.recommendations.knowMore} ${item.name}`}
                         >
                           <FaExternalLinkAlt className="w-4 h-4 mr-2" />
-                          Conhecer
+                          {locale.ui.recommendations.knowMore}
                         </Button>
                       </div>
                   </div>

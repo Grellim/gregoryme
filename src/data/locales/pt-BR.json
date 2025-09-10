@@ -39,5 +39,50 @@
     "ogDescription": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
     "twitterTitle": "Gregory Vallim - Portfólio Pessoal",
     "twitterDescription": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊"
+  },
+  "ui": {
+    "recommendations": {
+      "title": "Ver Projetos - Recomendações",
+      "description": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
+      "knowMore": "Conhecer",
+      "close": "Fechar modal de recomendações"
+    },
+    "profile": {
+      "title": "Sobre Mim",
+      "description": "Saiba mais sobre mim e meu trabalho como desenvolvedor full-stack especializado em soluções modernas e inovadoras que transformam negócios e experiências digitais.",
+      "name": "Gregory Vallim",
+      "subtitle": "Desenvolvedor full-stack apaixonado por criar soluções inovadoras e impactantes. Especializado em tecnologias modernas com foco em performance, segurança e experiência do usuário excepcional.",
+      "experience": {
+        "title": "Experiência",
+        "description": "Mais de 5 anos desenvolvendo aplicações web e mobile modernas. Especializado em criar interfaces intuitivas, sistemas escaláveis e soluções que realmente fazem a diferença para empresas e usuários."
+      },
+      "techStack": {
+        "title": "Stack Tecnológica"
+      },
+      "mission": {
+        "title": "Minha Missão",
+        "description": "Criar experiências digitais que transformam vidas e negócios através da tecnologia. Acredito que cada projeto deve ser uma oportunidade de inovar e impactar positivamente o mundo ao nosso redor."
+      },
+      "badges": [
+        "🚀 Full-Stack Developer",
+        "💻 React & Next.js Expert",
+        "🎨 UI/UX Design",
+        "☁️ Cloud & DevOps",
+        "🧠 Problem Solver"
+      ],
+      "close": "Fechar",
+      "closeAria": "Fechar modal de perfil"
+    },
+    "buttons": {
+      "viewProjects": "Ver projetos",
+      "contact": "Entrar em contato",
+      "recommendations": "Minhas recomendações"
+    },
+    "tags": {
+      "innovation": "🚀 Inovação",
+      "creativity": "💡 Criatividade",
+      "performance": "⚡ Performance",
+      "sustainability": "🌱 Sustentabilidade"
+    }
   }
 }

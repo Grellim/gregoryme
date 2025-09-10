@@ -39,5 +39,50 @@
     "ogDescription": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊",
     "twitterTitle": "Gregory Vallim - Personal Portfolio",
     "twitterDescription": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊"
+  },
+  "ui": {
+    "recommendations": {
+      "title": "View Projects - Recommendations",
+      "description": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊",
+      "knowMore": "Learn More",
+      "close": "Close recommendations modal"
+    },
+    "profile": {
+      "title": "About Me",
+      "description": "Learn more about me and my work as a full-stack developer specialized in modern and innovative solutions that transform businesses and digital experiences.",
+      "name": "Gregory Vallim",
+      "subtitle": "Full-stack developer passionate about creating innovative and impactful solutions. Specialized in modern technologies with focus on performance, security, and exceptional user experience.",
+      "experience": {
+        "title": "Experience",
+        "description": "Over 5 years developing modern web and mobile applications. Specialized in creating intuitive interfaces, scalable systems, and solutions that really make a difference for companies and users."
+      },
+      "techStack": {
+        "title": "Tech Stack"
+      },
+      "mission": {
+        "title": "My Mission",
+        "description": "Create digital experiences that transform lives and businesses through technology. I believe that every project should be an opportunity to innovate and positively impact the world around us."
+      },
+      "badges": [
+        "🚀 Full-Stack Developer",
+        "💻 React & Next.js Expert",
+        "🎨 UI/UX Design",
+        "☁️ Cloud & DevOps",
+        "🧠 Problem Solver"
+      ],
+      "close": "Close",
+      "closeAria": "Close profile modal"
+    },
+    "buttons": {
+      "viewProjects": "View projects",
+      "contact": "Get in touch",
+      "recommendations": "My recommendations"
+    },
+    "tags": {
+      "innovation": "🚀 Innovation",
+      "creativity": "💡 Creativity",
+      "performance": "⚡ Performance",
+      "sustainability": "🌱 Sustainability"
+    }
   }
 }

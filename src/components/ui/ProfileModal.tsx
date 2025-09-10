@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ExternalLink, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getLocale } from "@/data/config";
 
 interface ProfileData {
   name: string;
@@ -20,18 +21,21 @@ interface ProfileModalProps {
   onSave: (data: ProfileData) => void;
 }
 
+const lang = 'pt-BR';
+const locale = getLocale(lang);
+
 export default function ProfileModal({ isOpen, onClose, initialData, onSave }: ProfileModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[60%] max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-screen p-0 rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent" role="dialog" aria-label="Modal de perfil">
+      <DialogContent className="w-[60%] max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-screen p-0 rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent" role="dialog" aria-label={locale.ui.profile.closeAria}>
         <div className="flex flex-col h-full max-h-screen overflow-hidden">
           <DialogHeader className="p-4 sm:p-6 md:p-8 lg:p-10 border-b border-border/50 flex-shrink-0">
             <div className="text-center space-y-4 sm:space-y-6">
               <DialogTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-                Sobre Mim
+                {locale.ui.profile.title}
               </DialogTitle>
               <DialogDescription className="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
-                Saiba mais sobre mim e meu trabalho como desenvolvedor full-stack especializado em soluções modernas e inovadoras que transformam negócios e experiências digitais.
+                {locale.ui.profile.description}
               </DialogDescription>
             </div>
           </DialogHeader>
@@ -54,28 +58,21 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 
                 <div className="flex-1 text-center lg:text-left order-1 lg:order-2 w-full space-y-4 sm:space-y-6">
                   <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 font-poppins bg-gradient-to-r from-primary via-purple-600 to-secondary bg-clip-text text-transparent leading-tight">
-                    Gregory Vallim
+                    {locale.ui.profile.name}
                   </h1>
                   <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-full">
-                    Desenvolvedor full-stack apaixonado por criar soluções inovadoras e impactantes.
-                    Especializado em tecnologias modernas com foco em performance, segurança e experiência do usuário excepcional.
+                    {locale.ui.profile.subtitle}
                   </p>
                   <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 justify-center lg:justify-start">
-                    <Badge variant="secondary" className="text-sm sm:text-base px-3 py-2 h-auto whitespace-normal">
-                      🚀 Full-Stack Developer
-                    </Badge>
-                    <Badge variant="outline" className="text-sm sm:text-base px-3 py-2 h-auto whitespace-normal">
-                      💻 React & Next.js Expert
-                    </Badge>
-                    <Badge variant="secondary" className="text-sm sm:text-base px-3 py-2 h-auto whitespace-normal">
-                      🎨 UI/UX Design
-                    </Badge>
-                    <Badge variant="outline" className="text-sm sm:text-base px-3 py-2 h-auto whitespace-normal">
-                      ☁️ Cloud & DevOps
-                    </Badge>
-                    <Badge variant="secondary" className="text-sm sm:text-base px-3 py-2 h-auto whitespace-normal">
-                      🧠 Problem Solver
-                    </Badge>
+                    {locale.ui.profile.badges.map((badge, index) => (
+                      <Badge
+                        key={index}
+                        variant={index % 2 === 0 ? "secondary" : "outline"}
+                        className="text-sm sm:text-base px-3 py-2 h-auto whitespace-normal"
+                      >
+                        {badge}
+                      </Badge>
+                    ))}
                   </div>
                 </div>
               </section>
@@ -85,11 +82,10 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 <article className="space-y-0 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full">
                   <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                     <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🎯</span> Experiência
+                      <span className="text-primary text-base sm:text-lg lg:text-xl">🎯</span> {locale.ui.profile.experience.title}
                     </h3>
                     <p className="text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed">
-                      Mais de 5 anos desenvolvendo aplicações web e mobile modernas.
-                      Especializado em criar interfaces intuitivas, sistemas escaláveis e soluções que realmente fazem a diferença para empresas e usuários.
+                      {locale.ui.profile.experience.description}
                     </p>
                   </div>
                 </article>
@@ -97,17 +93,18 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 <article className="space-y-0 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full">
                   <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                     <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🔧</span> Stack Tecnológica
+                      <span className="text-primary text-base sm:text-lg lg:text-xl">🔧</span> {locale.ui.profile.techStack.title}
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full">
-                      <Badge variant="outline" className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3">React</Badge>
-                      <Badge variant="outline" className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3">Next.js</Badge>
-                      <Badge variant="outline" className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3">TypeScript</Badge>
-                      <Badge variant="outline" className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3">Node.js</Badge>
-                      <Badge variant="outline" className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3">Tailwind</Badge>
-                      <Badge variant="outline" className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3">Prisma</Badge>
-                      <Badge variant="outline" className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3">PostgreSQL</Badge>
-                      <Badge variant="outline" className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3">AWS</Badge>
+                      {locale.about.skills.map((skill, index) => (
+                        <Badge
+                          key={skill}
+                          variant="outline"
+                          className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3"
+                        >
+                          {skill}
+                        </Badge>
+                      ))}
                     </div>
                   </div>
                 </article>
@@ -115,11 +112,10 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 <article className="space-y-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl sm:rounded-2xl border border-primary/20 lg:col-span-1 w-full">
                   <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                     <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🚀</span> Minha Missão
+                      <span className="text-primary text-base sm:text-lg lg:text-xl">🚀</span> {locale.ui.profile.mission.title}
                     </h3>
                     <p className="text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed">
-                      Criar experiências digitais que transformam vidas e negócios através da tecnologia.
-                      Acredito que cada projeto deve ser uma oportunidade de inovar e impactar positivamente o mundo ao nosso redor.
+                      {locale.ui.profile.mission.description}
                     </p>
                   </div>
                 </article>
@@ -133,10 +129,10 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
               className="text-sm sm:text-base lg:text-lg py-3 px-6 h-auto focus-visible:ring-2 focus-visible:ring-primary"
               size="lg"
               variant="outline"
-              aria-label="Fechar modal de perfil"
+              aria-label={locale.ui.profile.closeAria}
             >
               <X className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 mr-2 flex-shrink-0" />
-              Fechar
+              {locale.ui.profile.close}
             </Button>
           </div>
         </div>

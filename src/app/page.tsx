@@ -11,11 +11,13 @@ import SkillsCarousel from "@/components/ui/SkillsCarousel";
 import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
-import { getSiteConfig } from "@/data/config";
+import { getSiteConfig, getLocale } from "@/data/config";
 
 import { portfolioProjects } from "@/data/portfolio";
 
-const siteConfigData = getSiteConfig('pt-BR');
+const lang = 'pt-BR';
+const siteConfigData = getSiteConfig(lang);
+const locale = getLocale(lang);
 
 const portfolioData = portfolioProjects.map(project => ({
   id: project.id,
@@ -74,14 +76,14 @@ export default function Home() {
                 <button
                   onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
                   className="bg-purple-400 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly text-sm sm:text-base"
-                  aria-label="Ver projetos"
+                  aria-label={locale.ui.buttons.viewProjects}
                 >
                   {siteConfigData.hero.ctaText}
                 </button>
                 <button
                   onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
                   className="border-2 border-purple-400 text-purple-400 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly text-sm sm:text-base"
-                  aria-label="Entrar em contato"
+                  aria-label={locale.ui.buttons.contact}
                 >
                   {siteConfigData.contact.title}
                 </button>
@@ -130,38 +132,38 @@ export default function Home() {
                 <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                   <TagTooltip
                     emoji="🚀"
-                    title="Inovação"
+                    title={locale.ui.tags.innovation}
                     description="Sempre buscando inovar e criar soluções que transformam o mundo digital. A inovação é o motor que move todos os meus projetos."
                   >
                     <span className="px-4 py-2 bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium cursor-help">
-                      🚀 Inovação
+                      {locale.ui.tags.innovation}
                     </span>
                   </TagTooltip>
                   <TagTooltip
                     emoji="💡"
-                    title="Criatividade"
+                    title={locale.ui.tags.creativity}
                     description="Criatividade é essencial para resolver problemas complexos. Cada projeto é uma oportunidade de pensar fora da caixa."
                   >
                     <span className="px-4 py-2 bg-pink-200 dark:bg-pink-800 text-pink-800 dark:text-pink-200 rounded-full text-sm font-medium cursor-help">
-                      💡 Criatividade
+                      {locale.ui.tags.creativity}
                     </span>
                   </TagTooltip>
                   <TagTooltip
                     emoji="⚡"
-                    title="Performance"
+                    title={locale.ui.tags.performance}
                     description="Performance não é opcional, é obrigatório. Meus projetos são otimizados para oferecer a melhor experiência possível."
                   >
                     <span className="px-4 py-2 bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium cursor-help">
-                      ⚡ Performance
+                      {locale.ui.tags.performance}
                     </span>
                   </TagTooltip>
                   <TagTooltip
                     emoji="🌱"
-                    title="Sustentabilidade"
+                    title={locale.ui.tags.sustainability}
                     description="Desenvolvimento sustentável é o futuro. Busco criar soluções que considerem o impacto ambiental e social."
                   >
                     <span className="px-4 py-2 bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200 rounded-full text-sm font-medium cursor-help">
-                      🌱 Sustentabilidade
+                      {locale.ui.tags.sustainability}
                     </span>
                   </TagTooltip>
                 </div>
@@ -171,11 +173,12 @@ export default function Home() {
                   <button
                     onClick={openRecommendationsModal}
                     className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:shadow-2xl hover:scale-105 transform font-poppins border-2 border-transparent hover:border-white/20 cursor-pointer"
+                    aria-label={locale.ui.buttons.recommendations}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
-                    Minhas recomendações
+                    {locale.ui.buttons.recommendations}
                   </button>
                 </div>
               </div>
@@ -264,7 +267,7 @@ export default function Home() {
                 {siteConfigData.contact.email}
               </a>
               <a href="https://discord.gg/gregoryvallim" target="_blank" rel="noopener noreferrer" className="border-2 border-purple-400 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly inline-block">
-                Discord
+                {locale.social.discord}
               </a>
             </div>
           </div>

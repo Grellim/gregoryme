@@ -1,17 +1,17 @@
-import type { SiteConfig, SocialLink } from './types';
+import type { SiteConfig, SocialLink, Locale } from './types';
 import ptBR from './locales/pt-BR.json';
 import en from './locales/en.json';
 
 const locales = {
-  'pt-BR': ptBR,
-  'en': en,
+  'pt-BR': ptBR as Locale,
+  'en': en as Locale,
 };
 
-export function getLocale(lang: string = 'pt-BR') {
+export function getLocale(lang: string = 'pt-BR'): Locale {
   return locales[lang as keyof typeof locales] || locales['pt-BR'];
 }
 
-export function getSiteConfig(lang: string = 'pt-BR') {
+export function getSiteConfig(lang: string = 'pt-BR'): SiteConfig {
   const locale = getLocale(lang);
   return {
     title: locale.site.title,
@@ -36,10 +36,10 @@ export function getSiteConfig(lang: string = 'pt-BR') {
       phone: locale.contact.phone,
       address: locale.contact.address,
     },
-  } as SiteConfig;
+  };
 }
 
-export function getSocialLinks(lang: string = 'pt-BR') {
+export function getSocialLinks(lang: string = 'pt-BR'): SocialLink[] {
   const locale = getLocale(lang);
   return [
     {
@@ -62,5 +62,5 @@ export function getSocialLinks(lang: string = 'pt-BR') {
       url: 'https://discord.gg/gregoryvallim',
       icon: 'discord',
     },
-  ] as SocialLink[];
+  ];
 }
