@@ -140,3 +140,8 @@ export interface SocialLink {
   url: string;
   icon: string;
 }
+
+export interface FooterButton {
+  name: string;
+  href: string;
+}

@@ -13,7 +13,7 @@ import { skillsData } from "@/data/skills";
 import { profileData } from "@/data/profile";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
-import { getSiteConfig, getLocale, getSocialLinks } from "@/data/config";
+import { getSiteConfig, getLocale, getSocialLinks, getFooterButtons } from "@/data/config";
 
 import { portfolioProjects } from "@/data/portfolio";
 
@@ -21,6 +21,7 @@ const lang = 'pt-BR';
 const siteConfigData = getSiteConfig(lang);
 const locale = getLocale(lang);
 const socialLinks = getSocialLinks(lang);
+const footerButtons = getFooterButtons(lang);
 
 const portfolioData = portfolioProjects.map(project => ({
   id: project.id,
@@ -284,21 +285,16 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={`mailto:${siteConfigData.contact.email}`} className="bg-purple-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly inline-block">
-                {locale.social.email}
-              </a>
-              {socialLinks.map((link) => (
-                link.icon === 'discord' && (
-                  <a
-                    key={link.icon}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border-2 border-purple-400 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly inline-block"
-                  >
-                    {link.name}
-                  </a>
-                )
+              {footerButtons.map((button, index) => (
+                <a
+                  key={index}
+                  href={button.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-purple-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly inline-block"
+                >
+                  {button.name}
+                </a>
               ))}
             </div>
           </div>
