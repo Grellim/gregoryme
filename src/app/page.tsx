@@ -47,7 +47,7 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
       
       <main className="pt-16">
         {/* Hero Section with Video Background */}
-        <section id="home" className="relative h-[80vh] p-8 flex items-center justify-center">
+        <section id="home" className="relative h-[80vh] pt-8 pb-0 flex items-center justify-center">
           <VideoBackground
             videoSrc={siteConfigData.videoBackgroundUrl}
             fallbackImage="/videos/placeholder.jpg"
@@ -80,7 +80,7 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-20 px-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+        <section id="about" className="pt-0 pb-20 px-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12 animate-fade-in">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfigData.about.title}</h2>
