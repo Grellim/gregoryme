@@ -14,17 +14,6 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            {footerButtons.map((button, index) => (
-              <a
-                key={index}
-                href={button.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-purple-400 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins text-sm"
-              >
-                {button.name}
-              </a>
-            ))}
             <ShareButton />
           </div>
         </div>

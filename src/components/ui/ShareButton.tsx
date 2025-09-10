@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Share2, MessageCircle, Facebook, Twitter, Instagram, Mail, Users } from "lucide-react";
 import { getSiteConfig, getLocale, getSocialLinks } from "@/data/config";
 import { Button } from "@/components/ui/button";
+import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 export default function ShareButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +46,7 @@ export default function ShareButton() {
         } else {
           // Instagram doesn't support direct URL sharing, so we copy to clipboard
           navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-          alert(locale.social.instagram || 'Link copied! Paste on Instagram to share.');
+          alert(locale.social.instagram || 'Link copiado! Só compartilhar no insta');
         }
         break;
       case 'discord':
@@ -55,7 +56,7 @@ export default function ShareButton() {
         } else {
           // Fallback: copy to clipboard
           navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-          alert(locale.social.discord || 'Link copied for Discord!');
+          alert(locale.social.discord || 'Link copiado!');
         }
         break;
       case 'email':
@@ -77,7 +78,7 @@ export default function ShareButton() {
         } else {
           // Fallback: copy to clipboard
           navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-          alert('Link copied to clipboard!');
+          alert('Link copiedo!');
         }
     }
     setIsOpen(false);
@@ -105,8 +106,7 @@ export default function ShareButton() {
                 onClick={() => handleShare('whatsapp')}
                 className="flex items-center gap-2 text-green-600 hover:text-green-700 hover:bg-green-50"
               >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp
+                <FaWhatsapp className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"
@@ -114,8 +114,7 @@ export default function ShareButton() {
                 onClick={() => handleShare('facebook')}
                 className="flex items-center gap-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
               >
-                <Facebook className="h-4 w-4" />
-                Facebook
+                <FaFacebook className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"
@@ -123,8 +122,7 @@ export default function ShareButton() {
                 onClick={() => handleShare('twitter')}
                 className="flex items-center gap-2 text-blue-400 hover:text-blue-500 hover:bg-blue-50"
               >
-                <Twitter className="h-4 w-4" />
-                {locale.social.twitter}
+                <FaTwitter className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"
@@ -132,8 +130,7 @@ export default function ShareButton() {
                 onClick={() => handleShare('instagram')}
                 className="flex items-center gap-2 text-pink-600 hover:text-pink-700 hover:bg-pink-50"
               >
-                <Instagram className="h-4 w-4" />
-                {locale.social.instagram}
+                <FaInstagram className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"

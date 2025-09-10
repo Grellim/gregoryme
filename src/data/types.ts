@@ -25,6 +25,15 @@ export interface Recommendation {
   message: string;
   avatar: string;
   rating?: number;
+  instagram?: string;
+  tiktok?: string;
+  youtube?: string;
+  facebook?: string;
+  twitter?: string;
+  discord?: string;
+  linkedin?: string;
+  github?: string;
+  website?: string;
 }
 
 export interface Locale {
