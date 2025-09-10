@@ -11,9 +11,11 @@ import SkillsCarousel from "@/components/ui/SkillsCarousel";
 import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
-import { siteConfig } from "@/data/config";
+import { getSiteConfig } from "@/data/config";
 
 import { portfolioProjects } from "@/data/portfolio";
+
+const siteConfigData = getSiteConfig('pt-BR');
 
 const portfolioData = portfolioProjects.map(project => ({
   id: project.id,
@@ -36,8 +38,8 @@ export default function Home() {
   const [isRecommendationsModalOpen, setIsRecommendationsModalOpen] = useState(false);
 
   const profileData: ProfileData = {
-    name: siteConfig.author,
-    bio: siteConfig.about.description,
+    name: siteConfigData.author,
+    bio: siteConfigData.about.description,
   };
 
   const openProfileModal = () => setIsProfileModalOpen(true);
@@ -58,15 +60,15 @@ export default function Home() {
         {/* Hero Section with Video Background */}
         <section id="home" className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center">
           <VideoBackground
-            videoSrc={siteConfig.videoBackgroundUrl}
+            videoSrc={siteConfigData.videoBackgroundUrl}
             fallbackImage="/videos/placeholder.jpg"
           >
             <div className="text-center text-white px-4">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 font-poppins tracking-wider leading-tight">
-                {siteConfig.hero.title}
+                {siteConfigData.hero.title}
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 font-light max-w-3xl mx-auto font-inter leading-relaxed">
-                {siteConfig.hero.subtitle}
+                {siteConfigData.hero.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
                 <button
@@ -74,14 +76,14 @@ export default function Home() {
                   className="bg-purple-400 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly text-sm sm:text-base"
                   aria-label="Ver projetos"
                 >
-                  {siteConfig.hero.ctaText}
+                  {siteConfigData.hero.ctaText}
                 </button>
                 <button
                   onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
                   className="border-2 border-purple-400 text-purple-400 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly text-sm sm:text-base"
                   aria-label="Entrar em contato"
                 >
-                  {siteConfig.contact.title}
+                  {siteConfigData.contact.title}
                 </button>
               </div>
             </div>
@@ -92,9 +94,9 @@ export default function Home() {
         <section id="about" className="py-20 px-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12 animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfig.about.title}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfigData.about.title}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto font-inter">
-                {siteConfig.about.description}
+                {siteConfigData.about.description}
               </p>
             </div>
             
@@ -121,9 +123,9 @@ export default function Home() {
 
               {/* Profile Content */}
               <div className="flex-1 text-center lg:text-left">
-                <h3 className="text-2xl font-bold mb-4 font-poppins">{siteConfig.about.title}</h3>
+                <h3 className="text-2xl font-bold mb-4 font-poppins">{siteConfigData.about.title}</h3>
                 <p className="text-lg text-muted-foreground mb-6 font-inter leading-relaxed">
-                  {siteConfig.about.description}
+                  {siteConfigData.about.description}
                 </p>
                 <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                   <TagTooltip
@@ -182,7 +184,7 @@ export default function Home() {
             {/* Skills Grid Carousel */}
             <SkillsGridCarousel 
               skills={[
-                ...siteConfig.about.skills.map((skill, index) => ({
+                ...siteConfigData.about.skills.map((skill, index) => ({
                   title: skill,
                   description: `Expertise em ${skill} para desenvolvimento de aplicações modernas e escaláveis.`,
                   icon: (
@@ -202,9 +204,9 @@ export default function Home() {
         <section id="projects" className="py-20 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">{siteConfig.hero.ctaText}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">{siteConfigData.hero.ctaText}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                {siteConfig.about.description}
+                {siteConfigData.about.description}
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -228,9 +230,9 @@ export default function Home() {
         {/* Contact Section */}
         <section id="contact" className="py-20 px-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
           <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfig.contact.title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfigData.contact.title}</h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto font-inter">
-              {siteConfig.contact.title} - {siteConfig.description}
+              {siteConfigData.contact.title} - {siteConfigData.description}
             </p>
             
             {/* Social Media Icons */}
@@ -259,7 +261,7 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="mailto:gregory@example.com" className="bg-purple-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly inline-block">
-                {siteConfig.contact.email}
+                {siteConfigData.contact.email}
               </a>
               <a href="https://discord.gg/gregoryvallim" target="_blank" rel="noopener noreferrer" className="border-2 border-purple-400 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly inline-block">
                 Discord

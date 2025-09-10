@@ -9,8 +9,10 @@ import { X } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaLinkedin, FaGithub, FaDiscord, FaExternalLinkAlt, FaTiktok } from 'react-icons/fa';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { recommendations } from "@/data/recommendations";
-import { siteConfig } from "@/data/config";
+import { getSiteConfig } from "@/data/config";
 import type { Recommendation } from "@/data/types";
+
+const siteConfigData = getSiteConfig('pt-BR');
 
 
 interface RecommendationsModalProps {
@@ -50,10 +52,10 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
         <DialogHeader className="p-4 sm:p-6 lg:p-8 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
           <div className="text-left space-y-4 sm:space-y-6 px-4 sm:px-6">
             <DialogTitle className="text-xl sm:text-2xl lg:text-3xl font-bold font-poppins leading-tight">
-              {siteConfig.hero.ctaText} - Recomendações
+              {siteConfigData.hero.ctaText} - Recomendações
             </DialogTitle>
             <DialogDescription className="text-xs sm:text-sm lg:text-base leading-relaxed">
-              {siteConfig.description}
+              {siteConfigData.description}
             </DialogDescription>
           </div>
           <Button
