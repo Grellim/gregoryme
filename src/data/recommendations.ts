@@ -36,6 +36,7 @@ export const recommendations: Recommendation[] = [
     message: 'Colaborar com Gregory em múltiplos projetos foi um prazer. Suas soluções criativas e conhecimento técnico profundo sempre elevam o nível da equipe. Parceiro excepcional! 🌟',
     avatar: '/person1.jpg',
     rating: 5,
+    github: 'https://github.com'
   },
   {
     id: '5',
@@ -45,5 +46,6 @@ export const recommendations: Recommendation[] = [
     message: 'Gregory não apenas entregou o que foi solicitado, mas sugeriu melhorias inteligentes que transformaram nosso produto. Profissionalismo e visão estratégica em um só desenvolvedor! 👍',
     avatar: '/person2.jpg',
     rating: 5,
+    website: 'https://um.com'
   },
 ];
