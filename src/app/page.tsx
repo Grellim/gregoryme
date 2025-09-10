@@ -47,12 +47,12 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
       
       <main className="pt-16">
         {/* Hero Section with Video Background */}
-        <section id="home" className="relative h-[80vh] pt-8 pb-0 flex items-center justify-center">
+        <section id="home" className="relative h-screen flex items-center justify-center">
           <VideoBackground
             videoSrc={siteConfigData.videoBackgroundUrl}
             fallbackImage="/videos/placeholder.jpg"
           >
-            <div className="text-center text-white px-4 m">
+            <div className="text-center text-white px-4 flex flex-col items-center justify-center h-full">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 font-poppins tracking-wider leading-tight">
                 {siteConfigData.hero.title}
               </h1>

@@ -31,7 +31,7 @@ export default function VideoBackground({ videoSrc, fallbackImage, children }: V
         loop
         playsInline
         preload="auto"
-        className="absolute inset-0 w-full h-full object-fill"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{ display: isVideoLoaded ? 'block' : 'none' }}
       >
         <source src={videoSrc} type="video/mp4" />
@@ -43,7 +43,7 @@ export default function VideoBackground({ videoSrc, fallbackImage, children }: V
         <img
           src={fallbackImage}
           alt="Background"
-          className="absolute inset-0 w-full h-full object-fill"
+          className="absolute inset-0 w-full h-full object-cover"
         />
       )}
 
@@ -51,7 +51,7 @@ export default function VideoBackground({ videoSrc, fallbackImage, children }: V
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
-      <div className="relative z-10 w-full h-full">
+      <div className="relative z-10 flex items-center justify-center h-full">
         {children}
       </div>
     </div>
