@@ -64,3 +64,22 @@ export function getSocialLinks(lang: string = 'pt-BR'): SocialLink[] {
     },
   ];
 }
+
+export interface FooterButton {
+  name: string;
+  href: string;
+}
+
+export function getFooterButtons(lang: string = 'pt-BR'): FooterButton[] {
+  const locale = getLocale(lang);
+  return [
+    {
+      name: 'GitHub',
+      href: 'https://github.com/gregoryvallim',
+    },
+    {
+      name: 'LinkedIn',
+      href: 'https://linkedin.com/in/gregoryvallim',
+    },
+  ];
+}

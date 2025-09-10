@@ -8,23 +8,35 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ExternalLink, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getLocale } from "@/data/config";
+import { profileData } from "@/data/profile";
 
 interface ProfileData {
   name: string;
-  bio: string;
+  subtitle: string;
+  badges: string[];
+  experience: {
+    title: string;
+    description: string;
+  };
+  techStack: {
+    title: string;
+    skills: string[];
+  };
+  mission: {
+    title: string;
+    description: string;
+  };
 }
 
 interface ProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  initialData: ProfileData;
-  onSave: (data: ProfileData) => void;
 }
 
 const lang = 'pt-BR';
 const locale = getLocale(lang);
 
-export default function ProfileModal({ isOpen, onClose, initialData, onSave }: ProfileModalProps) {
+export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="w-[60%] max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-screen p-0 rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent" role="dialog" aria-label={locale.ui.profile.closeAria}>
@@ -58,13 +70,13 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 
                 <div className="flex-1 text-center lg:text-left order-1 lg:order-2 w-full space-y-4 sm:space-y-6">
                   <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 font-poppins bg-gradient-to-r from-primary via-purple-600 to-secondary bg-clip-text text-transparent leading-tight">
-                    {locale.ui.profile.name}
+                    {profileData.name}
                   </h1>
                   <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-full">
-                    {locale.ui.profile.subtitle}
+                    {profileData.subtitle}
                   </p>
                   <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 justify-center lg:justify-start">
-                    {locale.ui.profile.badges.map((badge, index) => (
+                    {profileData.badges.map((badge, index) => (
                       <Badge
                         key={index}
                         variant={index % 2 === 0 ? "secondary" : "outline"}
@@ -82,10 +94,10 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 <article className="space-y-0 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full">
                   <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                     <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🎯</span> {locale.ui.profile.experience.title}
+                      <span className="text-primary text-base sm:text-lg lg:text-xl">🎯</span> {profileData.experience.title}
                     </h3>
                     <p className="text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed">
-                      {locale.ui.profile.experience.description}
+                      {profileData.experience.description}
                     </p>
                   </div>
                 </article>
@@ -93,10 +105,10 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 <article className="space-y-0 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full">
                   <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                     <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🔧</span> {locale.ui.profile.techStack.title}
+                      <span className="text-primary text-base sm:text-lg lg:text-xl">🔧</span> {profileData.techStack.title}
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full">
-                      {locale.about.skills.map((skill, index) => (
+                      {profileData.techStack.skills.map((skill, index) => (
                         <Badge
                           key={skill}
                           variant="outline"
@@ -112,10 +124,10 @@ export default function ProfileModal({ isOpen, onClose, initialData, onSave }: P
                 <article className="space-y-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl sm:rounded-2xl border border-primary/20 lg:col-span-1 w-full">
                   <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                     <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🚀</span> {locale.ui.profile.mission.title}
+                      <span className="text-primary text-base sm:text-lg lg:text-xl">🚀</span> {profileData.mission.title}
                     </h3>
                     <p className="text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed">
-                      {locale.ui.profile.mission.description}
+                      {profileData.mission.description}
                     </p>
                   </div>
                 </article>

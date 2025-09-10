@@ -10,6 +10,7 @@ import TagTooltip from "@/components/ui/TagTooltip";
 import SkillsCarousel from "@/components/ui/SkillsCarousel";
 import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
 import { skillsData } from "@/data/skills";
+import { profileData } from "@/data/profile";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import { getSiteConfig, getLocale, getSocialLinks } from "@/data/config";
@@ -34,17 +35,27 @@ const portfolioData = portfolioProjects.map(project => ({
 
 interface ProfileData {
   name: string;
-  bio: string;
+  subtitle: string;
+  badges: string[];
+  experience: {
+    title: string;
+    description: string;
+  };
+  techStack: {
+    title: string;
+    skills: string[];
+  };
+  mission: {
+    title: string;
+    description: string;
+  };
 }
 
 export default function Home() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isRecommendationsModalOpen, setIsRecommendationsModalOpen] = useState(false);
 
-  const profileData: ProfileData = {
-    name: siteConfigData.author,
-    bio: siteConfigData.about.description,
-  };
+  const modalProfileData: ProfileData = profileData;
 
   const openProfileModal = () => setIsProfileModalOpen(true);
   const closeProfileModal = () => setIsProfileModalOpen(false);
@@ -300,8 +311,6 @@ export default function Home() {
       <ProfileModal
         isOpen={isProfileModalOpen}
         onClose={closeProfileModal}
-        initialData={profileData}
-        onSave={handleProfileSave}
       />
 
       {/* Recommendations Modal */}
