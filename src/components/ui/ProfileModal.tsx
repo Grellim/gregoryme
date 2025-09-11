@@ -39,48 +39,46 @@ const locale = getLocale(lang);
 export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[60%] max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-screen p-0 rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent" role="dialog" aria-label={locale.ui.profile.closeAria}>
-        <div className="flex flex-col h-full max-h-screen overflow-hidden">
-          <DialogHeader className="p-4 sm:p-6 md:p-8 lg:p-10 border-b border-border/50 flex-shrink-0">
-            <div className="text-center space-y-4 sm:space-y-6">
-              <DialogTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+      <DialogContent className="w-[95vw] max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border bg-card shadow-xl overflow-hidden" role="dialog" aria-label={locale.ui.profile.closeAria}>
+        <div className="flex flex-col h-full max-h-[90vh] overflow-hidden">
+          {/* Header */}
+          <div className="flex-shrink-0 p-6 border-b border-border bg-card">
+            <div className="text-center space-y-4">
+              <DialogTitle className="text-2xl font-bold">
                 {locale.ui.profile.title}
               </DialogTitle>
-              <DialogDescription className="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
+              <DialogDescription className="text-base text-muted-foreground leading-relaxed">
                 {locale.ui.profile.description}
               </DialogDescription>
             </div>
-          </DialogHeader>
-          
+          </div>
+
           <ScrollArea className="flex-1">
-            <div className="w-full pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 lg:px-10 space-y-6 sm:space-y-8 md:space-y-10">
-              {/* Profile Section */}
-              <section className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8 items-center justify-center lg:justify-start w-full">
-                <div className="flex-shrink-0 order-2 lg:order-1 w-full lg:w-auto max-w-xs mx-auto lg:mx-0">
-                  <div className="relative group">
-                    <Avatar className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 border-4 border-primary/20 shadow-xl sm:shadow-2xl transition-all duration-300 group-hover:shadow-2xl md:group-hover:shadow-3xl mx-auto" aria-label="Foto de perfil de Gregory Vallim">
+            <div className="w-full p-6 space-y-8">
+              {/* Profile Section - Stack on mobile, row on desktop */}
+              <section className="flex flex-col lg:flex-row gap-6 items-center lg:items-start w-full">
+                <div className="flex-shrink-0 w-32 h-32 lg:w-40 lg:h-40 mx-auto lg:mx-0">
+                  <div className="relative">
+                    <Avatar className="w-full h-full border-2 border-border shadow-lg" aria-label="Foto de perfil de Gregory Vallim">
                       <AvatarImage src="/profile.jpg" alt="Foto de perfil" />
-                      <AvatarFallback className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl bg-gradient-to-br from-primary to-secondary font-bold">GV</AvatarFallback>
+                      <AvatarFallback className="text-xl lg:text-2xl bg-primary text-primary-foreground font-semibold">GV</AvatarFallback>
                     </Avatar>
-                    <div className="absolute -bottom-1 -right-1 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300 -translate-x-1 -translate-y-1">
-                      <span className="text-base sm:text-lg md:text-xl">👨‍💻</span>
-                    </div>
                   </div>
                 </div>
                 
-                <div className="flex-1 text-center lg:text-left order-1 lg:order-2 w-full space-y-4 sm:space-y-6">
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 font-poppins bg-gradient-to-r from-primary via-purple-600 to-secondary bg-clip-text text-transparent leading-tight">
+                <div className="flex-1 text-center lg:text-left space-y-4">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-gradient leading-tight">
                     {profileData.name}
                   </h1>
-                  <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-full">
+                  <p className="text-lg text-muted-foreground leading-relaxed">
                     {profileData.subtitle}
                   </p>
-                  <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 justify-center lg:justify-start">
+                  <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
                     {profileData.badges.map((badge, index) => (
                       <Badge
                         key={index}
-                        variant={index % 2 === 0 ? "secondary" : "outline"}
-                        className="text-sm sm:text-base px-3 py-2 h-auto whitespace-normal"
+                        variant="secondary"
+                        className="text-sm px-3 py-1.5"
                       >
                         {badge}
                       </Badge>
@@ -88,62 +86,62 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                   </div>
                 </div>
               </section>
-              
-              {/* Content Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 w-full">
-                <article className="space-y-0 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full">
-                  <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🎯</span> {profileData.experience.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed">
-                      {profileData.experience.description}
-                    </p>
+
+              {/* Content Cards - Responsive grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
+                {/* Experience Card */}
+                <article className="space-y-3 p-6 rounded-lg border border-border bg-card">
+                  <h3 className="text-lg font-semibold flex items-center gap-2">
+                    <span className="text-primary text-lg">🎯</span>
+                    {profileData.experience.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {profileData.experience.description}
+                  </p>
+                </article>
+
+                {/* Tech Stack Card */}
+                <article className="space-y-3 p-6 rounded-lg border border-border bg-card">
+                  <h3 className="text-lg font-semibold flex items-center gap-2">
+                    <span className="text-primary text-lg">🔧</span>
+                    {profileData.techStack.title}
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {profileData.techStack.skills.map((skill, index) => (
+                      <Badge
+                        key={skill}
+                        variant="outline"
+                        className="text-xs justify-center py-1.5 px-2"
+                      >
+                        {skill}
+                      </Badge>
+                    ))}
                   </div>
                 </article>
-                
-                <article className="space-y-0 bg-muted/20 sm:bg-muted/30 rounded-xl sm:rounded-2xl border border-border/30 w-full">
-                  <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🔧</span> {profileData.techStack.title}
-                    </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full">
-                      {profileData.techStack.skills.map((skill, index) => (
-                        <Badge
-                          key={skill}
-                          variant="outline"
-                          className="text-xs sm:text-sm lg:text-base justify-center py-2 px-3"
-                        >
-                          {skill}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-                
-                <article className="space-y-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl sm:rounded-2xl border border-primary/20 lg:col-span-1 w-full">
-                  <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center gap-2">
-                      <span className="text-primary text-base sm:text-lg lg:text-xl">🚀</span> {profileData.mission.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed">
-                      {profileData.mission.description}
-                    </p>
-                  </div>
+
+                {/* Mission Card */}
+                <article className="space-y-3 p-6 rounded-lg border border-border bg-card xl:col-span-1">
+                  <h3 className="text-lg font-semibold flex items-center gap-2">
+                    <span className="text-primary text-lg">🚀</span>
+                    {profileData.mission.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {profileData.mission.description}
+                  </p>
                 </article>
               </div>
             </div>
           </ScrollArea>
-          
-          <div className="flex justify-center p-4 sm:p-6 lg:p-8 border-t border-border/50 bg-muted/20 sm:bg-muted/30 flex-shrink-0">
+
+          {/* Footer */}
+          <div className="flex justify-center p-6 border-t border-border bg-card">
             <Button
               onClick={onClose}
-              className="text-sm sm:text-base lg:text-lg py-3 px-6 h-auto focus-visible:ring-2 focus-visible:ring-primary"
-              size="lg"
               variant="outline"
+              className="px-6 py-3"
               aria-label={locale.ui.profile.closeAria}
             >
-              <X className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 mr-2 flex-shrink-0" />
+              <X className="w-4 h-4 mr-2" />
               {locale.ui.profile.close}
             </Button>
           </div>

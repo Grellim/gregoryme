@@ -64,11 +64,10 @@ export default function PortfolioCard({
 
   return (
     <>
-      <Card className="group h-full flex flex-col card-urban urban-section relative overflow-hidden border-0 bg-gradient-to-br from-card/80 via-background-secondary to-card/50 shadow-lg hover:shadow-[var(--neon-glow)] transition-all duration-500">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent"></div>
-        <CardHeader className="p-4 relative border-b-2 border-accent/30">
+      <Card className="group h-full flex flex-col card-clean relative overflow-hidden border bg-card shadow-sm hover:shadow-md transition-all duration-300">
+        <CardHeader className="p-4">
           <div
-            className="relative overflow-hidden aspect-[3/2] cursor-pointer group rounded-lg border-2 border-accent/20 hover:border-accent transition-all duration-500"
+            className="relative overflow-hidden aspect-[3/2] cursor-pointer group rounded-lg border border-border hover:border-primary/50 transition-all duration-300"
             onClick={openImageModal}
             role="button"
             tabIndex={0}
@@ -78,75 +77,62 @@ export default function PortfolioCard({
               <img
                 src={imageUrl}
                 alt={title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 origin-center border-2 border-transparent group-hover:border-accent/50 rounded-lg"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-lg"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <div className="bg-black/60 backdrop-blur-md border border-accent/50 rounded-lg p-3 flex items-center gap-2 text-white font-bold text-sm tracking-wider">
-                  <Expand className="h-4 w-4 animate-spin" />
-                  <span className="graffiti-text uppercase tracking-widest">STREET VIEW</span>
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2 text-white font-medium">
+                  <Expand className="h-5 w-5" />
+                  <span className="ml-1">Visualizar</span>
                 </div>
-              </div>
-              {/* Contained Graffiti Elements */}
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="w-6 h-6 bg-gradient-to-r from-destructive to-accent rounded-full border-2 border-white/20 animate-pulse"></div>
-              </div>
-              <div className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
-                <span className="graffiti-text text-xs uppercase tracking-widest bg-black/70 px-2 py-1 rounded border border-primary/50">RAW</span>
               </div>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 p-4 space-y-4 border-t border-accent/20">
-          <div className="space-y-3">
-            <CardTitle className="text-lg font-black uppercase tracking-widest graffiti-text line-clamp-1 leading-tight">
+        <CardContent className="flex-1 p-4 space-y-4">
+          <div className="space-y-2">
+            <CardTitle className="text-lg font-semibold line-clamp-1">
               {title}
             </CardTitle>
-            <CardDescription className="text-sm leading-relaxed line-clamp-2 text-foreground/80 italic border-l-2 border-accent/40 pl-3">
+            <CardDescription className="text-sm leading-relaxed line-clamp-2 text-muted-foreground">
               {description}
             </CardDescription>
           </div>
           
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="flex flex-wrap gap-2">
             {tags.slice(0, 4).map((tag, index) => (
               <Badge
                 key={index}
-                variant={index === 0 ? "default" : index === 1 ? "secondary" : index === 2 ? "accent" : "outline"}
-                className={`text-xs px-3 py-1.5 font-bold uppercase tracking-wider border-2 transform rotate-[-2deg] hover:rotate-0 hover:scale-110 transition-all duration-300 hover:shadow-[var(--neon-glow)] ${
-                  index === 0 ? 'bg-primary border-primary text-primary-foreground shadow-cyan' :
-                  index === 1 ? 'bg-secondary border-secondary text-secondary-foreground shadow-pink' :
-                  index === 2 ? 'bg-accent border-accent text-accent-foreground shadow-green' :
-                  'bg-card border-border-accent/50 text-foreground/70'
-                }`}
+                variant="secondary"
+                className="text-xs px-3 py-1 font-medium"
               >
-                <span className="inline-block transform -rotate-[2deg]">{tag}</span>
+                {tag}
               </Badge>
             ))}
             {tags.length > 4 && (
-              <Badge variant="outline" className="text-xs px-3 py-1.5 font-bold uppercase tracking-wider border-2 border-dashed border-accent/50 bg-gradient-to-r from-accent/10 to-primary/10 rotate-[3deg] hover:rotate-0">
-                +{tags.length - 4} <span className="ml-1">🔥</span>
+              <Badge variant="outline" className="text-xs px-3 py-1">
+                +{tags.length - 4} mais
               </Badge>
             )}
           </div>
         </CardContent>
-        <CardFooter className="p-4 pt-0 border-t-2 border-accent/30">
-          {/* Reaction Buttons - Contained */}
-          <div className="flex items-center justify-between mb-4 gap-4">
+        <CardFooter className="p-4 pt-0 border-t border-border">
+          {/* Simple Reaction Buttons */}
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setLikeCount(likeCount + 1)}
-                className="group flex items-center gap-2 p-2.5 rounded-lg bg-card/80 border border-accent/30 hover:border-accent transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 hover:shadow-[var(--neon-glow-green)]"
-                aria-label="Curtir projeto"
+                className="group flex items-center gap-2 p-2 rounded-md bg-muted hover:bg-accent/10 border border-border hover:border-accent transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent"
+                aria-label="Reagir ao projeto"
               >
-                <div className="absolute inset-0 -inset-1 rounded-lg bg-gradient-to-r from-accent/20 to-destructive/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                 <Heart
-                  className={`h-5 w-5 relative z-10 transition-all duration-300 ${
+                  className={`h-4 w-4 transition-colors ${
                     likeCount > 0
-                      ? 'text-destructive fill-destructive scale-110 heart-beat'
-                      : 'text-accent/70 group-hover:text-destructive group-hover:scale-110'
+                      ? 'text-destructive fill-destructive heart-beat'
+                      : 'text-muted-foreground group-hover:text-destructive'
                   }`}
                 />
-                <span className="text-xs font-bold text-accent/80 group-hover:text-destructive transition-colors relative z-10">
+                <span className="text-xs font-medium">
                   {likeCount || '0'}
                 </span>
               </button>
@@ -156,99 +142,96 @@ export default function PortfolioCard({
                   navigator.clipboard.writeText(window.location.href);
                   setShareCount(shareCount + 1);
                 }}
-                className="group flex items-center gap-2 p-2.5 rounded-lg bg-card/80 border border-secondary/30 hover:border-secondary transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 hover:shadow-[var(--neon-glow-pink)]"
+                className="group flex items-center gap-2 p-2 rounded-md bg-muted hover:bg-secondary/10 border border-border hover:border-secondary transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-secondary"
                 aria-label="Compartilhar projeto"
               >
-                <div className="absolute inset-0 -inset-1 rounded-lg bg-gradient-to-r from-secondary/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-                <Share2 className="h-5 w-5 relative z-10 text-secondary/70 group-hover:text-primary transition-all group-hover:rotate-180" />
-                <span className="text-xs font-bold text-secondary/80 group-hover:text-primary transition-colors relative z-10">
+                <Share2 className="h-4 w-4 text-muted-foreground group-hover:text-secondary transition-colors" />
+                <span className="text-xs font-medium">
                   {shareCount || '0'}
                 </span>
               </button>
             </div>
             
-            <div className="flex items-center gap-2 text-xs font-bold text-accent/70">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <span className="flex items-center gap-1">
-                <Heart className="h-3 w-3 fill-accent" />
-                {likeCount || '0'}
+                <Heart className="h-3 w-3" />
+                {likeCount}
               </span>
-              <span className="text-accent/50">•</span>
+              <span>•</span>
               <span className="flex items-center gap-1">
                 <Share2 className="h-3 w-3" />
-                {shareCount || '0'}
+                {shareCount}
               </span>
             </div>
           </div>
 
           <Button
             onClick={openDetailModal}
-            className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground font-bold shadow-lg hover:shadow-[var(--neon-glow)] transition-all duration-300 hover:scale-105 rounded-lg"
+            className="w-full btn-clean text-primary-foreground font-medium transition-all duration-200"
             aria-label={`${locale.ui.projectDetails.knowMore} sobre ${title}`}
           >
-            <span className="flex items-center justify-center gap-2 uppercase tracking-wider">
-              <span className="graffiti-text">{locale.ui.projectDetails.knowMore}</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            <span className="flex items-center justify-center gap-2">
+              {locale.ui.projectDetails.knowMore}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </span>
           </Button>
         </CardFooter>
       </Card>
 
-      {/* Enhanced Image Modal */}
+      {/* Simple Image Modal */}
       {isImageModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-in fade-in-0 zoom-in-95 duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
           onClick={closeImageModal}
           role="dialog"
           aria-modal="true"
           aria-label={`Visualização da imagem ${title}`}
         >
           <div
-            className="relative max-w-6xl max-h-[90vh] bg-background/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-border/20 animate-in slide-in-from-bottom-2 duration-200"
+            className="relative max-w-4xl max-h-[90vh] bg-card rounded-lg p-6 shadow-2xl border border-border"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeImageModal}
-              className="absolute top-4 right-4 bg-background/80 hover:bg-accent rounded-full p-3 text-foreground hover:text-primary transition-all duration-200 shadow-lg flex items-center justify-center h-12 w-12 z-10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="absolute top-4 right-4 bg-muted hover:bg-destructive text-destructive hover:text-destructive-foreground rounded-full p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-destructive"
               aria-label="Fechar visualização da imagem"
             >
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
             
-            <div className="flex flex-col h-full max-h-[80vh] items-center justify-center">
+            <div className="flex flex-col h-full max-h-[70vh] items-center justify-center">
               <img
                 src={imageUrl}
                 alt={title}
-                className="max-w-full max-h-full object-contain rounded-xl shadow-xl"
+                className="max-w-full max-h-full object-contain rounded-lg"
                 onClick={(e) => e.stopPropagation()}
                 loading="lazy"
               />
-              <div className="mt-6 text-center space-y-2">
-                <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+              <div className="mt-4 text-center space-y-2">
+                <h3 className="text-lg font-semibold">{title}</h3>
                 <p className="text-sm text-muted-foreground max-w-md">{description}</p>
               </div>
             </div>
             
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-4 left-4 flex gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={openDetailModal}
-                className="bg-background/80 backdrop-blur-sm border-border/50"
                 aria-label="Ver detalhes do projeto"
               >
                 <ExternalLink className="w-4 h-4 mr-1" />
-                Ver Detalhes
+                Detalhes
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={closeImageModal}
-                className="bg-background/80 backdrop-blur-sm"
-                aria-label="Fechar visualização"
+                aria-label="Fechar"
               >
                 Fechar
               </Button>
@@ -257,29 +240,29 @@ export default function PortfolioCard({
         </div>
       )}
 
-      {/* Enhanced Detail Modal with Tabs */}
+      {/* Clean Detail Modal */}
       <Dialog open={isDetailModalOpen} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="w-[95vw] md:w-[90vw] lg:w-4/5 xl:w-3/5 max-h-[95vh] p-0 rounded-2xl focus:outline-none border border-border/30 bg-background/95 backdrop-blur-sm shadow-2xl overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200" role="dialog" aria-label={`Detalhes do projeto ${title}`}>
-          <div className="flex flex-col h-full max-h-[95vh] overflow-hidden">
+        <DialogContent className="w-[95vw] max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border bg-card shadow-xl overflow-hidden" role="dialog" aria-label={`Detalhes do projeto ${title}`}>
+          <div className="flex flex-col h-full max-h-[90vh] overflow-hidden">
             {/* Header */}
-            <div className="flex-shrink-0 p-6 border-b border-border/30 bg-gradient-to-b from-background to-background/80 backdrop-blur-sm z-10">
+            <div className="flex-shrink-0 p-6 border-b border-border bg-card">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  <div className="relative overflow-hidden rounded-xl w-16 h-16 flex-shrink-0">
+                  <div className="relative overflow-hidden rounded-lg w-16 h-16 flex-shrink-0">
                     <img
                       src={imageUrl}
                       alt={title}
-                      className="w-full h-full object-cover rounded-xl"
+                      className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
                   <div className="space-y-1">
-                    <DialogTitle className="text-xl md:text-2xl lg:text-3xl font-bold line-clamp-2 leading-tight">{title}</DialogTitle>
+                    <DialogTitle className="text-xl font-semibold line-clamp-2">{title}</DialogTitle>
                     <DialogDescription className="text-base text-muted-foreground line-clamp-2">{description}</DialogDescription>
                   </div>
                 </div>
                 <Button
                   onClick={closeDetailModal}
-                  className="bg-background/80 hover:bg-accent/50 text-foreground border border-border/50 rounded-xl p-3 transition-all duration-200 shadow-lg hover:shadow-primary/20 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  className="bg-muted hover:bg-destructive text-destructive hover:text-destructive-foreground rounded-lg p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-destructive"
                   aria-label="Fechar detalhes do projeto"
                   variant="ghost"
                   size="icon"
@@ -289,71 +272,63 @@ export default function PortfolioCard({
               </div>
             </div>
             
-            {/* Tabs Content */}
-            <div className="flex-1 overflow-hidden flex flex-col">
-              <div className="flex-1 overflow-hidden">
-                <ScrollArea className="w-full h-full relative">
-                  <div className="p-6 space-y-6 max-h-full overflow-y-auto">
-                    {/* Overview Tab */}
-                    <div className="space-y-6">
-                      {/* Main Image */}
-                      <div className="relative">
-                        <div className="aspect-[16/9] rounded-2xl overflow-hidden shadow-lg bg-muted/50">
-                          <img
-                            src={imageUrl}
-                            alt={`${title} - Imagem principal`}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
-                            onClick={openImageModal}
-                            loading="lazy"
-                          />
-                        </div>
-                        <button
-                          onClick={openImageModal}
-                          className="absolute top-3 right-3 bg-primary/90 hover:bg-primary text-primary-foreground rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                          aria-label="Visualizar imagem em tamanho completo"
-                        >
-                          <Expand className="h-4 w-4" />
-                        </button>
-                      </div>
-
-                      {/* Tags */}
-                      <div className="space-y-3">
-                        <h3 className="text-lg font-semibold flex items-center gap-2">
-                          <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                          </svg>
-                          Tecnologias Utilizadas
-                        </h3>
-                        <div className="flex flex-wrap gap-2">
-                          {tags.map((tag, index) => (
-                            <Badge
-                              key={index}
-                              className={`text-sm px-3 py-1.5 transition-all duration-200 hover:scale-105 ${
-                                index === 0 ? 'bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-md' :
-                                index === 1 ? 'bg-gradient-to-r from-blue-500/10 to-blue-600/10 border border-blue-200 text-blue-800' :
-                                index === 2 ? 'bg-gradient-to-r from-green-500/10 to-green-600/10 border border-green-200 text-green-800' :
-                                'bg-muted/50 border border-muted/30'
-                              }`}
-                            >
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* More Info */}
-                      <div className="space-y-3">
-                        <h3 className="text-lg font-semibold flex items-center gap-2">
-                          <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          Sobre o Projeto
-                        </h3>
-                        <div className="prose prose-sm max-w-none text-muted-foreground leading-relaxed space-y-3">
-                          <p>{moreInfo}</p>
-                        </div>
-                      </div>
+            {/* Content */}
+            <div className="flex-1 overflow-hidden">
+              <ScrollArea className="w-full h-full">
+                <div className="p-6 space-y-6">
+                  {/* Main Image */}
+                  <div className="relative">
+                    <div className="aspect-[16/9] rounded-lg overflow-hidden shadow-md">
+                      <img
+                        src={imageUrl}
+                        alt={`${title} - Imagem principal`}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                        onClick={openImageModal}
+                        loading="lazy"
+                      />
                     </div>
+                    <button
+                      onClick={openImageModal}
+                      className="absolute top-3 right-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full p-2 shadow-md transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary"
+                      aria-label="Visualizar imagem em tamanho completo"
+                    >
+                      <Expand className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-semibold flex items-center gap-2">
+                      <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                      </svg>
+                      Tecnologias
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {tags.map((tag, index) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="text-sm px-3 py-1.5"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* More Info */}
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-semibold flex items-center gap-2">
+                      <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Detalhes
+                    </h3>
+                    <div className="text-sm text-muted-foreground leading-relaxed space-y-3">
+                      <p>{moreInfo}</p>
+                    </div>
+                  </div>
 
                     {/* Gallery Section */}
                     {galleryImages.length > 0 && (
@@ -403,26 +378,26 @@ export default function PortfolioCard({
             </div>
 
             {/* Footer */}
-            <div className="flex-shrink-0 p-6 border-t border-border/30 bg-gradient-to-t from-background/80 to-transparent">
+            <div className="flex-shrink-0 p-6 border-t border-border bg-card">
               <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
                 <div className="text-sm text-muted-foreground text-center sm:text-left">
-                  <span>Projeto desenvolvido com {tags.length} tecnologias</span>
+                  <span>Desenvolvido com {tags.length} tecnologias</span>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto justify-end sm:justify-start">
+                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto justify-end">
                   <Button
                     onClick={() => window.open(projectUrl, '_blank')}
-                    className="flex items-center gap-2 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-primary/20 transition-all duration-300 px-6 py-2.5 rounded-xl"
+                    className="flex items-center gap-2 btn-clean text-primary-foreground font-medium px-6 py-2.5 rounded-lg"
                     aria-label={`Visitar projeto ${title}`}
                     size="sm"
                   >
                     <ExternalLink className="w-4 h-4" />
-                    Visitar Projeto
+                    Visitar
                   </Button>
                   <Button
                     onClick={closeDetailModal}
                     variant="outline"
-                    className="border-border/50 bg-background/80 hover:bg-accent/50 text-foreground px-6 py-2.5 rounded-xl transition-all duration-200"
-                    aria-label="Fechar detalhes do projeto"
+                    className="border-border px-6 py-2.5 rounded-lg"
+                    aria-label="Fechar"
                     size="sm"
                   >
                     Fechar
@@ -434,7 +409,7 @@ export default function PortfolioCard({
         </DialogContent>
       </Dialog>
 
-      {/* Gallery Modal */}
+      {/* Gallery Modal - Fixed props */}
       <GalleryModal
         isOpen={isGalleryModalOpen}
         onClose={closeGalleryModal}
