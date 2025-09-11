@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { motion } from "framer-motion";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ExternalLink, X } from "lucide-react";
+import { ExternalLink, X, Github, Linkedin, Twitter } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getLocale } from "@/data/config";
 import { profileData } from "@/data/profile";
@@ -39,12 +40,18 @@ const locale = getLocale(lang);
 export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[95vw] max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border bg-card shadow-xl overflow-hidden" role="dialog" aria-label={locale.ui.profile.closeAria}>
-        <div className="flex flex-col h-full max-h-[90vh] overflow-hidden">
+      <DialogContent className="w-[95vw] max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border bg-card shadow-xl overflow-hidden" role="dialog" aria-labelledby="profile-modal-title">
+        <motion.div
+          className="flex flex-col h-full max-h-[90vh] overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           {/* Header */}
           <div className="flex-shrink-0 p-6 border-b border-border bg-card">
             <div className="text-center space-y-4">
-              <DialogTitle className="text-2xl font-bold">
+              <DialogTitle id="profile-modal-title" className="text-2xl font-bold">
                 {locale.ui.profile.title}
               </DialogTitle>
               <DialogDescription className="text-base text-muted-foreground leading-relaxed">
@@ -56,96 +63,255 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
           <ScrollArea className="flex-1">
             <div className="w-full p-6 space-y-8">
               {/* Profile Section - Stack on mobile, row on desktop */}
-              <section className="flex flex-col lg:flex-row gap-6 items-center lg:items-start w-full">
-                <div className="flex-shrink-0 w-32 h-32 lg:w-40 lg:h-40 mx-auto lg:mx-0">
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="flex flex-col lg:flex-row gap-6 items-center lg:items-start w-full"
+              >
+                <motion.div
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="flex-shrink-0 w-32 h-32 lg:w-40 lg:h-40 mx-auto lg:mx-0"
+                  whileHover={{ scale: 1.05 }}
+                >
                   <div className="relative">
-                    <Avatar className="w-full h-full border-2 border-border shadow-lg" aria-label="Foto de perfil de Gregory Vallim">
-                      <AvatarImage src="/profile.jpg" alt="Foto de perfil" />
+                    <Avatar className="w-full h-full border-2 border-border shadow-lg" aria-label="Profile photo of Gregory Vallim">
+                      <AvatarImage src="/profile.jpg" alt="Profile photo" />
                       <AvatarFallback className="text-xl lg:text-2xl bg-primary text-primary-foreground font-semibold">GV</AvatarFallback>
                     </Avatar>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="flex-1 text-center lg:text-left space-y-4">
-                  <h1 className="text-2xl lg:text-3xl font-bold text-gradient leading-tight">
+                <motion.div
+                  className="flex-1 text-center lg:text-left space-y-4"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                >
+                  <motion.h1
+                    className="text-2xl lg:text-3xl font-bold text-gradient leading-tight"
+                    whileHover={{ y: -2 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
                     {profileData.name}
-                  </h1>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  </motion.h1>
+                  <motion.p
+                    className="text-lg text-muted-foreground leading-relaxed"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5, duration: 0.4 }}
+                  >
                     {profileData.subtitle}
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                  </motion.p>
+                  <motion.div
+                    className="flex flex-wrap gap-2 justify-center lg:justify-start"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.6, duration: 0.4 }}
+                  >
                     {profileData.badges.map((badge, index) => (
-                      <Badge
+                      <motion.div
                         key={index}
-                        variant="secondary"
-                        className="text-sm px-3 py-1.5"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        transition={{ type: "spring", stiffness: 400 }}
                       >
-                        {badge}
-                      </Badge>
+                        <Badge
+                          variant="secondary"
+                          className="text-sm px-3 py-1.5"
+                        >
+                          {badge}
+                        </Badge>
+                      </motion.div>
                     ))}
-                  </div>
-                </div>
-              </section>
+                  </motion.div>
+                </motion.div>
+              </motion.section>
 
               {/* Content Cards - Responsive grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
+              <motion.div
+                className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, staggerChildren: 0.1 }}
+              >
                 {/* Experience Card */}
-                <article className="space-y-3 p-6 rounded-lg border border-border bg-card">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <span className="text-primary text-lg">🎯</span>
+                <motion.article
+                  className="space-y-3 p-6 rounded-lg border border-border bg-card"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  whileHover={{ y: -4, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <motion.h3
+                    className="text-lg font-semibold flex items-center gap-2 cursor-pointer"
+                    whileHover={{ color: "#8b5cf6" }}
+                    onClick={() => console.log("Experience clicked")}
+                  >
+                    <motion.span
+                      className="text-primary text-lg"
+                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      🎯
+                    </motion.span>
                     {profileData.experience.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  </motion.h3>
+                  <motion.p
+                    className="text-sm text-muted-foreground leading-relaxed"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.3 }}
+                  >
                     {profileData.experience.description}
-                  </p>
-                </article>
+                  </motion.p>
+                </motion.article>
 
                 {/* Tech Stack Card */}
-                <article className="space-y-3 p-6 rounded-lg border border-border bg-card">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <span className="text-primary text-lg">🔧</span>
+                <motion.article
+                  className="space-y-3 p-6 rounded-lg border border-border bg-card"
+                  initial={{ opacity: 0, x: 0 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  whileHover={{ y: -4, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <motion.h3
+                    className="text-lg font-semibold flex items-center gap-2 cursor-pointer"
+                    whileHover={{ color: "#8b5cf6" }}
+                    onClick={() => console.log("Tech stack clicked")}
+                  >
+                    <motion.span
+                      className="text-primary text-lg"
+                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      🔧
+                    </motion.span>
                     {profileData.techStack.title}
-                  </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  </motion.h3>
+                  <motion.div
+                    className="grid grid-cols-2 sm:grid-cols-3 gap-2"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2, duration: 0.3 }}
+                  >
                     {profileData.techStack.skills.map((skill, index) => (
-                      <Badge
+                      <motion.div
                         key={skill}
-                        variant="outline"
-                        className="text-xs justify-center py-1.5 px-2"
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                        className="cursor-pointer"
+                        onClick={() => console.log(`Skill clicked: ${skill}`)}
                       >
-                        {skill}
-                      </Badge>
+                        <Badge
+                          variant="outline"
+                          className="text-xs justify-center py-1.5 px-2 w-full"
+                        >
+                          {skill}
+                        </Badge>
+                      </motion.div>
                     ))}
-                  </div>
-                </article>
+                  </motion.div>
+                </motion.article>
 
                 {/* Mission Card */}
-                <article className="space-y-3 p-6 rounded-lg border border-border bg-card xl:col-span-1">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <span className="text-primary text-lg">🚀</span>
+                <motion.article
+                  className="space-y-3 p-6 rounded-lg border border-border bg-card xl:col-span-1"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  whileHover={{ y: -4, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <motion.h3
+                    className="text-lg font-semibold flex items-center gap-2 cursor-pointer"
+                    whileHover={{ color: "#8b5cf6" }}
+                    onClick={() => console.log("Mission clicked")}
+                  >
+                    <motion.span
+                      className="text-primary text-lg"
+                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      🚀
+                    </motion.span>
                     {profileData.mission.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  </motion.h3>
+                  <motion.p
+                    className="text-sm text-muted-foreground leading-relaxed"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.3 }}
+                  >
                     {profileData.mission.description}
-                  </p>
-                </article>
-              </div>
+                  </motion.p>
+                </motion.article>
+              </motion.div>
             </div>
           </ScrollArea>
 
-          {/* Footer */}
-          <div className="flex justify-center p-6 border-t border-border bg-card">
-            <Button
-              onClick={onClose}
-              variant="outline"
-              className="px-6 py-3"
-              aria-label={locale.ui.profile.closeAria}
-            >
-              <X className="w-4 h-4 mr-2" />
-              {locale.ui.profile.close}
-            </Button>
-          </div>
-        </div>
+          {/* Footer with Social Links */}
+          <motion.div
+            className="flex justify-center p-6 border-t border-border bg-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.4 }}
+          >
+            <div className="flex items-center gap-4">
+              <motion.div
+                className="flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                <Button
+                  onClick={onClose}
+                  variant="outline"
+                  className="px-6 py-3"
+                  aria-label="Close profile modal"
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  {locale.ui.profile.close}
+                </Button>
+              </motion.div>
+              
+              <div className="flex items-center gap-2">
+                <motion.a
+                  href="https://github.com/gregoryme"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="GitHub profile"
+                >
+                  <Github className="w-5 h-5" />
+                </motion.a>
+                <motion.a
+                  href="https://linkedin.com/in/gregoryvallim"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="LinkedIn profile"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </motion.a>
+                <motion.a
+                  href="https://twitter.com/gregoryvallim"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="Twitter profile"
+                >
+                  <Twitter className="w-5 h-5" />
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
       </DialogContent>
     </Dialog>
   );

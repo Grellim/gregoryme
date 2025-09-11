@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { getNavbarMenu } from "@/data/navbar";
 import { getSiteConfig } from "@/data/config";
 
@@ -18,7 +19,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const lang = 'pt-BR'; // Default language, can be made dynamic later
+  const [lang] = useState('pt-BR'); // Can be made dynamic with i18n context later
   const navbarMenuItems = getNavbarMenu(lang);
   const siteConfigData = getSiteConfig(lang);
   
@@ -54,6 +55,16 @@ export default function Navbar() {
             </div>
           </a>
 
+          {/* Skip Navigation */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-background focus:p-2 focus:text-foreground focus:shadow-lg"
+            role="navigation"
+            aria-label="Pular para conteúdo principal"
+          >
+            Pular para conteúdo
+          </a>
+        
           {/* Desktop Navigation */}
           <nav className="hidden md:block" role="menubar" aria-label="Desktop navigation">
             <div className="ml-10 flex items-center space-x-8">
@@ -64,7 +75,8 @@ export default function Navbar() {
                   target={item.external ? "_blank" : "_self"}
                   rel={item.external ? "noopener noreferrer" : undefined}
                   className="group relative text-sm font-medium transition-all duration-300 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 py-2"
-                  aria-label={`Navegar para ${item.name}`}
+                  aria-label={`Ir para ${item.name}`}
+                  aria-current={window.location.hash === item.href ? "page" : undefined}
                 >
                   <span className="text-muted-foreground group-hover:text-foreground transition-colors">
                     {item.name}
@@ -103,40 +115,57 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div
-            className="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
-            style={{ maxHeight: isMenuOpen ? '500px' : '0px' }}
-          >
-            <div className="px-2 pt-2 pb-4 space-y-2 bg-card/95 backdrop-blur-md border-t border-border/50">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  target={item.external ? "_blank" : "_self"}
-                  rel={item.external ? "noopener noreferrer" : undefined}
-                  className="block px-3 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                  onClick={() => setIsMenuOpen(false)}
-                  aria-label={`Navegar para ${item.name}`}
-                >
-                  {item.name}
-                </a>
-              ))}
-              <div className="px-3 py-3">
-                <Button
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200"
-                  onClick={() => {
-                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-                    setIsMenuOpen(false);
-                  }}
-                  aria-label="Entrar em contato"
-                >
-                  <span className="font-poppins">{siteConfigData.hero.ctaText}</span>
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
+        <div
+          className="md:hidden"
+          role="menu"
+          aria-label="Mobile navigation menu"
+          aria-expanded={isMenuOpen}
+        >
+          <AnimatePresence>
+            {isMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="px-2 pt-2 pb-4 space-y-2 bg-card/95 backdrop-blur-md border-t border-border/50">
+                  {navItems.map((item) => (
+                    <motion.a
+                      key={item.name}
+                      href={item.href}
+                      target={item.external ? "_blank" : "_self"}
+                      rel={item.external ? "noopener noreferrer" : undefined}
+                      className="block px-3 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                      onClick={() => setIsMenuOpen(false)}
+                      role="menuitem"
+                      aria-label={`Ir para ${item.name}`}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 }}
+                    >
+                      {item.name}
+                    </motion.a>
+                  ))}
+                  <div className="px-3 py-3">
+                    <Button
+                      className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground font-semibold rounded-xl py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200"
+                      onClick={() => {
+                        document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                        setIsMenuOpen(false);
+                      }}
+                      role="menuitem"
+                      aria-label="Entrar em contato"
+                    >
+                      <span className="font-poppins">{siteConfigData.hero.ctaText}</span>
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </nav>
   );

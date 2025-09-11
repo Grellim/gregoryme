@@ -25,10 +25,27 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [direction, setDirection] = useState(0);
+  const [slidesPerView, setSlidesPerView] = useState(1);
 
-  const slidesPerView = typeof window !== 'undefined' ?
-    window.innerWidth >= 1024 ? 3 :
-    window.innerWidth >= 768 ? 2 : 1 : 1;
+  // Calculate slides per view based on window width
+  const calculateSlidesPerView = useCallback(() => {
+    if (typeof window === 'undefined') return 1;
+    const width = window.innerWidth;
+    if (width >= 1024) return 3;
+    if (width >= 768) return 2;
+    return 1;
+  }, []);
+
+  useEffect(() => {
+    const updateSlidesPerView = () => {
+      setSlidesPerView(calculateSlidesPerView());
+    };
+
+    updateSlidesPerView();
+
+    window.addEventListener('resize', updateSlidesPerView);
+    return () => window.removeEventListener('resize', updateSlidesPerView);
+  }, [calculateSlidesPerView]);
 
   const totalSlides = skills.length;
 
@@ -121,7 +138,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
   const ariaLiveMessage = `Exibindo habilidade ${currentIndex + 1} de ${totalSlides}`;
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto px-4" role="region" aria-label="Carrossel de habilidades">
+    <div className="relative w-full max-w-7xl mx-auto px-4" role="region" aria-label="Skills carousel" id="skills-carousel">
       <div
         ref={containerRef}
         className="relative overflow-hidden rounded-2xl"
@@ -154,7 +171,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
             return (
               <motion.div
                 key={slideIndex}
-                className={`flex-shrink-0 w-full ${slidesPerView === 1 ? 'lg:w-1/3' : slidesPerView === 2 ? 'lg:w-1/2' : 'w-full'}`}
+                className={`flex-shrink-0 w-full ${slidesPerView === 1 ? 'w-full' : slidesPerView === 2 ? 'w-1/2 lg:w-1/2' : 'w-1/3 lg:w-1/3'}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: isVisible ? 1 : 0.3, scale: isVisible ? 1 : 0.95 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
@@ -162,9 +179,9 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                 role="group"
                 aria-label={`${skill.title}, ${skill.description}`}
               >
-                <div className="card-professional mx-2 h-full flex flex-col justify-center p-8 space-y-6 rounded-xl">
+                <div className="card-professional mx-2 sm:mx-4 h-full flex flex-col justify-center p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 rounded-xl">
                   <motion.div
-                    className="glass w-24 h-24 flex items-center justify-center mx-auto rounded-2xl"
+                    className="glass w-16 h-16 sm:w-20 md:w-24 flex items-center justify-center mx-auto rounded-2xl"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     style={{ backgroundColor: skill.color }}
@@ -180,7 +197,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                   
                   <div className="text-center space-y-3">
                     <motion.h3
-                      className="text-scale-xl font-bold gradient-primary font-poppins"
+                      className="text-base sm:text-lg lg:text-xl font-bold gradient-primary font-poppins"
                       initial={{ y: 10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.3 }}
@@ -194,17 +211,17 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.4 }}
                     >
-                      <p className="text-scale-sm text-muted-foreground font-inter leading-relaxed px-2">
+                      <p className="text-xs sm:text-sm text-muted-foreground font-inter leading-relaxed px-2">
                         {skill.description}
                       </p>
                       
                       <div className="flex items-center justify-center gap-2">
-                        <span className="text-2xl">{skill.emoji}</span>
+                        <span className="text-xl sm:text-2xl">{skill.emoji}</span>
                         <div className="flex items-center gap-1">
                           {[...Array(5)].map((_, i) => (
                             <motion.span
                               key={i}
-                              className={`w-5 h-5 rounded-full ${
+                              className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full ${
                                 i < Math.round((skill.proficiency || 0) / 20)
                                   ? 'bg-primary'
                                   : 'bg-muted'
@@ -239,7 +256,8 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                 "glass hover:glass bg-white/20 dark:bg-black/20 border border-primary/30 rounded-full p-3 shadow-lg backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                 "hover:scale-110"
               )}
-              aria-label="Slide anterior"
+              aria-label="Previous slide"
+              aria-controls="skills-carousel"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -260,7 +278,8 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                 "glass hover:glass bg-white/20 dark:bg-black/20 border border-primary/30 rounded-full p-3 shadow-lg backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                 "hover:scale-110"
               )}
-              aria-label="Próximo slide"
+              aria-label="Next slide"
+              aria-controls="skills-carousel"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -298,6 +317,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
+          <div role="tablist" aria-label="Slide indicators">
           {skills.map((_, index) => (
             <motion.button
               type="button"
@@ -309,12 +329,15 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                   ? "w-8 h-2 bg-gradient-to-r from-primary to-secondary scale-125 shadow-lg"
                   : "w-6 h-2 bg-muted hover:bg-muted-foreground/50 hover:scale-110"
               )}
-              aria-label={`Ir para slide ${index + 1}`}
+              aria-label={`Go to slide ${index + 1}`}
+              role="tab"
+              aria-selected={index === currentIndex}
               aria-current={index === currentIndex ? "true" : "false"}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
             />
           ))}
+          </div>
         </motion.div>
 
         {/* Progress Bar */}
