@@ -54,6 +54,7 @@ export default function PortfolioCard({
   }, [locale]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const img = new Image();
     img.onload = () => setIsLoading(false);
     img.onerror = () => setIsLoading(false);
@@ -222,11 +223,27 @@ export default function PortfolioCard({
                       type="button"
                       onClick={async (e) => {
                         e.stopPropagation();
-                        try {
-                          await navigator.clipboard.writeText(window.location.href);
-                          setShareCount(shareCount + 1);
-                        } catch (err) {
-                          console.error('Failed to copy', err);
+                        if (typeof window !== 'undefined' && navigator.clipboard) {
+                          try {
+                            await navigator.clipboard.writeText(window.location.href);
+                            setShareCount(shareCount + 1);
+                          } catch (err) {
+                            console.error('Failed to copy', err);
+                          }
+                        } else {
+                          // Fallback for older browsers
+                          const textArea = document.createElement('textarea');
+                          textArea.value = window.location.href;
+                          document.body.appendChild(textArea);
+                          textArea.focus();
+                          textArea.select();
+                          try {
+                            document.execCommand('copy');
+                            setShareCount(shareCount + 1);
+                          } catch (err) {
+                            console.error('Fallback copy failed', err);
+                          }
+                          document.body.removeChild(textArea);
                         }
                       }}
                       className="p-2 rounded-lg hover:bg-accent transition-colors"
@@ -249,7 +266,9 @@ export default function PortfolioCard({
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                window.open(projectUrl, '_blank');
+                if (typeof window !== 'undefined') {
+                  window.open(projectUrl, '_blank');
+                }
               }}
               className="w-full"
               variant="outline"
