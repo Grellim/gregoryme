@@ -41,10 +41,12 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
       setSlidesPerView(calculateSlidesPerView());
     };
 
-    updateSlidesPerView();
-
-    window.addEventListener('resize', updateSlidesPerView);
-    return () => window.removeEventListener('resize', updateSlidesPerView);
+    // Only run initial calculation and add listener if in browser
+    if (typeof window !== 'undefined') {
+      updateSlidesPerView();
+      window.addEventListener('resize', updateSlidesPerView);
+      return () => window.removeEventListener('resize', updateSlidesPerView);
+    }
   }, [calculateSlidesPerView]);
 
   const totalSlides = skills.length;
