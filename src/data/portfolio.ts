@@ -10,6 +10,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project1',
     liveUrl: 'https://plataformaweb.gregoryvallim.com',
     featured: true,
+    moreInfo: 'Esta plataforma foi desenvolvida utilizando as tecnologias mais modernas do mercado, com foco em performance e experiência do usuário. A arquitetura utiliza Next.js 13 com App Router para SSR e SSG otimizado, TypeScript para tipagem robusta e Tailwind CSS para styling utility-first. O sistema inclui autenticação JWT, sistema de roles & permissions, dashboard administrativo completo e integração com APIs externas. A responsividade foi testada em todos os dispositivos e navegadores modernos, garantindo uma experiência consistente.',
     galleryImages: ['/gallery1.jpg', '/gallery2.jpg'],
   },
   {
@@ -21,6 +22,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project2',
     liveUrl: 'https://appmobile.gregoryvallim.com',
     featured: true,
+    moreInfo: 'Desenvolvido com React Native para cross-platform (iOS e Android), este app utiliza Firebase para autenticação, push notifications e real-time database. O backend em Node.js com Express e MongoDB garante escalabilidade e performance. Recursos incluem geolocalização em tempo real, chat integrado, sistema de pagamentos via Stripe, e integração com APIs de terceiros. O design segue Material Design 3 e Human Interface Guidelines, com animações fluidas usando Reanimated 2 e gestos nativos com React Native Gesture Handler.',
     galleryImages: ['/gallery1.jpg'],
   },
   {
@@ -32,6 +34,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project3',
     liveUrl: 'https://dashboardanalytics.gregoryvallim.com',
     featured: false,
+    moreInfo: 'Dashboard construído com Vue 3 Composition API e Vue Router para navegação SPA. Visualizações de dados interativas com D3.js e Chart.js, backend em Python com FastAPI para APIs de alta performance. PostgreSQL com TimescaleDB para dados temporais e relatórios analíticos. Recursos incluem drag & drop de widgets, filtros dinâmicos, exportação de relatórios em PDF/Excel, e integração com WebSockets para updates em tempo real. A segurança implementa OAuth2 e rate limiting.',
     galleryImages: ['/gallery2.jpg', '/gallery1.jpg'],
   },
   {
@@ -43,6 +46,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project4',
     liveUrl: 'https://financaspessoais.gregoryvallim.com',
     featured: false,
+    moreInfo: 'App Flutter com arquitetura MVVM usando Provider para state management. Integração com TensorFlow Lite para análise preditiva de gastos e recomendações inteligentes. Banco local SQLite com Drift ORM para performance offline. Recursos incluem categorização automática de transações via ML, gráficos interativos com fl_chart, sincronização com APIs bancárias via Plaid, e segurança com biometria e criptografia local. Suporte a múltiplas moedas e relatórios fiscais automáticos.',
     galleryImages: ['/gallery1.jpg', '/gallery2.jpg'],
   },
   {
@@ -54,6 +58,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project5',
     liveUrl: 'https://plataformaia.gregoryvallim.com',
     featured: false,
+    moreInfo: 'Plataforma de IA construída com Python 3.11 e TensorFlow 2.x para modelos de deep learning. Deploy em containers Docker com Kubernetes na AWS EKS. Pipeline de ML com MLflow para experiment tracking e SageMaker para treinamento distribuído. Recursos incluem processamento de linguagem natural (NLP), visão computacional, automação de workflows com Apache Airflow, e dashboard de monitoramento com Grafana. A arquitetura serverless utiliza Lambda e API Gateway para escalabilidade.',
     galleryImages: ['/gallery2.jpg'],
   },
   {
@@ -65,6 +70,7 @@ export const portfolioProjects: PortfolioProject[] = [
     githubUrl: 'https://github.com/gregoryvallim/project6',
     liveUrl: 'https://ecommercerevolucionario.gregoryvallim.com',
     featured: false,
+    moreInfo: 'E-commerce full-stack com Next.js 13, TypeScript e Prisma ORM para PostgreSQL. Processamento de pagamentos com Stripe Connect e webhooks. Cache distribuído com Redis e session management. Recursos incluem busca com Algolia, recomendações personalizadas com ML, carrinho persistente, checkout one-page, e integração com logística (FedEx/UPS). Performance otimizada com ISR e image optimization. SEO avançado com structured data e sitemap dinâmico. Suporte a múltiplos marketplaces e vendedores.',
     galleryImages: ['/gallery1.jpg', '/gallery2.jpg'],
   },
 ];

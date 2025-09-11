@@ -2,7 +2,7 @@
   "site": {
     "title": "Gregory Vallim - Portfólio Pessoal",
     "description": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
-    "keywords": ["Gregory Vallim", "projetista", "comunicador", "projetos", "portfólio", "desenvolvimento", "profissional", "web", "mobile", "ui", "ux"],
+    "keywords": ["Gregory Vallim", "desenvolvedor", "full-stack", "projetos", "portfólio", "desenvolvimento", "profissional", "web", "mobile", "ui", "ux", "react", "nextjs", "typescript"],
     "author": "Gregory Vallim"
   },
   "hero": {
@@ -15,11 +15,25 @@
     "description": "Sou um desenvolvedor full-stack com experiência em criar aplicações web e mobile modernas, focando em performance, segurança e experiência do usuário. Sou apaixonado por tecnologia e inovação, sempre buscando criar soluções que transformem a maneira como as pessoas interagem com o mundo digital.",
     "skills": ["React", "Next.js", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"]
   },
+  "skills": {
+    "title": "Minhas Habilidades",
+    "subtitle": "Tecnologias e ferramentas com as quais trabalho todos os dias",
+    "proficiency": "Nível de Proficiência"
+  },
+  "portfolio": {
+    "title": "Projetos em Destaque",
+    "description": "Projetos selecionados que mostram minhas habilidades e experiência na criação de aplicações web modernas",
+    "viewAll": "Ver Todos os Projetos",
+    "filter": "Filtrar por tecnologia",
+    "noProjects": "Nenhum projeto encontrado",
+    "loadMore": "Carregar Mais Projetos"
+  },
   "contact": {
     "title": "Bora trocar ideia?",
     "email": "gregory@example.com",
     "phone": "(11) 99999-9999",
-    "address": "São Paulo, SP, Brasil"
+    "address": "São Paulo, SP, Brasil",
+    "description": "Bora Conversar - Gregory Vallim"
   },
   "navbar": {
     "home": "Início",
@@ -31,6 +45,8 @@
   "social": {
     "twitter": "Twitter",
     "instagram": "Instagram",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
     "email": "Email",
     "discord": "Discord"
   },
@@ -38,13 +54,22 @@
     "ogTitle": "Gregory Vallim - Portfólio Pessoal",
     "ogDescription": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
     "twitterTitle": "Gregory Vallim - Portfólio Pessoal",
-    "twitterDescription": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊"
+    "twitterDescription": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
+    "portfolio": {
+      "title": "Gregory Vallim | Portfólio Desenvolvedor Full-Stack",
+      "description": "Explore meus projetos mais recentes e veja como crio aplicações web modernas com React, Next.js e TypeScript",
+      "keywords": ["portfólio", "full-stack", "react", "nextjs", "typescript", "desenvolvimento web"]
+    },
+    "project": {
+      "template": "%s | Portfólio Gregory Vallim",
+      "description": "Visão detalhada de %s - Aplicação web moderna desenvolvida com tecnologias de ponta"
+    }
   },
   "ui": {
     "recommendations": {
       "title": "Ver Projetos - Recomendações",
       "description": "Oi, sou Gregory Vallim, venha conhecer meus projetos, algum deles você deve gostar 😊",
-      "knowMore": "Conhecer",
+      "knowMore": "Conhecer Mais",
       "close": "Fechar modal de recomendações"
     },
     "profile": {
@@ -64,11 +89,11 @@
         "description": "Criar experiências digitais que transformam vidas e negócios através da tecnologia. Acredito que cada projeto deve ser uma oportunidade de inovar e impactar positivamente o mundo ao nosso redor."
       },
       "badges": [
-        "🚀 Full-Stack Developer",
-        "💻 React & Next.js Expert",
-        "🎨 UI/UX Design",
+        "🚀 Desenvolvedor Full-Stack",
+        "💻 Especialista React & Next.js",
+        "🎨 Design UI/UX",
         "☁️ Cloud & DevOps",
-        "🧠 Problem Solver"
+        "🧠 Solucionador de Problemas"
       ],
       "close": "Fechar",
       "closeAria": "Fechar modal de perfil"
@@ -76,7 +101,19 @@
     "buttons": {
       "viewProjects": "Ver projetos",
       "contact": "Entrar em contato",
-      "recommendations": "Minhas recomendações"
+      "recommendations": "Minhas recomendações",
+      "learnMore": "Saiba Mais",
+      "visitProject": "Visitar Projeto",
+      "download": "Baixar",
+      "reset": "Redefinir",
+      "zoomIn": "Aumentar Zoom",
+      "zoomOut": "Diminuir Zoom",
+      "closeGallery": "Fechar Galeria",
+      "tryAgain": "Tentar Novamente",
+      "play": "Reproduzir",
+      "pause": "Pausar",
+      "previous": "Anterior",
+      "next": "Próximo"
     },
     "tags": {
       "innovation": "🚀 Inovação",
@@ -91,7 +128,61 @@
       "moreAbout": "Mais sobre o projeto:",
       "gallery": "Galeria de Imagens",
       "closeDetails": "Fechar detalhes do projeto",
-      "viewGalleryImage": "Ver imagem da galeria"
+      "viewGalleryImage": "Ver imagem da galeria",
+      "technologies": "Tecnologias Utilizadas",
+      "overview": "Visão Geral do Projeto"
+    },
+    "gallery": {
+      "title": "Galeria de Imagens",
+      "zoom": "Nível de Zoom",
+      "download": "Baixar Imagem",
+      "resetZoom": "Redefinir Zoom",
+      "zoomIn": "Aumentar Zoom",
+      "zoomOut": "Diminuir Zoom",
+      "error": "Imagem não disponível",
+      "errorMessage": "A imagem não pôde ser carregada. Tente novamente mais tarde ou verifique sua conexão.",
+      "loading": "Carregando imagem...",
+      "unavailable": "Imagem indisponível"
+    },
+    "skills": {
+      "title": "Minhas Habilidades",
+      "subtitle": "Tecnologias e ferramentas com as quais trabalho todos os dias",
+      "proficiency": "Nível de Proficiência",
+      "beginner": "Iniciante",
+      "intermediate": "Intermediário",
+      "advanced": "Avançado",
+      "expert": "Especialista"
+    },
+    "accessibility": {
+      "skipToContent": "Pular para conteúdo",
+      "carouselNavigation": "Navegação do carrossel",
+      "carouselCurrent": "Slide atual",
+      "carouselOf": "de",
+      "loading": "Carregando",
+      "error": "Erro",
+      "closeModal": "Fechar modal"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Próximo",
+      "page": "Página",
+      "of": "de"
+    },
+    "forms": {
+      "submit": "Enviar",
+      "required": "Obrigatório",
+      "optional": "Opcional",
+      "emailInvalid": "Por favor, insira um endereço de email válido"
+    },
+    "errors": {
+      "generic": "Algo deu errado. Por favor, tente novamente.",
+      "network": "Erro de rede. Verifique sua conexão.",
+      "notFound": "Página não encontrada",
+      "unauthorized": "Você não tem permissão para acessar esta página"
+    },
+    "success": {
+      "message": "Sucesso! Sua ação foi concluída.",
+      "projectSaved": "Detalhes do projeto salvos com sucesso"
     }
   }
 }

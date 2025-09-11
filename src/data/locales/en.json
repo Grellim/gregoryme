@@ -2,7 +2,7 @@
   "site": {
     "title": "Gregory Vallim - Personal Portfolio",
     "description": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊",
-    "keywords": ["Gregory Vallim", "designer", "communicator", "projects", "portfolio", "development", "professional", "web", "mobile", "ui", "ux"],
+    "keywords": ["Gregory Vallim", "designer", "communicator", "projects", "portfolio", "development", "professional", "web", "mobile", "ui", "ux", "full-stack", "react", "nextjs", "typescript"],
     "author": "Gregory Vallim"
   },
   "hero": {
@@ -15,11 +15,25 @@
     "description": "I'm a full-stack developer with experience in creating modern web and mobile applications, focusing on performance, security, and user experience. I'm passionate about technology and innovation, always seeking to create solutions that transform the way people interact with the digital world.",
     "skills": ["React", "Next.js", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"]
   },
+  "skills": {
+    "title": "My Skills",
+    "subtitle": "Technologies and tools I work with every day",
+    "proficiency": "Proficiency Level"
+  },
+  "portfolio": {
+    "title": "Featured Projects",
+    "description": "Selected projects that showcase my skills and experience in creating modern web applications",
+    "viewAll": "View All Projects",
+    "filter": "Filter by technology",
+    "noProjects": "No projects found",
+    "loadMore": "Load More Projects"
+  },
   "contact": {
     "title": "Let's chat?",
     "email": "gregory@example.com",
     "phone": "(11) 99999-9999",
-    "address": "São Paulo, SP, Brazil"
+    "address": "São Paulo, SP, Brazil",
+    "description": "Let's Chat - Gregory Vallim"
   },
   "navbar": {
     "home": "Home",
@@ -31,6 +45,8 @@
   "social": {
     "twitter": "Twitter",
     "instagram": "Instagram",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
     "email": "Email",
     "discord": "Discord"
   },
@@ -38,7 +54,16 @@
     "ogTitle": "Gregory Vallim - Personal Portfolio",
     "ogDescription": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊",
     "twitterTitle": "Gregory Vallim - Personal Portfolio",
-    "twitterDescription": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊"
+    "twitterDescription": "Hi, I'm Gregory Vallim, come check out my projects, you might like some of them 😊",
+    "portfolio": {
+      "title": "Gregory Vallim | Full-Stack Developer Portfolio",
+      "description": "Explore my latest projects and see how I create modern web applications with React, Next.js, and TypeScript",
+      "keywords": ["portfolio", "full-stack", "react", "nextjs", "typescript", "web development"]
+    },
+    "project": {
+      "template": "%s | Gregory Vallim Portfolio",
+      "description": "Detailed view of %s - Modern web application developed with cutting-edge technologies"
+    }
   },
   "ui": {
     "recommendations": {
@@ -76,7 +101,19 @@
     "buttons": {
       "viewProjects": "View projects",
       "contact": "Get in touch",
-      "recommendations": "My recommendations"
+      "recommendations": "My recommendations",
+      "learnMore": "Learn More",
+      "visitProject": "Visit Project",
+      "download": "Download",
+      "reset": "Reset",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "closeGallery": "Close Gallery",
+      "tryAgain": "Try Again",
+      "play": "Play",
+      "pause": "Pause",
+      "previous": "Previous",
+      "next": "Next"
     },
     "tags": {
       "innovation": "🚀 Innovation",
@@ -91,7 +128,61 @@
       "moreAbout": "More about the project:",
       "gallery": "Image Gallery",
       "closeDetails": "Close project details",
-      "viewGalleryImage": "View gallery image"
+      "viewGalleryImage": "View gallery image",
+      "technologies": "Technologies Used",
+      "overview": "Project Overview"
+    },
+    "gallery": {
+      "title": "Image Gallery",
+      "zoom": "Zoom Level",
+      "download": "Download Image",
+      "resetZoom": "Reset Zoom",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "error": "Image not available",
+      "errorMessage": "The image could not be loaded. Please try again later or check your connection.",
+      "loading": "Loading image...",
+      "unavailable": "Image unavailable"
+    },
+    "skills": {
+      "title": "My Skills",
+      "subtitle": "Technologies and tools I work with every day",
+      "proficiency": "Proficiency Level",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "expert": "Expert"
+    },
+    "accessibility": {
+      "skipToContent": "Skip to content",
+      "carouselNavigation": "Carousel navigation",
+      "carouselCurrent": "Current slide",
+      "carouselOf": "of",
+      "loading": "Loading",
+      "error": "Error",
+      "closeModal": "Close modal"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of"
+    },
+    "forms": {
+      "submit": "Submit",
+      "required": "Required",
+      "optional": "Optional",
+      "emailInvalid": "Please enter a valid email address"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "network": "Network error. Please check your connection.",
+      "notFound": "Page not found",
+      "unauthorized": "You don't have permission to access this page"
+    },
+    "success": {
+      "message": "Success! Your action was completed.",
+      "projectSaved": "Project details saved successfully"
     }
   }
 }

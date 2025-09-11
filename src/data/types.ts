@@ -14,6 +14,7 @@ export interface PortfolioProject {
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  moreInfo?: string;
   galleryImages: string[];
 }
 

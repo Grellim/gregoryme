@@ -47,29 +47,32 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
       
       <main className="pt-16">
         {/* Hero Section with Video Background */}
-        <section id="home" className="relative h-[70vh] flex items-center justify-center">
+        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
           <VideoBackground
             videoSrc={siteConfigData.videoBackgroundUrl}
             fallbackImage="/videos/placeholder.jpg"
           >
-            <div className="text-center text-white px-4 flex flex-col items-center justify-center h-full">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 font-poppins tracking-wider leading-tight">
-                {siteConfigData.hero.title}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
+            <div className="relative text-center text-white px-4 flex flex-col items-center justify-center h-full max-w-6xl mx-auto z-10">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 font-poppins tracking-tight leading-tight">
+                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  {siteConfigData.hero.title}
+                </span>
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 font-light max-w-3xl mx-auto font-inter leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-10 font-light max-w-4xl mx-auto font-inter leading-relaxed">
                 {siteConfigData.hero.subtitle}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-lg">
                 <button
                   onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-purple-400 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly text-sm sm:text-base"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-poppins shadow-lg hover:shadow-xl transform hover:scale-105 text-base"
                   aria-label={locale.ui.buttons.viewProjects}
                 >
                   {siteConfigData.hero.ctaText}
                 </button>
                 <button
                   onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-2 border-purple-400 text-purple-400 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-colors font-poppins btn-friendly text-sm sm:text-base"
+                  className="border-2 border-white/80 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-300 font-poppins text-base hover:scale-105"
                   aria-label={locale.ui.buttons.contact}
                 >
                   {siteConfigData.contact.title}
@@ -80,49 +83,50 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
         </section>
 
         {/* About Section */}
-        <section id="about" className="pt-0 pb-20 px-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+        <section id="about" className="py-24 px-4 bg-gradient-to-br from-purple-50/50 to-pink-50/50 dark:from-purple-900/10 dark:to-pink-900/10">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12 animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfigData.about.title}</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto font-inter">
+            <div className="text-center mb-16 animate-fade-in">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 font-poppins bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                {siteConfigData.about.title}
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter leading-relaxed">
                 {siteConfigData.about.description}
               </p>
             </div>
             
             {/* Profile Section */}
-            <div className="flex flex-col lg:flex-row items-center gap-12 mb-16">
+            <div className="grid lg:grid-cols-2 gap-16 mb-20 items-center">
               {/* Profile Photo */}
-              <div className="flex-shrink-0">
-                <div
-                  className="relative group cursor-pointer"
-                  onClick={openProfileModal}
-                >
-                  <img
-                    src="/profile.jpg"
-                    alt="Foto de perfil de Gregory Vallim"
-                    className="w-64 h-64 rounded-full object-cover shadow-2xl border-4 border-white dark:border-border"
-                  />
-                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full flex items-center justify-center">
-                    <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
+              <div className="flex justify-center lg:justify-start">
+                <div className="relative group cursor-pointer" onClick={openProfileModal}>
+                  <div className="relative">
+                    <img
+                      src="/profile.jpg"
+                      alt="Foto de perfil de Gregory Vallim"
+                      className="w-80 h-80 rounded-full object-cover shadow-2xl border-6 border-white/80 dark:border-border/50 ring-8 ring-purple-200/50 dark:ring-purple-900/50"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <svg className="w-16 h-16 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Profile Content */}
-              <div className="flex-1 text-center lg:text-left">
-                <h3 className="text-2xl font-bold mb-4 font-poppins">{siteConfigData.about.title}</h3>
-                <p className="text-lg text-muted-foreground mb-6 font-inter leading-relaxed">
+              <div className="space-y-6 text-center lg:text-left">
+                <h3 className="text-3xl font-bold mb-4 font-poppins">{profileData.name}</h3>
+                <p className="text-xl text-muted-foreground font-inter leading-relaxed">
                   {siteConfigData.about.description}
                 </p>
-                <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                   <TagTooltip
                     emoji="🚀"
                     title={locale.ui.tags.innovation}
                     description="Sempre buscando inovar e criar soluções que transformam o mundo digital. A inovação é o motor que move todos os meus projetos."
                   >
-                    <span className="px-4 py-2 bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium cursor-help">
+                    <span className="px-4 py-2 bg-gradient-to-r from-purple-100 to-purple-200 dark:from-purple-900/50 dark:to-purple-800/50 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium cursor-help shadow-sm">
                       {locale.ui.tags.innovation}
                     </span>
                   </TagTooltip>
@@ -131,7 +135,7 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
                     title={locale.ui.tags.creativity}
                     description="Criatividade é essencial para resolver problemas complexos. Cada projeto é uma oportunidade de pensar fora da caixa."
                   >
-                    <span className="px-4 py-2 bg-pink-200 dark:bg-pink-800 text-pink-800 dark:text-pink-200 rounded-full text-sm font-medium cursor-help">
+                    <span className="px-4 py-2 bg-gradient-to-r from-pink-100 to-pink-200 dark:from-pink-900/50 dark:to-pink-800/50 text-pink-800 dark:text-pink-200 rounded-full text-sm font-medium cursor-help shadow-sm">
                       {locale.ui.tags.creativity}
                     </span>
                   </TagTooltip>
@@ -140,7 +144,7 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
                     title={locale.ui.tags.performance}
                     description="Performance não é opcional, é obrigatório. Meus projetos são otimizados para oferecer a melhor experiência possível."
                   >
-                    <span className="px-4 py-2 bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium cursor-help">
+                    <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900/50 dark:to-blue-800/50 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium cursor-help shadow-sm">
                       {locale.ui.tags.performance}
                     </span>
                   </TagTooltip>
@@ -149,17 +153,17 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
                     title={locale.ui.tags.sustainability}
                     description="Desenvolvimento sustentável é o futuro. Busco criar soluções que considerem o impacto ambiental e social."
                   >
-                    <span className="px-4 py-2 bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200 rounded-full text-sm font-medium cursor-help">
+                    <span className="px-4 py-2 bg-gradient-to-r from-green-100 to-green-200 dark:from-green-900/50 dark:to-green-800/50 text-green-800 dark:text-green-200 rounded-full text-sm font-medium cursor-help shadow-sm">
                       {locale.ui.tags.sustainability}
                     </span>
                   </TagTooltip>
                 </div>
                 
                 {/* Recommendations Button */}
-                <div className="mt-6 text-right">
+                <div className="pt-4">
                   <button
                     onClick={openRecommendationsModal}
-                    className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:shadow-2xl hover:scale-105 transform font-poppins border-2 border-transparent hover:border-white/20 cursor-pointer"
+                    className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 transform font-poppins border border-transparent hover:border-white/20 text-base"
                     aria-label={locale.ui.buttons.recommendations}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -171,17 +175,20 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
               </div>
             </div>
 
-            {/* Skills Grid Carousel */}
+            {/* Skills Section */}
+            <div className="text-center mb-4">
+              <h3 className="text-3xl font-bold mb-6 font-poppins">Minhas Habilidades</h3>
+            </div>
             <SkillsGridCarousel
               skills={skillsData.map((skill, index) => ({
                 title: skill.name,
                 description: skill.description,
                 icon: (
-                  <svg key={index} className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <svg key={index} className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
                     <path d={skill.icon} />
                   </svg>
                 ),
-                color: ["bg-purple-400", "bg-pink-400", "bg-blue-400", "bg-green-400", "bg-indigo-400", "bg-yellow-400"][index % 6],
+                color: ["bg-purple-500", "bg-pink-500", "bg-blue-500", "bg-green-500", "bg-indigo-500", "bg-yellow-500"][index % 6],
                 emoji: ["🚀", "📱", "🎨", "🤖", "☁️", "🗄️"][index % 6],
                 proficiency: skill.proficiency,
               }))}
@@ -190,15 +197,17 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
         </section>
 
         {/* Portfolio Section */}
-        <section id="projects" className="py-20 px-4">
+        <section id="projects" className="py-24 px-4 bg-background">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">{siteConfigData.hero.ctaText}</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 font-poppins bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                {siteConfigData.hero.ctaText}
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter leading-relaxed">
                 {siteConfigData.about.description}
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
               {portfolioData.map((project) => (
                 <PortfolioCard
                   key={project.id}
@@ -218,33 +227,40 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-20 px-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
-          <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-poppins">{siteConfigData.contact.title}</h2>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto font-inter">
+        <section id="contact" className="py-24 px-4 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-900/10 dark:to-purple-900/10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-poppins bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              {siteConfigData.contact.title}
+            </h2>
+            <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto font-inter leading-relaxed">
               {siteConfigData.contact.title} - {siteConfigData.description}
             </p>
             
             {/* Social Media Icons */}
-            <div className="flex justify-center gap-6 mb-8">
+            <div className="grid grid-cols-5 gap-6 mb-12 justify-items-center">
               {socialLinks.map((link) => (
                 <a
                   key={link.icon}
                   href={link.url}
                   target={link.icon === 'mail' ? '_self' : '_blank'}
                   rel={link.icon === 'mail' ? undefined : 'noopener noreferrer'}
-                  className={`text-muted-foreground transition-colors hover:text-${
-                    link.icon === 'twitter' ? 'blue' :
-                    link.icon === 'instagram' ? 'pink' :
-                    link.icon === 'mail' ? 'red' :
-                    'indigo'
-                  }-400`}
+                  className="group flex flex-col items-center p-4 rounded-xl bg-white/80 dark:bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+                  aria-label={`Link para ${link.icon}`}
                 >
-                  {link.icon === 'twitter' && <FaTwitter className="w-8 h-8" />}
-                  {link.icon === 'instagram' && <FaInstagram className="w-8 h-8" />}
-                  {link.icon === 'mail' && <FaEnvelope className="w-8 h-8" />}
-                  {link.icon === 'discord' && <FaDiscord className="w-8 h-8" />}
-                  {link.icon === 'tiktok' && <FaTiktok className="w-8 h-8" />}
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-2 transition-colors ${
+                    link.icon === 'twitter' ? 'bg-blue-500' :
+                    link.icon === 'instagram' ? 'bg-pink-500' :
+                    link.icon === 'mail' ? 'bg-red-500' :
+                    link.icon === 'discord' ? 'bg-indigo-600' :
+                    'bg-gray-500'
+                  } text-white group-hover:scale-110`}>
+                    {link.icon === 'twitter' && <FaTwitter className="w-5 h-5" />}
+                    {link.icon === 'instagram' && <FaInstagram className="w-5 h-5" />}
+                    {link.icon === 'mail' && <FaEnvelope className="w-5 h-5" />}
+                    {link.icon === 'discord' && <FaDiscord className="w-5 h-5" />}
+                    {link.icon === 'tiktok' && <FaTiktok className="w-5 h-5" />}
+                  </div>
+                  <span className="text-xs text-muted-foreground font-medium">{link.icon.charAt(0).toUpperCase() + link.icon.slice(1)}</span>
                 </a>
               ))}
             </div>
@@ -256,7 +272,7 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
                   href={button.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-purple-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-300 transition-colors font-poppins btn-friendly inline-block"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-poppins shadow-lg hover:shadow-xl transform hover:scale-105 text-base inline-block"
                 >
                   {button.name}
                 </a>
