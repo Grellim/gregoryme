@@ -76,58 +76,69 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
   const closeRecommendationsModal = () => setIsRecommendationsModalOpen(false);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground urban-section">
       <Navbar />
       
       <main className="pt-16">
-        {/* Hero Section with Video Background */}
-        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Revolutionary Hero Section */}
+        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden urban-section">
           <VideoBackground
             videoSrc={siteConfigData.videoBackgroundUrl}
             fallbackImage="/videos/placeholder.jpg"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
-            <div className="relative text-center text-white px-4 flex flex-col items-center justify-center h-full max-w-6xl mx-auto z-10">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 font-poppins tracking-tight leading-tight">
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  {siteConfigData.hero.title}
-                </span>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-primary/10 to-secondary/20" />
+            <div className="absolute inset-0 bg-grid-xl opacity-20 pointer-events-none"></div>
+            <div className="relative text-center text-white px-4 flex flex-col items-center justify-center h-full max-w-7xl mx-auto z-10 transform -skew-y-3 hover:skew-y-0 transition-transform duration-1000">
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 -rotate-12">
+                <div className="w-32 h-32 border-2 border-dashed border-accent rounded-full animate-spin opacity-30"></div>
+              </div>
+              
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 graffiti-text glitch leading-none tracking-widest uppercase" data-text={siteConfigData.hero.title}>
+                {siteConfigData.hero.title}
               </h1>
 
-              {/* Visit Counter */}
+              {/* Urban Visit Counter */}
               {visitCount > 0 && !loading && (
-                <div className="mb-6 p-4 bg-card/80 backdrop-blur-sm rounded-xl border border-border/50 shadow-lg animate-fade-in">
-                  <p className="text-sm text-muted-foreground font-medium flex items-center justify-center gap-2">
-                    <span className="text-primary">👋</span>
-                    Este site foi visitado por <span className="font-bold text-primary">{visitCount}</span>
-                    {visitCount === 1 ? 'endereço' : 'endereços'} IP únicos
-                    <span className="text-primary">✨</span>
+                <div className="mb-8 p-4 bg-card/90 backdrop-blur-md rounded-none border-l-4 border-accent/70 shadow-[var(--neon-glow)] transform rotate-[-3deg] hover:rotate-0 transition-transform animate-float-gentle">
+                  <p className="text-sm uppercase tracking-wider font-bold text-accent flex items-center justify-center gap-2">
+                    <span className="text-destructive animate-pulse">🔥</span>
+                    <span>STREET TRAFFIC:</span>
+                    <span className="text-primary font-black">{visitCount}</span>
+                    <span>UNIQUE IPs</span>
+                    <span className="text-accent animate-pulse">⚡</span>
                   </p>
                 </div>
               )}
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-10 font-light max-w-4xl mx-auto font-inter leading-relaxed">
+
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-12 font-mono leading-relaxed max-w-5xl mx-auto text-accent/90 italic tracking-wide border-l-4 border-secondary/50 pl-6 transform rotate-[2deg]">
                 {siteConfigData.hero.subtitle}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-lg">
+              
+              <div className="flex flex-col lg:flex-row gap-6 justify-center w-full max-w-2xl transform -rotate-1 hover:rotate-0 transition-transform duration-700">
                 <button
                   onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-poppins shadow-lg hover:shadow-xl transform hover:scale-105 text-base"
+                  className="relative overflow-hidden btn-street text-base uppercase tracking-widest font-black px-10 py-5 rounded-none border-0 shadow-[var(--neon-glow)] hover:shadow-[0_0_30px_var(--primary)] transform hover:scale-105 transition-all duration-500 group"
                   aria-label={locale.ui.buttons.viewProjects}
                 >
-                  {siteConfigData.hero.ctaText}
+                  <span className="relative z-10">{siteConfigData.hero.ctaText}</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-destructive rounded-full opacity-0 group-hover:opacity-100 animate-ping"></div>
                 </button>
                 <button
                   onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-2 border-white/80 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-300 font-poppins text-base hover:scale-105"
+                  className="relative overflow-hidden btn-street bg-transparent border-3 border-accent/70 text-accent hover:text-accent-foreground px-10 py-5 rounded-none font-black uppercase tracking-widest shadow-[var(--neon-glow-green)] hover:shadow-[0_0_30px_var(--accent)] transform hover:scale-105 transition-all duration-500"
                   aria-label={locale.ui.buttons.contact}
                 >
-                  {siteConfigData.contact.title}
+                  <span className="relative z-10">{siteConfigData.contact.title}</span>
+                  <div className="absolute inset-0 border-2 border-dashed border-accent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </button>
               </div>
+              
+              {/* Glitch Status Bar */}
+              <div className="absolute bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-accent animate-neon-flow"></div>
             </div>
           </VideoBackground>
         </section>
-
         {/* About Section */}
         <section id="about" className="py-24 px-4 bg-gradient-to-br from-purple-50/50 to-pink-50/50 dark:from-purple-900/10 dark:to-pink-900/10">
           <div className="max-w-7xl mx-auto">
