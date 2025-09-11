@@ -34,7 +34,18 @@ interface ClientHomeProps {
   locale: Locale;
   socialLinks: SocialLink[];
   footerButtons: FooterButton[];
-  portfolioData: PortfolioItem[];
+  portfolioData: Array<{
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    technologies: string[];
+    githubUrl?: string;
+    liveUrl?: string;
+    featured?: boolean;
+    moreInfo?: string;
+    galleryImages?: string[];
+  }>;
   profileData: ProfileData;
 }
 
