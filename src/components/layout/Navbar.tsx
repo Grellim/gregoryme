@@ -12,6 +12,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -76,7 +77,7 @@ export default function Navbar() {
                   rel={item.external ? "noopener noreferrer" : undefined}
                   className="group relative text-sm font-medium transition-all duration-300 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 py-2"
                   aria-label={`Ir para ${item.name}`}
-                  aria-current={window.location.hash === item.href ? "page" : undefined}
+                  aria-current={typeof window !== 'undefined' && window.location.hash === item.href ? "page" : undefined}
                 >
                   <span className="text-muted-foreground group-hover:text-foreground transition-colors">
                     {item.name}
