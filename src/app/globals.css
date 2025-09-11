@@ -138,16 +138,16 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   body {
-    @apply bg-background text-foreground font-urban antialiased;
+    @apply bg-background text-foreground antialiased;
     background-image:
       radial-gradient(circle at 25% 25%, rgba(0,255,255,0.05) 0%, transparent 50%),
       radial-gradient(circle at 75% 75%, rgba(255,0,255,0.05) 0%, transparent 50%),
-      linear-gradient(45deg, rgba(57,255,20,0.03) 25%, transparent 25%, transparent 75%, rgba(57,255,20,0.03) 75%),
       linear-gradient(45deg, rgba(57,255,20,0.03) 25%, transparent 25%, transparent 75%, rgba(57,255,20,0.03) 75%);
-    background-size: 100px 100px, 100px 100px, 100px 100px, 100px 100px;
+    background-size: 100px 100px, 100px 100px, 100px 100px;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-revolutionary text-shadow-neon;
+    @apply font-bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
   .card-urban {
     background: linear-gradient(145deg, var(--card), rgba(0,255,255,0.02));
@@ -265,16 +265,15 @@
     85% { transform: translate(-2px, -2px); }
   }
   .graffiti-text {
-    font-family: 'Streetwear', 'Graffiti', sans-serif;
-    paint-order: stroke fill;
-    -webkit-paint-order: stroke fill;
-    -webkit-text-stroke: 2px var(--primary);
-    text-stroke: 2px var(--primary);
-    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--destructive));
+    font-family: 'Courier New', monospace;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: graffiti-flow 3s ease-in-out infinite;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
   @keyframes graffiti-flow {
     0%, 100% { filter: hue-rotate(0deg) brightness(1); }
@@ -301,6 +300,11 @@
   @keyframes neon-flow {
     0% { background-position: 0% 0; }
     100% { background-position: 200% 0; }
+  }
+  
+  @keyframes neon-flow-reverse {
+    0% { background-position: 200% 0; }
+    100% { background-position: 0% 0; }
   }
 }
 
