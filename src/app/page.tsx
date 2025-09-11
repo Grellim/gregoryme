@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PortfolioCard from "@/components/portfolio/PortfolioCard";
@@ -28,6 +28,40 @@ interface SiteConfigProps {
 export function Home({ siteConfigData, locale, socialLinks, footerButtons, portfolioData }: SiteConfigProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isRecommendationsModalOpen, setIsRecommendationsModalOpen] = useState(false);
+  const [visitCount, setVisitCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        // Get client IP
+        const ipResponse = await fetch('https://ipapi.co/json/');
+        const ipData = await ipResponse.json();
+        const clientIp = ipData.ip;
+
+        if (clientIp) {
+          // Track visit
+          await fetch('/api/visits', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ip: clientIp }),
+          });
+
+          // Get updated count
+          const countResponse = await fetch('/api/visits');
+          const countData = await countResponse.json();
+          setVisitCount(countData.count);
+        }
+      } catch (error) {
+        console.error('Error tracking visit:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    trackVisit();
+  }, []);
+
 
   const modalProfileData: ProfileData = profileData;
 
@@ -55,10 +89,22 @@ export function Home({ siteConfigData, locale, socialLinks, footerButtons, portf
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
             <div className="relative text-center text-white px-4 flex flex-col items-center justify-center h-full max-w-6xl mx-auto z-10">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 font-poppins tracking-tight leading-tight">
-                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   {siteConfigData.hero.title}
                 </span>
               </h1>
+
+              {/* Visit Counter */}
+              {visitCount > 0 && !loading && (
+                <div className="mb-6 p-4 bg-card/80 backdrop-blur-sm rounded-xl border border-border/50 shadow-lg animate-fade-in">
+                  <p className="text-sm text-muted-foreground font-medium flex items-center justify-center gap-2">
+                    <span className="text-primary">👋</span>
+                    Este site foi visitado por <span className="font-bold text-primary">{visitCount}</span>
+                    {visitCount === 1 ? 'endereço' : 'endereços'} IP únicos
+                    <span className="text-primary">✨</span>
+                  </p>
+                </div>
+              )}
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-10 font-light max-w-4xl mx-auto font-inter leading-relaxed">
                 {siteConfigData.hero.subtitle}
               </p>

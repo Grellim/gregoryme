@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Heart, Share2 } from "lucide-react";
 import { Locale } from "@/data/types";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -39,6 +40,8 @@ export default function PortfolioCard({
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState("");
   const [selectedGalleryAlt, setSelectedGalleryAlt] = useState("");
+  const [likeCount, setLikeCount] = useState(0);
+  const [shareCount, setShareCount] = useState(0);
 
   const openImageModal = () => setIsImageModalOpen(true);
   const closeImageModal = () => setIsImageModalOpen(false);
@@ -64,18 +67,20 @@ export default function PortfolioCard({
       <Card className="group h-full flex flex-col bg-card border-border/50 hover:border-primary/30 overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 card-friendly">
         <CardHeader className="p-0 relative">
           <div
-            className="relative overflow-hidden aspect-[4/3] cursor-pointer"
+            className="relative overflow-hidden aspect-[4/3] cursor-pointer group"
             onClick={openImageModal}
             role="button"
             tabIndex={0}
             aria-label={`Ver imagem de ${title}`}
           >
-            <img
-              src={imageUrl}
-              alt={title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
+            <div className="relative p-1 transition-all duration-300">
+              <img
+                src={imageUrl}
+                alt={title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 origin-center"
+                loading="lazy"
+              />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
               <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 flex items-center gap-2 text-white font-medium">
                 <Expand className="h-5 w-5" />
@@ -116,6 +121,55 @@ export default function PortfolioCard({
           </div>
         </CardContent>
         <CardFooter className="p-6 pt-0 border-t border-border/20">
+          {/* Reaction Buttons */}
+          <div className="flex items-center justify-between mb-4 gap-4">
+            <div className="flex items-center gap-6">
+              <button
+                onClick={() => setLikeCount(likeCount + 1)}
+                className="group flex items-center gap-2 p-2 rounded-lg hover:bg-accent/50 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-label="Curtir projeto"
+              >
+                <Heart
+                  className={`h-5 w-5 transition-colors duration-200 ${
+                    likeCount > 0
+                      ? 'text-destructive fill-destructive'
+                      : 'text-muted-foreground group-hover:text-destructive'
+                  }`}
+                />
+                <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                  {likeCount}
+                </span>
+              </button>
+
+              <button
+                onClick={() => {
+                  // Simulate share action
+                  navigator.clipboard.writeText(window.location.href);
+                  setShareCount(shareCount + 1);
+                }}
+                className="group flex items-center gap-2 p-2 rounded-lg hover:bg-accent/50 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-label="Compartilhar projeto"
+              >
+                <Share2 className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                  {shareCount}
+                </span>
+              </button>
+            </div>
+            
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Heart className="h-3 w-3 fill-current text-destructive" />
+                {likeCount}
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <Share2 className="h-3 w-3" />
+                {shareCount}
+              </span>
+            </div>
+          </div>
+
           <Button
             onClick={openDetailModal}
             className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:scale-[1.02] font-poppins"
