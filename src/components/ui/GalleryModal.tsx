@@ -67,6 +67,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
   };
 
   const handleDownload = () => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
     const link = document.createElement('a');
     link.href = imageUrl;
     link.download = alt || 'gallery-image';
