@@ -64,51 +64,45 @@ export default function PortfolioCard({
 
   return (
     <>
-      <Card className="group h-full flex flex-col card-urban urban-section relative overflow-visible transform -rotate-1 hover:rotate-0 transition-all duration-500 hover:shadow-[var(--neon-glow),var(--urban-shadow)] border-0 bg-gradient-to-br from-card/80 via-background-secondary to-card/50">
+      <Card className="group h-full flex flex-col card-urban urban-section relative overflow-hidden border-0 bg-gradient-to-br from-card/80 via-background-secondary to-card/50 shadow-lg hover:shadow-[var(--neon-glow)] transition-all duration-500">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent"></div>
-        <div className="absolute -top-2 -right-2 w-16 h-16 border-2 border-dashed border-accent rounded-full animate-pulse opacity-30"></div>
-        <div className="absolute bottom-2 right-2 w-8 h-8 bg-destructive rounded-full opacity-20 animate-bounce"></div>
-        <CardHeader className="p-2 relative -mt-4 -ml-4 transform rotate-3 border-l-4 border-r-2 border-b-2 border-accent/50">
+        <CardHeader className="p-4 relative border-b-2 border-accent/30">
           <div
-            className="relative overflow-hidden aspect-[3/2] cursor-pointer group transform rotate-1 hover:rotate-0 transition-all duration-700 glitch"
+            className="relative overflow-hidden aspect-[3/2] cursor-pointer group rounded-lg border-2 border-accent/20 hover:border-accent transition-all duration-500"
             onClick={openImageModal}
             role="button"
             tabIndex={0}
             aria-label={`Ver imagem de ${title}`}
-            data-text="STREET VISION"
           >
-            <div className="relative p-2 group-hover:p-3 transition-all duration-300">
+            <div className="relative h-full w-full">
               <img
                 src={imageUrl}
                 alt={title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 origin-bottom-left filter grayscale group-hover:grayscale-0 border-2 border-accent/20 rounded-lg"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 origin-center border-2 border-transparent group-hover:border-accent/50 rounded-lg"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <div className="bg-black/50 backdrop-blur-md border border-accent/50 rounded-lg p-4 flex items-center gap-2 text-white font-bold text-sm tracking-wider">
+                <div className="bg-black/60 backdrop-blur-md border border-accent/50 rounded-lg p-3 flex items-center gap-2 text-white font-bold text-sm tracking-wider">
                   <Expand className="h-4 w-4 animate-spin" />
                   <span className="graffiti-text uppercase tracking-widest">STREET VIEW</span>
                 </div>
               </div>
-              {/* Graffiti Overlay */}
+              {/* Contained Graffiti Elements */}
               <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="w-8 h-8 bg-gradient-to-r from-destructive to-accent rounded-full border-2 border-white/20 animate-pulse"></div>
+                <div className="w-6 h-6 bg-gradient-to-r from-destructive to-accent rounded-full border-2 border-white/20 animate-pulse"></div>
               </div>
               <div className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
-                <span className="graffiti-text text-xs uppercase rotate-[-15deg] tracking-widest bg-black/50 px-2 py-1 rounded border border-primary/50">RAW</span>
+                <span className="graffiti-text text-xs uppercase tracking-widest bg-black/70 px-2 py-1 rounded border border-primary/50">RAW</span>
               </div>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 p-4 space-y-3 transform -rotate-1 border-t-2 border-accent/30 relative">
-          <div className="space-y-2 absolute top-0 left-0 -ml-4 -mt-2">
-            <div className="w-2 h-2 bg-accent rounded-full animate-ping opacity-50"></div>
-          </div>
+        <CardContent className="flex-1 p-4 space-y-4 border-t border-accent/20">
           <div className="space-y-3">
-            <CardTitle className="text-lg font-black uppercase tracking-widest graffiti-text line-clamp-1 leading-tight group-hover:animate-pulse transition-all">
+            <CardTitle className="text-lg font-black uppercase tracking-widest graffiti-text line-clamp-1 leading-tight">
               {title}
             </CardTitle>
-            <CardDescription className="text-sm leading-tight line-clamp-2 font-light text-foreground/80 italic border-l-4 border-accent/30 pl-3">
+            <CardDescription className="text-sm leading-relaxed line-clamp-2 text-foreground/80 italic border-l-2 border-accent/40 pl-3">
               {description}
             </CardDescription>
           </div>
@@ -135,24 +129,24 @@ export default function PortfolioCard({
             )}
           </div>
         </CardContent>
-        <CardFooter className="p-4 pt-0 relative transform rotate-1 border-t-2 border-l-2 border-accent/40 bg-gradient-to-t from-accent/5 to-transparent">
-          {/* Reaction Buttons - Street Style */}
-          <div className="flex items-center justify-between mb-3 gap-3 relative z-10">
+        <CardFooter className="p-4 pt-0 border-t-2 border-accent/30">
+          {/* Reaction Buttons - Contained */}
+          <div className="flex items-center justify-between mb-4 gap-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setLikeCount(likeCount + 1)}
-                className="group relative flex items-center gap-2 p-2.5 rounded-md bg-card/50 border border-accent/30 hover:border-accent transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 hover:shadow-[var(--neon-glow-green)] btn-street"
+                className="group flex items-center gap-2 p-2.5 rounded-lg bg-card/80 border border-accent/30 hover:border-accent transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 hover:shadow-[var(--neon-glow-green)]"
                 aria-label="Curtir projeto"
               >
-                <div className="absolute inset-0 rounded-md bg-gradient-to-r from-accent/20 to-destructive/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 -inset-1 rounded-lg bg-gradient-to-r from-accent/20 to-destructive/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                 <Heart
-                  className={`h-5 w-5 relative z-10 transition-all duration-300 transform ${
+                  className={`h-5 w-5 relative z-10 transition-all duration-300 ${
                     likeCount > 0
                       ? 'text-destructive fill-destructive scale-110 heart-beat'
                       : 'text-accent/70 group-hover:text-destructive group-hover:scale-110'
                   }`}
                 />
-                <span className="text-xs font-black uppercase tracking-wider text-accent/80 group-hover:text-destructive transition-colors relative z-10">
+                <span className="text-xs font-bold text-accent/80 group-hover:text-destructive transition-colors relative z-10">
                   {likeCount || '0'}
                 </span>
               </button>
@@ -162,23 +156,23 @@ export default function PortfolioCard({
                   navigator.clipboard.writeText(window.location.href);
                   setShareCount(shareCount + 1);
                 }}
-                className="group relative flex items-center gap-2 p-2.5 rounded-md bg-card/50 border border-secondary/30 hover:border-secondary transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 hover:shadow-[var(--neon-glow-pink)] btn-street"
+                className="group flex items-center gap-2 p-2.5 rounded-lg bg-card/80 border border-secondary/30 hover:border-secondary transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 hover:shadow-[var(--neon-glow-pink)]"
                 aria-label="Compartilhar projeto"
               >
-                <div className="absolute inset-0 rounded-md bg-gradient-to-r from-secondary/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 -inset-1 rounded-lg bg-gradient-to-r from-secondary/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                 <Share2 className="h-5 w-5 relative z-10 text-secondary/70 group-hover:text-primary transition-all group-hover:rotate-180" />
-                <span className="text-xs font-black uppercase tracking-wider text-secondary/80 group-hover:text-primary transition-colors relative z-10">
+                <span className="text-xs font-bold text-secondary/80 group-hover:text-primary transition-colors relative z-10">
                   {shareCount || '0'}
                 </span>
               </button>
             </div>
             
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-accent/60 font-bold absolute -top-6 right-0 transform rotate-12 bg-black/80 px-2 py-1 rounded border border-accent/50">
+            <div className="flex items-center gap-2 text-xs font-bold text-accent/70">
               <span className="flex items-center gap-1">
                 <Heart className="h-3 w-3 fill-accent" />
                 {likeCount || '0'}
               </span>
-              <span className="text-accent/40">•</span>
+              <span className="text-accent/50">•</span>
               <span className="flex items-center gap-1">
                 <Share2 className="h-3 w-3" />
                 {shareCount || '0'}
@@ -188,30 +182,16 @@ export default function PortfolioCard({
 
           <Button
             onClick={openDetailModal}
-            className="w-full relative overflow-hidden btn-street text-sm uppercase tracking-widest font-black transform -rotate-1 hover:rotate-0 transition-all duration-300 group"
+            className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground font-bold shadow-lg hover:shadow-[var(--neon-glow)] transition-all duration-300 hover:scale-105 rounded-lg"
             aria-label={`${locale.ui.projectDetails.knowMore} sobre ${title}`}
           >
-            <span className="relative z-10 flex items-center justify-center gap-2 py-3">
+            <span className="flex items-center justify-center gap-2 uppercase tracking-wider">
               <span className="graffiti-text">{locale.ui.projectDetails.knowMore}</span>
               <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent opacity-0 group-hover:opacity-100 transition-opacity"></div>
           </Button>
-          
-          {/* Urban Tag Cloud */}
-          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200">
-            {tags.slice(0, 3).map((tag, index) => (
-              <span
-                key={index}
-                className="px-2 py-1 text-xs uppercase font-bold tracking-wider bg-accent/20 text-accent border border-accent/50 rounded-full animate-float-gentle"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
         </CardFooter>
       </Card>
 

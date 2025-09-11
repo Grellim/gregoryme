@@ -790,6 +790,108 @@ video {
 *:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.2);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improved spacing utilities */
+.space-y-urban > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-x-urban > * + * {
+  margin-left: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .space-y-urban-mobile > * + * {
+    margin-top: 1rem;
+  }
+  
+  .space-x-urban-mobile > * + * {
+    margin-left: 1rem;
+  }
+}
+
+/* Touch-friendly button sizing */
+.btn-touch {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.75rem 1.5rem;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .btn-touch {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 1rem 1.75rem;
+  }
+  
+  .card-urban:hover {
+    transform: none;
+  }
+  
+  .group-hover\:scale-105:hover {
+    transform: none;
+  }
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card-urban {
+    border-width: 2px;
+  }
+  
+  .btn-street {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-spin {
+    animation: none !important;
+  }
+}
+
+/* Print optimizations */
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  
+  .card-urban,
+  .btn-street,
+  .urban-section {
+    box-shadow: none !important;
+    border-color: black !important;
+    background: white !important;
+  }
 }
 
 /* Print styles */
