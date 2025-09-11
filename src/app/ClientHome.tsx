@@ -91,14 +91,15 @@ export default function ClientHome({
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden parallax parallax-bg" style={{ backgroundImage: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(16, 185, 129, 0.1) 100%)' }}>
           <VideoBackground
             videoSrc={siteConfigData.videoBackgroundUrl}
             fallbackImage="/videos/placeholder.jpg"
+            className="absolute inset-0"
           >
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
             <div className="relative text-center text-white px-4 flex flex-col items-center justify-center h-full max-w-7xl mx-auto z-10">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-gradient leading-none tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 text-gradient-hero leading-none tracking-tight animate-fade-in">
                 {siteConfigData.hero.title}
               </h1>
 
@@ -139,24 +140,30 @@ export default function ClientHome({
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-24 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
+        <section id="about" className="py-16 md:py-24 px-4 relative overflow-hidden">
+          <div className="parallax-bg absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(ellipse at 20% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%)',
+            backgroundSize: '400px 400px, 300px 300px',
+            backgroundPosition: '0 0, 100% 100%',
+            zIndex: -1
+          }} />
+          <div className="relative max-w-7xl mx-auto">
+            <div className="text-center mb-12 md:mb-16 section-fade">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gradient-hero">
                 {siteConfigData.about.title}
               </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 {siteConfigData.about.description}
               </p>
             </div>
             
-            <div className="grid lg:grid-cols-2 gap-12 mb-20 items-center">
-              <div className="flex justify-center lg:justify-start">
-                <div className="relative cursor-pointer" onClick={openProfileModal}>
+            <div className="grid grid-hero gap-8 md:gap-12 mb-16 md:mb-20 items-center">
+              <div className="flex justify-center lg:justify-start order-2 lg:order-1">
+                <div className="relative cursor-pointer group" onClick={openProfileModal}>
                   <img
                     src="/profile.jpg"
                     alt="Foto de perfil de Gregory Vallim"
-                    className="w-80 h-80 rounded-full object-cover shadow-xl border-4 border-border"
+                    className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover shadow-2xl border-4 border-border/50 group-hover:border-primary transition-all duration-300 animate-glow"
                   />
                 </div>
               </div>
@@ -202,8 +209,8 @@ export default function ClientHome({
               </div>
             </div>
 
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-6 text-gradient">Minhas Habilidades</h3>
+            <div className="text-center mb-12 relative z-10">
+              <h3 className="text-3xl font-bold mb-6 text-gradient-hero animate-fade-in">Minhas Habilidades</h3>
             </div>
             <SkillsGridCarousel
               skills={skillsData.map((skill, index) => ({
@@ -219,17 +226,17 @@ export default function ClientHome({
         </section>
 
         {/* Portfolio Section */}
-        <section id="projects" className="py-24 px-4 bg-background">
+        <section id="projects" className="py-16 md:py-24 px-4 bg-background/95">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
+            <div className="text-center mb-12 md:mb-16 section-fade">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gradient-hero">
                 {siteConfigData.hero.ctaText}
               </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 {siteConfigData.about.description}
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid-portfolio">
               {portfolioData.map((project) => (
                 <PortfolioCard
                   key={project.id}
@@ -249,23 +256,23 @@ export default function ClientHome({
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-24 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
+        <section id="contact" className="py-16 md:py-24 px-4 parallax">
+          <div className="max-w-4xl mx-auto text-center section-fade">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gradient-hero">
               {siteConfigData.contact.title}
             </h2>
-            <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed">
               {siteConfigData.contact.title} - {siteConfigData.description}
             </p>
             
-            <div className="grid grid-cols-5 gap-6 mb-12 justify-items-center">
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
               {socialLinks.map((link) => (
                 <Button
                   key={link.icon}
                   asChild
                   variant="outline"
                   size="lg"
-                  className="w-16 h-16 p-0 rounded-full group hover:bg-primary hover:text-primary-foreground transition-all duration-200"
+                  className="w-14 h-14 sm:w-16 sm:h-16 p-0 rounded-full group hover:bg-primary hover:text-primary-foreground transition-all duration-300 btn-modern"
                   aria-label={`Link para ${link.icon}`}
                 >
                   <a
@@ -289,7 +296,7 @@ export default function ClientHome({
                   key={index}
                   asChild
                   size="lg"
-                  className="btn-clean text-primary-foreground font-semibold px-8 py-4 rounded-lg"
+                  className="btn-modern text-primary-foreground font-semibold px-6 sm:px-8 py-4 rounded-xl"
                 >
                   <a
                     href={button.href}

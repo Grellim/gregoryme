@@ -81,34 +81,69 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
     return () => clearInterval(interval);
   }, [isPaused, isDragging, nextSlide]);
 
-  // Touch support via CSS (simplified)
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+  // Enhanced touch support with velocity detection
+  const handleTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    setIsDragging(true);
+    setIsPaused(true);
     const touch = e.touches[0];
     const startX = touch.clientX;
     const startTime = Date.now();
+    let velocity = 0;
+    let lastX = startX;
+    let lastTime = startTime;
     
-    const handleTouchMove = (moveEvent: TouchEvent) => {
+    const handleTouchMove = useCallback((moveEvent: TouchEvent) => {
       if (!moveEvent.touches.length) return;
       const currentX = moveEvent.touches[0].clientX;
-      const diffX = currentX - startX;
-      const diffTime = Date.now() - startTime;
+      const currentTime = Date.now();
+      const diffX = currentX - lastX;
+      const diffTime = currentTime - lastTime;
       
-      if (Math.abs(diffX) > 50 && diffTime < 300) {
-        if (diffX > 0) {
+      if (diffTime > 0 && diffTime < 100) {
+        velocity = Math.abs(diffX / diffTime);
+      }
+      
+      lastX = currentX;
+      lastTime = currentTime;
+      
+      // Drag the carousel
+      if (containerRef.current && !isDragging) {
+        const translateX = (currentX - startX) * 0.3; // Parallax drag effect
+        containerRef.current.style.transform = `translateX(${translateX}px)`;
+      }
+    }, [startX, lastX, lastTime, isDragging]);
+    
+    const handleTouchEnd = useCallback(() => {
+      setIsDragging(false);
+      setIsPaused(false);
+      
+      if (containerRef.current) {
+        containerRef.current.style.transform = `translateX(0px)`;
+      }
+      
+      // Determine swipe based on total distance and velocity
+      const endX = e.changedTouches[0].clientX;
+      const totalDiffX = endX - startX;
+      const totalTime = Date.now() - startTime;
+      
+      const threshold = 50; // pixels
+      const minVelocity = 0.5; // pixels per ms
+      
+      if (Math.abs(totalDiffX) > threshold || velocity > minVelocity) {
+        if (totalDiffX > 0) {
           prevSlide();
         } else {
           nextSlide();
         }
       }
-    };
-    
-    const handleTouchEnd = () => {
+      
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleTouchEnd);
-    };
+    }, [velocity, startX, startTime, prevSlide, nextSlide]);
     
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
     document.addEventListener('touchend', handleTouchEnd, { passive: false });
+  }, [prevSlide, nextSlide]);
   }, [nextSlide, prevSlide]);
 
   // Pause on hover/focus
@@ -173,7 +208,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
             return (
               <motion.div
                 key={slideIndex}
-                className={`flex-shrink-0 w-full ${slidesPerView === 1 ? 'w-full' : slidesPerView === 2 ? 'w-1/2 lg:w-1/2' : 'w-1/3 lg:w-1/3'}`}
+                className={`flex-shrink-0 w-full ${slidesPerView === 1 ? 'w-full' : slidesPerView === 2 ? 'w-1/2 md:w-1/2' : 'w-1/3 md:w-1/3'}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: isVisible ? 1 : 0.3, scale: isVisible ? 1 : 0.95 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
@@ -181,9 +216,9 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                 role="group"
                 aria-label={`${skill.title}, ${skill.description}`}
               >
-                <div className="card-professional mx-2 sm:mx-4 h-full flex flex-col justify-center p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 rounded-xl">
+                <div className="card-lift mx-2 sm:mx-4 h-full flex flex-col justify-center p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 rounded-xl animate-float">
                   <motion.div
-                    className="glass w-16 h-16 sm:w-20 md:w-24 flex items-center justify-center mx-auto rounded-2xl"
+                    className="glass w-16 h-16 sm:w-20 md:w-24 lg:w-28 flex items-center justify-center mx-auto rounded-2xl animate-glow"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     style={{ backgroundColor: skill.color }}
@@ -199,7 +234,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                   
                   <div className="text-center space-y-3">
                     <motion.h3
-                      className="text-base sm:text-lg lg:text-xl font-bold gradient-primary font-poppins"
+                      className="text-sm sm:text-base md:text-lg lg:text-xl font-bold gradient-primary font-poppins leading-tight"
                       initial={{ y: 10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.3 }}
@@ -213,23 +248,24 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.4 }}
                     >
-                      <p className="text-xs sm:text-sm text-muted-foreground font-inter leading-relaxed px-2">
+                      <p className="text-xs sm:text-sm text-muted-foreground font-inter leading-relaxed px-1 sm:px-2 line-clamp-3">
                         {skill.description}
                       </p>
                       
-                      <div className="flex items-center justify-center gap-2">
-                        <span className="text-xl sm:text-2xl">{skill.emoji}</span>
-                        <div className="flex items-center gap-1">
+                      <div className="flex items-center justify-center gap-2 sm:gap-3">
+                        <span className="text-lg sm:text-xl md:text-2xl">{skill.emoji}</span>
+                        <div className="flex items-center gap-0.5 sm:gap-1">
                           {[...Array(5)].map((_, i) => (
                             <motion.span
                               key={i}
-                              className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full ${
+                              className={`w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full transition-all duration-300 ${
                                 i < Math.round((skill.proficiency || 0) / 20)
-                                  ? 'bg-primary'
-                                  : 'bg-muted'
+                                  ? 'bg-primary shadow-sm'
+                                  : 'bg-muted/50'
                               }`}
                               initial={{ scale: 0 }}
                               animate={{ scale: 1 }}
+                              whileHover={{ scale: 1.2 }}
                               transition={{ delay: 0.5 + i * 0.1 }}
                             />
                           ))}
@@ -255,7 +291,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
               type="button"
               onClick={prevSlide}
               className={cn(
-                "glass hover:glass bg-white/20 dark:bg-black/20 border border-primary/30 rounded-full p-3 shadow-lg backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                "glass hover:glass bg-white/20 dark:bg-black/20 border border-primary/30 rounded-full p-3 sm:p-4 shadow-lg backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 btn-modern",
                 "hover:scale-110"
               )}
               aria-label="Previous slide"
@@ -277,7 +313,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
               type="button"
               onClick={nextSlide}
               className={cn(
-                "glass hover:glass bg-white/20 dark:bg-black/20 border border-primary/30 rounded-full p-3 shadow-lg backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                "glass hover:glass bg-white/20 dark:bg-black/20 border border-primary/30 rounded-full p-3 sm:p-4 shadow-lg backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 btn-modern",
                 "hover:scale-110"
               )}
               aria-label="Next slide"
@@ -326,16 +362,16 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
               key={index}
               onClick={() => goToSlide(index)}
               className={cn(
-                "relative overflow-hidden transition-all duration-300 ease-out rounded-full",
+                "relative overflow-hidden transition-all duration-300 ease-out rounded-full mx-1",
                 index === currentIndex
-                  ? "w-8 h-2 bg-gradient-to-r from-primary to-secondary scale-125 shadow-lg"
-                  : "w-6 h-2 bg-muted hover:bg-muted-foreground/50 hover:scale-110"
+                  ? "w-8 h-2.5 bg-gradient-to-r from-primary to-secondary scale-125 shadow-md animate-pulse-slow"
+                  : "w-6 h-2 bg-muted/60 hover:bg-primary/30 hover:scale-110"
               )}
               aria-label={`Go to slide ${index + 1}`}
               role="tab"
               aria-selected={index === currentIndex}
               aria-current={index === currentIndex ? "true" : "false"}
-              whileHover={{ scale: 1.2 }}
+              whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
             />
           ))}

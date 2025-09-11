@@ -12,42 +12,43 @@ import { Skeleton } from "@/components/ui/skeleton";
 import GalleryModal from "@/components/ui/GalleryModal";
 
 interface PortfolioCardProps {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  tags: string[];
-  projectUrl: string;
-  moreInfo: string;
-  galleryImages: string[];
+  project: {
+    id: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+    tags: string[];
+    projectUrl?: string;
+    moreInfo: string;
+    galleryImages: string[];
+    links?: Array<{
+      name: string;
+      url: string;
+      icon?: React.ReactNode;
+    }>;
+  };
   locale: Locale;
+  onOpenProjectModal: (projectId: string) => void;
 }
 
 export default function PortfolioCard({
-  id,
-  title,
-  description,
-  imageUrl,
-  tags,
-  projectUrl,
-  moreInfo,
-  galleryImages,
+  project,
   locale,
+  onOpenProjectModal,
 }: PortfolioCardProps) {
+  const { id, title, description, imageUrl, tags, moreInfo, galleryImages, links = [] } = project;
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState("");
   const [selectedGalleryAlt, setSelectedGalleryAlt] = useState("");
-  const [likeCount, setLikeCount] = useState(0);
-  const [shareCount, setShareCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [imageErrors, setImageErrors] = useState(new Set<string>());
 
   // Simple translation function
   const t = useCallback((key: string): string => {
     const translations = {
-      'en': { 'ui.image.view': 'View Image', 'ui.project.visit': 'Visit Project' },
-      'pt-BR': { 'ui.image.view': 'Ver Imagem', 'ui.project.visit': 'Visitar Projeto' },
+      'en': { 'ui.image.view': 'View Image' },
+      'pt-BR': { 'ui.image.view': 'Ver Imagem' },
     };
     const localeKey = locale as unknown as 'en' | 'pt-BR';
     return (translations[localeKey] as any)?.[key] || key;
@@ -92,10 +93,10 @@ export default function PortfolioCard({
         transition={{ duration: 0.6 }}
         className="group"
       >
-        <Card className="h-full overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
-          <CardHeader className="p-4 relative">
+        <Card className="h-full overflow-hidden border-0 card-lift shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer">
+          <CardHeader className="p-3 sm:p-4 relative">
             <motion.div
-              className="relative aspect-video sm:aspect-[4/3] rounded-lg overflow-hidden"
+              className="relative aspect-square sm:aspect-[4/3] rounded-lg overflow-hidden"
               onClick={openImageModal}
               role="button"
               tabIndex={0}
@@ -151,23 +152,23 @@ export default function PortfolioCard({
             </motion.div>
           </CardHeader>
 
-          <CardContent className="p-3 sm:p-4 space-y-2 sm:space-y-3">
-            <motion.h3 
-              className="text-lg font-bold line-clamp-2"
+          <CardContent className="p-3 sm:p-4 space-y-3 sm:space-y-4">
+            <motion.h3
+              className="text-base sm:text-lg font-bold line-clamp-2 leading-tight"
               whileHover={{ y: -1 }}
             >
               {title}
             </motion.h3>
 
-            <motion.p 
-              className="text-sm text-muted-foreground line-clamp-3"
+            <motion.p
+              className="text-sm text-muted-foreground line-clamp-3 leading-relaxed"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
             >
               {description}
             </motion.p>
 
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-2">
               {tags.slice(0, 3).map((tag, index) => (
                 <motion.div
                   key={index}
@@ -175,106 +176,30 @@ export default function PortfolioCard({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + index * 0.05 }}
                 >
-                  <Badge variant="secondary" className="text-xs">
+                  <Badge variant="secondary" className="text-xs px-2 py-1">
                     {tag}
                   </Badge>
                 </motion.div>
               ))}
               {tags.length > 3 && (
-                <Badge variant="outline" className="text-xs">
+                <Badge variant="outline" className="text-xs px-2 py-1">
                   +{tags.length - 3} more
                 </Badge>
               )}
             </div>
           </CardContent>
 
-          <CardFooter className="p-3 sm:p-4 pt-0 space-y-2">
-            <div className="flex items-center gap-3">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <motion.button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setLikeCount(likeCount + 1);
-                      }}
-                      className="p-2 rounded-lg hover:bg-accent transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      aria-label={`Like ${title}`}
-                      aria-pressed={likeCount > 0}
-                      role="button"
-                    >
-                      <Heart className={`w-4 h-4 ${likeCount > 0 ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} />
-                      {likeCount > 0 && <span className="ml-1 text-xs">{likeCount}</span>}
-                    </motion.button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Like ({likeCount})</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <motion.button
-                      type="button"
-                      onClick={async (e) => {
-                        e.stopPropagation();
-                        if (typeof window !== 'undefined' && navigator.clipboard) {
-                          try {
-                            await navigator.clipboard.writeText(window.location.href);
-                            setShareCount(shareCount + 1);
-                          } catch (err) {
-                            console.error('Failed to copy', err);
-                          }
-                        } else {
-                          // Fallback for older browsers
-                          const textArea = document.createElement('textarea');
-                          textArea.value = window.location.href;
-                          document.body.appendChild(textArea);
-                          textArea.focus();
-                          textArea.select();
-                          try {
-                            document.execCommand('copy');
-                            setShareCount(shareCount + 1);
-                          } catch (err) {
-                            console.error('Fallback copy failed', err);
-                          }
-                          document.body.removeChild(textArea);
-                        }
-                      }}
-                      className="p-2 rounded-lg hover:bg-accent transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      aria-label="Share project"
-                      role="button"
-                    >
-                      <Share2 className="w-4 h-4 text-muted-foreground" />
-                      {shareCount > 0 && <span className="ml-1 text-xs">{shareCount}</span>}
-                    </motion.button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Share ({shareCount})</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-
+          <CardFooter className="p-3 sm:p-4 pt-0">
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                if (typeof window !== 'undefined') {
-                  window.open(projectUrl, '_blank');
-                }
+                onOpenProjectModal(id);
               }}
-              className="w-full"
-              variant="outline"
+              className="w-full btn-modern bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-lg transition-all duration-300"
+              aria-label={`Saiba mais sobre ${title}`}
             >
-              <ExternalLink className="w-4 h-4 mr-2" />
-              {t('ui.project.visit')}
+              Saiba mais
+              <ExternalLink className="w-4 h-4 ml-2" />
             </Button>
           </CardFooter>
         </Card>
@@ -294,15 +219,15 @@ export default function PortfolioCard({
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="relative max-w-[95vw] max-w-md sm:max-w-lg lg:max-w-4xl max-h-[90vh] p-2 sm:p-4"
+            className="relative max-w-[95vw] max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl max-h-[90vh] p-2 sm:p-4"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeImageModal}
-              className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 p-2.5 sm:p-2 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-all duration-200"
               aria-label="Close modal"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             
             <h2 id="image-modal-title" className="sr-only">

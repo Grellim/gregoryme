@@ -40,7 +40,7 @@ const locale = getLocale(lang);
 export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[95vw] max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border bg-card shadow-xl overflow-hidden" role="dialog" aria-labelledby="profile-modal-title">
+      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border/50 bg-card/95 backdrop-blur-sm shadow-2xl overflow-hidden" role="dialog" aria-labelledby="profile-modal-title">
         <motion.div
           className="flex flex-col h-full max-h-[90vh] overflow-hidden"
           initial={{ opacity: 0 }}
@@ -138,10 +138,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               >
                 {/* Experience Card */}
                 <motion.article
-                  className="space-y-3 p-6 rounded-lg border border-border bg-card"
+                  className="space-y-3 p-6 rounded-xl border border-border/50 bg-card card-lift"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  whileHover={{ y: -4, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.4 }}
                 >
                   <motion.h3
@@ -170,10 +170,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
                 {/* Tech Stack Card */}
                 <motion.article
-                  className="space-y-3 p-6 rounded-lg border border-border bg-card"
+                  className="space-y-3 p-6 rounded-xl border border-border/50 bg-card card-lift"
                   initial={{ opacity: 0, x: 0 }}
                   animate={{ opacity: 1, x: 0 }}
-                  whileHover={{ y: -4, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.4 }}
                 >
                   <motion.h3
@@ -217,10 +217,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
                 {/* Mission Card */}
                 <motion.article
-                  className="space-y-3 p-6 rounded-lg border border-border bg-card xl:col-span-1"
+                  className="space-y-3 p-6 rounded-xl border border-border/50 bg-card card-lift xl:col-span-1"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  whileHover={{ y: -4, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.4 }}
                 >
                   <motion.h3
@@ -266,7 +266,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                 <Button
                   onClick={onClose}
                   variant="outline"
-                  className="px-6 py-3"
+                  className="px-6 py-3 btn-modern"
                   aria-label="Close profile modal"
                 >
                   <X className="w-4 h-4 mr-2" />

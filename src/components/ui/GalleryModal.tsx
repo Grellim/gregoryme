@@ -79,7 +79,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-[95vw] max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border bg-card shadow-xl overflow-hidden"
+        className="w-[95vw] max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border/50 bg-card/95 backdrop-blur-sm shadow-2xl overflow-hidden"
         onClick={handleContentClick}
         onKeyDown={handleKeyDown}
         role="dialog"
@@ -103,7 +103,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="bg-muted hover:bg-destructive text-destructive hover:text-destructive-foreground rounded-full p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-destructive"
+                className="bg-muted/80 hover:bg-destructive/90 text-destructive hover:text-destructive-foreground rounded-full p-2.5 sm:p-2 transition-all duration-200 btn-modern focus:outline-none focus:ring-2 focus:ring-destructive"
                 aria-label="Close gallery"
               >
                 <X className="h-4 w-4" />
@@ -116,7 +116,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
             <div className="relative w-full h-full flex items-center justify-center p-4">
               {loading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-muted">
-                  <div className="skeleton w-64 h-64 rounded-lg"></div>
+                  <div className="skeleton w-48 h-48 sm:w-64 sm:h-64 rounded-lg"></div>
                 </div>
               )}
         
@@ -177,6 +177,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                   size="sm"
                   onClick={zoomOut}
                   disabled={scale <= 0.5}
+                  className="btn-modern"
                   aria-label="Zoom out"
                 >
                   <ZoomOut className="w-4 h-4" />
@@ -186,6 +187,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                   size="sm"
                   onClick={zoomIn}
                   disabled={scale >= 3}
+                  className="btn-modern"
                   aria-label="Zoom in"
                 >
                   <ZoomIn className="w-4 h-4" />
@@ -194,6 +196,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                   variant="outline"
                   size="sm"
                   onClick={resetTransform}
+                  className="btn-modern"
                   aria-label="Reset zoom"
                 >
                   <Minimize2 className="w-4 h-4" />
@@ -203,6 +206,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                 variant="outline"
                 size="sm"
                 onClick={handleDownload}
+                className="btn-modern"
                 aria-label="Download image"
               >
                 <Download className="w-4 h-4 mr-1" />
