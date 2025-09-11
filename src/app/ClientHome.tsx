@@ -82,6 +82,7 @@ export default function ClientHome({
         }
       } catch (error) {
         console.error('Error tracking visit:', error);
+        // Optionally show user-friendly toast error
       } finally {
         setLoading(false);
       }

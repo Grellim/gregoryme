@@ -118,9 +118,8 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         <div
           className="md:hidden"
-          role="menu"
+          role="navigation"
           aria-label="Mobile navigation menu"
-          aria-expanded={isMenuOpen}
         >
           <AnimatePresence>
             {isMenuOpen && (

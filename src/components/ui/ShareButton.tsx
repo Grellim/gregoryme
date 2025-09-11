@@ -73,7 +73,7 @@ export default function ShareButton() {
           try {
             await navigator.share(shareData);
           } catch (err) {
-            console.log('Erro ao compartilhar:', err);
+            console.error('Erro ao compartilhar:', err);
           }
         } else {
           // Fallback: copy to clipboard

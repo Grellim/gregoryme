@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo, memo } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
@@ -19,7 +19,7 @@ interface SkillsCarouselProps {
   skills: Skill[];
 }
 
-export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
+const SkillsCarouselComponent = memo(function SkillsCarousel({ skills }: SkillsCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -49,7 +49,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
     }
   }, [calculateSlidesPerView]);
 
-  const totalSlides = skills.length;
+  const totalSlides = useMemo(() => skills.length, [skills]);
 
   const nextSlide = useCallback(() => {
     if (!isDragging) {
@@ -81,6 +81,9 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
     return () => clearInterval(interval);
   }, [isPaused, isDragging, nextSlide]);
 
+  // Touch state refs for dynamic values
+  const touchStateRef = useRef({ startX: 0, startTime: 0, lastX: 0, lastTime: 0, velocity: 0 });
+
   // Enhanced touch support with velocity detection
   const handleTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     setIsDragging(true);
@@ -92,7 +95,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
     let lastX = startX;
     let lastTime = startTime;
     
-    const handleTouchMove = useCallback((moveEvent: TouchEvent) => {
+    const handleTouchMove = (moveEvent: TouchEvent) => {
       if (!moveEvent.touches.length) return;
       const currentX = moveEvent.touches[0].clientX;
       const currentTime = Date.now();
@@ -111,9 +114,9 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
         const translateX = (currentX - startX) * 0.3; // Parallax drag effect
         containerRef.current.style.transform = `translateX(${translateX}px)`;
       }
-    }, [startX, lastX, lastTime, isDragging]);
+    };
     
-    const handleTouchEnd = useCallback(() => {
+    const handleTouchEnd = (endEvent: TouchEvent) => {
       setIsDragging(false);
       setIsPaused(false);
       
@@ -122,7 +125,7 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
       }
       
       // Determine swipe based on total distance and velocity
-      const endX = e.changedTouches[0].clientX;
+      const endX = endEvent.changedTouches[0].clientX;
       const totalDiffX = endX - startX;
       const totalTime = Date.now() - startTime;
       
@@ -139,12 +142,11 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
       
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleTouchEnd);
-    }, [velocity, startX, startTime, prevSlide, nextSlide]);
+    };
     
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
     document.addEventListener('touchend', handleTouchEnd, { passive: false });
-  }, [prevSlide, nextSlide]);
-  }, [nextSlide, prevSlide]);
+  }, [isDragging, prevSlide, nextSlide]);
 
   // Pause on hover/focus
   const handleMouseEnter = () => {
@@ -172,7 +174,10 @@ export default function SkillsCarousel({ skills }: SkillsCarouselProps) {
   }, [isPaused, nextSlide, prevSlide]);
 
   // ARIA live region for screen readers
-  const ariaLiveMessage = `Exibindo habilidade ${currentIndex + 1} de ${totalSlides}`;
+  const ariaLiveMessage = useMemo(
+    () => `Exibindo habilidade ${currentIndex + 1} de ${totalSlides}`,
+    [currentIndex, totalSlides]
+  );
 
   return (
     <div className="relative w-full max-w-7xl mx-auto px-4" role="region" aria-label="Skills carousel" id="skills-carousel">

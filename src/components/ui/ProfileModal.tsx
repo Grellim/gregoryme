@@ -147,7 +147,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                   <motion.h3
                     className="text-lg font-semibold flex items-center gap-2 cursor-pointer"
                     whileHover={{ color: "#8b5cf6" }}
-                    onClick={() => console.log("Experience clicked")}
+                    onClick={() => {}}
                   >
                     <motion.span
                       className="text-primary text-lg"
@@ -179,7 +179,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                   <motion.h3
                     className="text-lg font-semibold flex items-center gap-2 cursor-pointer"
                     whileHover={{ color: "#8b5cf6" }}
-                    onClick={() => console.log("Tech stack clicked")}
+                    onClick={() => {}}
                   >
                     <motion.span
                       className="text-primary text-lg"
@@ -202,7 +202,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                         whileHover={{ scale: 1.1, y: -2 }}
                         transition={{ type: "spring", stiffness: 400 }}
                         className="cursor-pointer"
-                        onClick={() => console.log(`Skill clicked: ${skill}`)}
+                        onClick={() => {}}
                       >
                         <Badge
                           variant="outline"
@@ -226,7 +226,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                   <motion.h3
                     className="text-lg font-semibold flex items-center gap-2 cursor-pointer"
                     whileHover={{ color: "#8b5cf6" }}
-                    onClick={() => console.log("Mission clicked")}
+                    onClick={() => {}}
                   >
                     <motion.span
                       className="text-primary text-lg"

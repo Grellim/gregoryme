@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Share2, ExternalLink, Expand, X } from "lucide-react";
 import { Locale } from "@/data/types";
@@ -31,10 +31,15 @@ interface PortfolioCardProps {
   onOpenProjectModal: (projectId: string) => void;
 }
 
-export default function PortfolioCard({
-  project,
-  locale,
-  onOpenProjectModal,
+function areEqual(prevProps: PortfolioCardProps, nextProps: PortfolioCardProps) {
+return prevProps.project.id === nextProps.project.id &&
+       prevProps.locale === nextProps.locale;
+}
+
+const PortfolioCard = memo(function PortfolioCard({
+project,
+locale,
+onOpenProjectModal,
 }: PortfolioCardProps) {
   const { id, title, description, imageUrl, tags, moreInfo, galleryImages, links = [] } = project;
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -42,7 +47,7 @@ export default function PortfolioCard({
   const [selectedGalleryImage, setSelectedGalleryImage] = useState("");
   const [selectedGalleryAlt, setSelectedGalleryAlt] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [imageErrors, setImageErrors] = useState(new Set<string>());
+  const [hasImageError, setHasImageError] = useState(false);
 
   // Simple translation function
   const t = useCallback((key: string): string => {
@@ -57,21 +62,23 @@ export default function PortfolioCard({
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const img = new Image();
-    img.onload = () => setIsLoading(false);
-    img.onerror = () => setIsLoading(false);
+    img.onload = () => {
+      setIsLoading(false);
+      handleImageLoad();
+    };
+    img.onerror = () => {
+      setIsLoading(false);
+      handleImageError();
+    };
     img.src = imageUrl;
   }, [imageUrl]);
 
-  const handleImageError = useCallback((imageSrc: string) => {
-    setImageErrors(prev => new Set([...(Array.from(prev) || []), imageSrc]));
+  const handleImageError = useCallback(() => {
+    setHasImageError(true);
   }, []);
 
-  const handleImageLoad = useCallback((imageSrc: string) => {
-    setImageErrors(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(imageSrc);
-      return newSet;
-    });
+  const handleImageLoad = useCallback(() => {
+    setHasImageError(false);
   }, []);
 
   const openImageModal = useCallback(() => setIsImageModalOpen(true), []);
@@ -113,7 +120,7 @@ export default function PortfolioCard({
                     exit={{ opacity: 0 }}
                     className="w-full h-full bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg"
                   />
-                ) : imageErrors?.has(imageUrl) ? (
+                ) : hasImageError ? (
                   <motion.div
                     key="error"
                     className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-900 rounded-lg"
@@ -131,8 +138,8 @@ export default function PortfolioCard({
                     initial={{ scale: 1.1, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     whileHover={{ scale: 1.05 }}
-                    onLoad={() => handleImageLoad(imageUrl)}
-                    onError={() => handleImageError(imageUrl)}
+                    onLoad={handleImageLoad}
+                    onError={handleImageError}
                     loading="lazy"
                   />
                 )}
@@ -191,7 +198,7 @@ export default function PortfolioCard({
 
           <CardFooter className="p-3 sm:p-4 pt-0">
             <Button
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent) => {
                 e.stopPropagation();
                 onOpenProjectModal(id);
               }}
@@ -234,7 +241,7 @@ export default function PortfolioCard({
               {title}
             </h2>
             
-            {imageErrors?.has(imageUrl) ? (
+            {hasImageError ? (
               <div className="flex items-center justify-center h-64 sm:h-96 bg-gray-200 rounded-lg">
                 <Expand className="w-16 h-16 text-gray-400" />
               </div>
@@ -243,7 +250,7 @@ export default function PortfolioCard({
                 src={imageUrl}
                 alt={title}
                 className="max-w-full max-h-[80vh] w-auto h-auto max-h-[60vh] sm:max-h-[80vh] object-contain rounded-lg"
-                onError={() => handleImageError(imageUrl)}
+                onError={handleImageError}
               />
             )}
             
@@ -264,4 +271,11 @@ export default function PortfolioCard({
       />
     </>
   );
-}
+
+  function areEqual(prevProps: PortfolioCardProps, nextProps: PortfolioCardProps) {
+    return prevProps.project.id === nextProps.project.id &&
+           prevProps.locale === nextProps.locale;
+  }
+}, areEqual);
+
+export default PortfolioCard;
