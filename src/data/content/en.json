@@ -1,0 +1,91 @@
+{
+  "site": {
+    "title": "Gregory Vallim - Full-Stack Developer",
+    "description": "Passionate full-stack developer creating innovative web solutions with React, Next.js, and modern technologies",
+    "keywords": ["full-stack developer", "react", "next.js", "typescript", "web development", "ui/ux"],
+    "author": "Gregory Vallim"
+  },
+  "hero": {
+    "title": "Hello, I'm Gregory Vallim",
+    "subtitle": "Full-stack developer creating amazing digital experiences",
+    "ctaText": "View My Work"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "Over 5 years of experience building modern web applications with a focus on performance, accessibility, and user experience.",
+    "skills": ["React", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "Prisma"]
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "email": "gregory@example.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "San Francisco, CA, USA"
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "github": "GitHub"
+  },
+  "social": {
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "email": "Email",
+    "discord": "Discord"
+  },
+  "metadata": {
+    "ogTitle": "Gregory Vallim - Full-Stack Developer",
+    "ogDescription": "Passionate full-stack developer creating innovative web solutions",
+    "twitterTitle": "Gregory Vallim - Full-Stack Developer",
+    "twitterDescription": "Passionate full-stack developer creating innovative web solutions"
+  },
+  "ui": {
+    "recommendations": {
+      "title": "Recommendations",
+      "description": "What people are saying",
+      "knowMore": "Know More",
+      "close": "Close"
+    },
+    "profile": {
+      "title": "Profile",
+      "description": "About me",
+      "name": "Name",
+      "subtitle": "Subtitle",
+      "experience": {
+        "title": "Experience",
+        "description": "Experience description"
+      },
+      "techStack": {
+        "title": "Tech Stack"
+      },
+      "mission": {
+        "title": "Mission",
+        "description": "Mission description"
+      },
+      "badges": ["Full-Stack Developer", "React Expert", "UI/UX Design"],
+      "close": "Close",
+      "closeAria": "Close profile modal"
+    },
+    "buttons": {
+      "viewProjects": "View Projects",
+      "contact": "Contact",
+      "recommendations": "Recommendations"
+    },
+    "tags": {
+      "innovation": "Innovation",
+      "creativity": "Creativity",
+      "performance": "Performance",
+      "sustainability": "Sustainability"
+    },
+    "projectDetails": {
+      "knowMore": "Know More",
+      "visitProject": "Visit Project",
+      "close": "Close",
+      "moreAbout": "More About",
+      "gallery": "Gallery",
+      "closeDetails": "Close Details",
+      "viewGalleryImage": "View Gallery Image"
+    }
+  }
+}

@@ -1,3 +1,4 @@
+/*
 import { Server } from 'socket.io';
 
 export const setupSocket = (io: Server) => {
@@ -27,3 +28,6 @@ export const setupSocket = (io: Server) => {
     });
   });
 };
+*/
+
+// Socket.io functionality disabled - unused in portfolio flow

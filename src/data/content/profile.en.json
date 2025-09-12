@@ -1,0 +1,23 @@
+{
+  "name": "Gregory Vallim",
+  "subtitle": "Full-stack developer passionate about creating innovative and impactful solutions. Specialized in modern technologies with focus on performance, security and exceptional user experience.",
+  "badges": [
+    "🚀 Full-Stack Developer",
+    "💻 React & Next.js Expert",
+    "🎨 UI/UX Design",
+    "☁️ Cloud & DevOps",
+    "🧠 Problem Solver"
+  ],
+  "experience": {
+    "title": "Experience",
+    "description": "Over 5 years developing modern web and mobile applications. Specialized in creating intuitive interfaces, scalable systems and solutions that really make a difference for companies and users."
+  },
+  "techStack": {
+    "title": "Technology Stack",
+    "skills": ["React", "Next.js", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"]
+  },
+  "mission": {
+    "title": "My Mission",
+    "description": "Create digital experiences that transform lives and businesses through technology. I believe that every project should be an opportunity to innovate and positively impact the world around us."
+  }
+}

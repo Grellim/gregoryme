@@ -1,7 +1,5 @@
-// server.ts - Next.js Standalone + Socket.IO
-import { setupSocket } from '@/lib/socket';
+/* server.ts - Next.js Standalone + Socket.IO (Socket.IO disabled - unused) */
 import { createServer } from 'http';
-import { Server } from 'socket.io';
 import next from 'next';
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -31,21 +29,9 @@ async function createCustomServer() {
       handle(req, res);
     });
 
-    // Setup Socket.IO
-    const io = new Server(server, {
-      path: '/api/socketio',
-      cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
-      }
-    });
-
-    setupSocket(io);
-
-    // Start the server
+    // Start the server (Socket.IO disabled - unused in portfolio)
     server.listen(currentPort, hostname, () => {
       console.log(`> Ready on http://${hostname}:${currentPort}`);
-      console.log(`> Socket.IO server running at ws://${hostname}:${currentPort}/api/socketio`);
     });
 
   } catch (err) {

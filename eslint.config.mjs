@@ -29,6 +29,7 @@ const eslintConfig = [
       // Next.js 相关规则
       "@next/next/no-img-element": "off",
       "@next/next/no-html-link-for-pages": "off",
+      "@next/next/no-assign-module-variable": "off",
       
       // 一般JavaScript规则
       "prefer-const": "off",  // 关闭prefer-const规则

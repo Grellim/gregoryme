@@ -1,0 +1,38 @@
+[
+  {
+    "name": "React",
+    "icon": "M0 0v8h8V0H0zm8 8v8h8V8H8z",
+    "description": "Biblioteca JavaScript para construção de interfaces de usuário",
+    "proficiency": 95
+  },
+  {
+    "name": "Next.js",
+    "icon": "M0 0v8h8V0H0zm8 8v8h8V8H8z",
+    "description": "Framework React para aplicações de produção",
+    "proficiency": 90
+  },
+  {
+    "name": "TypeScript",
+    "icon": "M0 0v8h8V0H0zm8 8v8h8V8H8z",
+    "description": "Superset tipado do JavaScript",
+    "proficiency": 85
+  },
+  {
+    "name": "Tailwind CSS",
+    "icon": "M0 0v8h8V0H0zm8 8v8h8V8H8z",
+    "description": "Framework CSS utility-first",
+    "proficiency": 80
+  },
+  {
+    "name": "Node.js",
+    "icon": "M0 0v8h8V0H0zm8 8v8h8V8H8z",
+    "description": "Runtime JavaScript construído sobre o V8 do Chrome",
+    "proficiency": 75
+  },
+  {
+    "name": "Prisma",
+    "icon": "M0 0v8h8V0H0zm8 8v8h8V8H8z",
+    "description": "ORM de próxima geração para Node.js & TypeScript",
+    "proficiency": 70
+  }
+]

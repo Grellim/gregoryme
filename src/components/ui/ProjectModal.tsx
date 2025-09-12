@@ -5,10 +5,13 @@ import { motion } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ExternalLink, X, Image as ImageIcon, Github, Globe, Youtube, FileText } from "lucide-react";
 import Image from "next/image";
 import GalleryModal from "./GalleryModal";
 import { Locale, PortfolioProject } from "@/data/types";
+import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface Project {
   id: string;
@@ -28,17 +31,23 @@ interface Project {
 interface ProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
-  project: Project;
+  project: PortfolioProject;
   locale: Locale;
 }
 
 export default function ProjectModal({ isOpen, onClose, project, locale }: ProjectModalProps) {
-  const {
-    links = [],
-    imageUrl = project.image, // Fallback to image if imageUrl not provided
-    tags = project.technologies, // Fallback to technologies if tags not provided
-    projectUrl = project.liveUrl // Fallback to liveUrl if projectUrl not provided
-  } = project;
+  const t = useTranslations("Project");
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 300);
+    return () => clearTimeout(timer);
+  }, [isOpen]);
+
+  const links = project.links || [];
+  const imageUrl = project.image || '';
+  const tags = project.technologies || [];
+  const projectUrl = project.liveUrl || project.githubUrl;
   console.log('Project data received:', project);
   console.log('Processed project data:', { imageUrl, tags, projectUrl, links });
   const [isGalleryOpen, setIsGalleryOpen] = React.useState(false);
@@ -82,7 +91,15 @@ export default function ProjectModal({ isOpen, onClose, project, locale }: Proje
   return (
     <>
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-        <DialogContent className="w-[95vw] max-w-4xl max-h-[95vh] p-0 rounded-xl focus:outline-none border border-border/50 bg-card/95 backdrop-blur-sm shadow-2xl overflow-hidden">
+        <DialogContent
+          className={cn(
+            "w-[95vw] max-w-4xl max-h-[95vh] p-0 rounded-xl focus:outline-none border border-border/50 bg-card/95 backdrop-blur-sm shadow-2xl overflow-hidden",
+            "max-[640px]:w-[95vw] max-[640px]:max-w-[95vw] max-[640px]:max-h-[90vh]"
+          )}
+          role="dialog"
+          aria-labelledby="project-modal-title"
+          aria-describedby="project-modal-desc"
+        >
           <motion.div
             className="flex flex-col h-full max-h-[95vh]"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -93,9 +110,15 @@ export default function ProjectModal({ isOpen, onClose, project, locale }: Proje
             {/* Header */}
             <DialogHeader className="flex-shrink-0 p-6 border-b border-border/50 bg-card/80 backdrop-blur-sm">
               <div className="flex items-center justify-between">
-                <DialogTitle className="text-xl font-bold text-gradient-hero">
+                <DialogTitle id="project-modal-title" className={cn(
+                  "text-xl font-bold text-gradient-hero",
+                  "clamp-[1.25rem, 2vw + 0.75rem, 1.5rem]"
+                )}>
                   {project.title}
                 </DialogTitle>
+                <DialogDescription id="project-modal-desc" className="sr-only">
+                  Project details and gallery
+                </DialogDescription>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -106,199 +129,221 @@ export default function ProjectModal({ isOpen, onClose, project, locale }: Proje
                   <X className="w-5 h-5" />
                 </Button>
               </div>
-              <DialogDescription className="text-sm text-muted-foreground mt-2 leading-relaxed">
+              <DialogDescription className={cn(
+                "text-sm text-muted-foreground mt-2 leading-relaxed",
+                "clamp-[0.875rem, 1.5vw + 0.5rem, 1rem]"
+              )}>
                 {project.moreInfo}
               </DialogDescription>
             </DialogHeader>
 
             <div className="flex-1 flex flex-col overflow-hidden">
-              {/* Cover Image */}
-              <motion.div
-                className="relative flex-shrink-0 h-64 sm:h-80 md:h-96 overflow-hidden"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.5 }}
-                whileHover={{ y: -2 }}
-              >
-                <Image
-                  src={imageUrl}
-                  alt={`${project.title} - Cover image`}
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-500 cursor-pointer"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                  onClick={() => handleOpenGallery(imageUrl, `${project.title} - Cover`)}
-                  priority
-                />
-                <div className="absolute inset-0 bg-black/20 hover:bg-black/30 transition-all duration-300" />
-                <button
-                  className="absolute top-3 right-3 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 hover:opacity-100 transition-all duration-200"
-                  onClick={() => handleOpenGallery(project.imageUrl, `${project.title} - Cover`)}
-                  aria-label="View cover image"
-                >
-                  <ImageIcon className="w-5 h-5" />
-                </button>
-              </motion.div>
-
-              <div className="flex-1 overflow-y-auto p-6 space-y-6">
-                {/* Description */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  className="space-y-4"
-                >
-                  <h3 className="text-lg font-semibold text-foreground">Descrição</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm">
-                    {project.description}
-                  </p>
-                </motion.div>
-
-                {/* Tags */}
-                {project.tags.length > 0 && (
+              {isLoading ? (
+                <div className="relative flex-shrink-0 h-64 sm:h-80 md:h-96 overflow-hidden">
+                  <Skeleton className="absolute inset-0 w-full h-full" />
+                </div>
+              ) : (
+                <>
+                  {/* Cover Image */}
                   <motion.div
+                    className={cn(
+                      "relative flex-shrink-0 overflow-hidden",
+                      "h-64 sm:h-80 md:h-96 max-[640px]:h-48"
+                    )}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                    className="space-y-3"
+                    transition={{ delay: 0.1, duration: 0.5 }}
+                    whileHover={{ y: -2 }}
                   >
-                    <h4 className="text-base font-medium text-foreground flex items-center gap-2">
-                      <span className="text-primary">🏷️</span>
-                      Tecnologias
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {(tags || project.technologies).map((tag, index) => (
-                        <motion.div
-                          key={index}
-                          whileHover={{ scale: 1.05, y: -1 }}
-                          transition={{ type: "spring", stiffness: 400 }}
-                          className="cursor-default"
-                        >
-                          <Badge variant="secondary" className="text-xs px-3 py-1">
-                            {tag}
-                          </Badge>
-                        </motion.div>
-                      ))}
-                    </div>
+                    <Image
+                      src={imageUrl}
+                      alt={`${project.title} - Cover image`}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-500 cursor-pointer"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                      onClick={() => handleOpenGallery(imageUrl, `${project.title} - Cover`)}
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-black/20 hover:bg-black/30 transition-all duration-300" />
+                    <button
+                      className="absolute top-3 right-3 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 hover:opacity-100 transition-all duration-200"
+                      onClick={() => handleOpenGallery(imageUrl, `${project.title} - Cover`)}
+                      aria-label="View cover image"
+                    >
+                      <ImageIcon className="w-5 h-5" />
+                    </button>
                   </motion.div>
-                )}
 
-                {/* Gallery */}
-                {project.galleryImages && project.galleryImages.length > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.5 }}
-                    className="space-y-4"
-                  >
-                    <h4 className="text-base font-medium text-foreground flex items-center gap-2">
-                      <span className="text-accent">🖼️</span>
-                      Galeria
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {(project.galleryImages || []).slice(0, 6).map((image, index) => (
-                        <motion.div
-                          key={index}
-                          className="relative aspect-square rounded-lg overflow-hidden cursor-pointer group"
-                          whileHover={{ scale: 1.02 }}
-                          onClick={() => handleOpenGallery(image, `${project.title} - Galeria ${index + 1}`)}
+                  <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                    {/* Description */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                      className="space-y-4"
+                    >
+                      <h3 className={cn(
+                        "text-lg font-semibold text-foreground",
+                        "clamp-[1rem, 1.5vw + 0.75rem, 1.125rem]"
+                      )}>
+                        {t("description")}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed text-sm">
+                        {project.description}
+                      </p>
+                    </motion.div>
+
+                    {/* Tags */}
+                    {tags.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                        className="space-y-3"
+                      >
+                        <h4 className="text-base font-medium text-foreground flex items-center gap-2">
+                          <span className="text-primary">🏷️</span>
+                          Tecnologias
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {tags.map((tag, index) => (
+                            <motion.div
+                              key={index}
+                              whileHover={{ scale: 1.05, y: -1 }}
+                              transition={{ type: "spring", stiffness: 400 }}
+                              className="cursor-default"
+                            >
+                              <Badge variant="secondary" className="text-xs px-3 py-1">
+                                {tag}
+                              </Badge>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Gallery */}
+                    {project.galleryImages && project.galleryImages.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4, duration: 0.5 }}
+                        className="space-y-4"
+                      >
+                        <h4 className="text-base font-medium text-foreground flex items-center gap-2">
+                          <span className="text-accent">🖼️</span>
+                          Galeria
+                        </h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {(project.galleryImages || []).slice(0, 6).map((image, index) => (
+                            <motion.div
+                              key={index}
+                              className="relative aspect-square rounded-lg overflow-hidden cursor-pointer group"
+                              whileHover={{ scale: 1.02 }}
+                              onClick={() => handleOpenGallery(image, `${project.title} - Galeria ${index + 1}`)}
+                            >
+                              <Image
+                                src={image}
+                                alt={`${project.title} - Galeria ${index + 1}`}
+                                fill
+                                className="object-cover group-hover:scale-110 transition-transform duration-300"
+                                sizes="(max-width: 768px) 1fr, (max-width: 1200px) 0.33fr, 0.33fr"
+                              />
+                              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300" />
+                              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                <ImageIcon className="w-6 h-6 text-white" />
+                              </div>
+                            </motion.div>
+                          ))}
+                          {(project.galleryImages || []).length > 6 && (
+                            <motion.div
+                              className="relative aspect-square rounded-lg overflow-hidden bg-muted flex items-center justify-center cursor-pointer group"
+                              whileHover={{ scale: 1.02 }}
+                              onClick={() => handleOpenGallery((project.galleryImages || [])[0], `${project.title} - Ver todas`)}
+                            >
+                              <div className="text-center text-muted-foreground">
+                                <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                                <p className="text-xs">+{project.galleryImages.length - 6} mais</p>
+                              </div>
+                              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300" />
+                            </motion.div>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Links */}
+                    {links.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5, duration: 0.5 }}
+                        className="space-y-4 pt-4 border-t border-border/50"
+                      >
+                        <h4 className="text-base font-medium text-foreground flex items-center gap-2">
+                          <span className="text-secondary">🔗</span>
+                          Links
+                        </h4>
+                        <div className="space-y-2">
+                          {links.map((link, index) => (
+                            <motion.a
+                              key={index}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex items-center gap-3 p-3 rounded-lg border border-border/50 hover:border-primary/50 hover:bg-accent/50 transition-all duration-200 btn-modern"
+                              whileHover={{ x: 4, y: -1 }}
+                              transition={{ type: "spring", stiffness: 400 }}
+                            >
+                              <div className="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                                {link.icon || <ExternalLink className="w-4 h-4 text-primary" />}
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium text-foreground truncate">{link.name}</p>
+                                <p className="text-xs text-muted-foreground truncate">{link.url.replace('https://', '').replace('http://', '')}</p>
+                              </div>
+                              <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors ml-auto" />
+                            </motion.a>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+
+                  {/* Footer */}
+                  <DialogFooter className="flex-shrink-0 p-6 border-t border-border/50 bg-card/80 backdrop-blur-sm">
+                    <div className="flex w-full gap-3">
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "flex-1 transition-all duration-200 ease-in-out hover:scale-105",
+                          "max-[640px]:text-sm"
+                        )}
+                        onClick={onClose}
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Fechar
+                      </Button>
+                      {projectUrl && (
+                        <Button
+                          asChild
+                          className="flex-1 btn-modern"
+                          variant="default"
                         >
-                          <Image
-                            src={image}
-                            alt={`${project.title} - Galeria ${index + 1}`}
-                            fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-300"
-                            sizes="(max-width: 768px) 1fr, (max-width: 1200px) 0.33fr, 0.33fr"
-                          />
-                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300" />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            <ImageIcon className="w-6 h-6 text-white" />
-                          </div>
-                        </motion.div>
-                      ))}
-                      {(project.galleryImages || []).length > 6 && (
-                        <motion.div
-                          className="relative aspect-square rounded-lg overflow-hidden bg-muted flex items-center justify-center cursor-pointer group"
-                          whileHover={{ scale: 1.02 }}
-                          onClick={() => handleOpenGallery((project.galleryImages || [])[0], `${project.title} - Ver todas`)}
-                        >
-                          <div className="text-center text-muted-foreground">
-                            <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                            <p className="text-xs">+{project.galleryImages.length - 6} mais</p>
-                          </div>
-                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300" />
-                        </motion.div>
+                          <a
+                            href={projectUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            Visitar Projeto
+                          </a>
+                        </Button>
                       )}
                     </div>
-                  </motion.div>
-                )}
-
-                {/* Links */}
-                {links.length > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                    className="space-y-4 pt-4 border-t border-border/50"
-                  >
-                    <h4 className="text-base font-medium text-foreground flex items-center gap-2">
-                      <span className="text-secondary">🔗</span>
-                      Links
-                    </h4>
-                    <div className="space-y-2">
-                      {links.map((link, index) => (
-                        <motion.a
-                          key={index}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group flex items-center gap-3 p-3 rounded-lg border border-border/50 hover:border-primary/50 hover:bg-accent/50 transition-all duration-200 btn-modern"
-                          whileHover={{ x: 4, y: -1 }}
-                          transition={{ type: "spring", stiffness: 400 }}
-                        >
-                          <div className="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                            {link.icon || <ExternalLink className="w-4 h-4 text-primary" />}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-foreground truncate">{link.name}</p>
-                            <p className="text-xs text-muted-foreground truncate">{link.url.replace('https://', '').replace('http://', '')}</p>
-                          </div>
-                          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors ml-auto" />
-                        </motion.a>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-
-              {/* Footer */}
-              <DialogFooter className="flex-shrink-0 p-6 border-t border-border/50 bg-card/80 backdrop-blur-sm">
-                <div className="flex w-full gap-3">
-                  <Button
-                    variant="outline"
-                    className="flex-1 btn-modern"
-                    onClick={onClose}
-                  >
-                    <X className="w-4 h-4 mr-2" />
-                    Fechar
-                  </Button>
-                  {project.projectUrl && (
-                    <Button
-                      asChild
-                      className="flex-1 btn-modern"
-                      variant="default"
-                    >
-                      <a
-                        href={projectUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Visitar Projeto
-                      </a>
-                    </Button>
-                  )}
-                </div>
-              </DialogFooter>
+                  </DialogFooter>
+                </>
+              )}
             </div>
           </motion.div>
         </DialogContent>

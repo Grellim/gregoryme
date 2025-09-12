@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import { useMotionValue, useTransform } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, ZoomIn, ZoomOut, ChevronLeft, ChevronRight, Download, Minimize2 } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
+import { X, ZoomIn, ZoomOut, Download, Minimize2 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -79,19 +79,26 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-[95vw] max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border/50 bg-card/95 backdrop-blur-sm shadow-2xl overflow-hidden"
-        onClick={handleContentClick}
-        onKeyDown={handleKeyDown}
-        role="dialog"
-        aria-labelledby="gallery-modal-title"
-        aria-modal="true"
+  className={cn(
+    "w-[95vw] max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl max-h-[90vh] p-0 rounded-lg focus:outline-none border border-border/50 bg-card/95 backdrop-blur-sm shadow-2xl overflow-hidden",
+    "max-[640px]:w-[95vw] max-[640px]:max-w-[95vw]"
+  )}
+  onClick={handleContentClick}
+  onKeyDown={handleKeyDown}
+  role="dialog"
+  aria-labelledby="gallery-modal-title"
+  aria-modal="true"
+  aria-describedby="gallery-modal-desc"
       >
         <div className="flex flex-col h-full max-h-[90vh]">
           {/* Header */}
           <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-border bg-card">
-            <DialogTitle id="gallery-modal-title" className="sr-only">
-              {alt}
-            </DialogTitle>
+  <DialogTitle id="gallery-modal-title" className="sr-only">
+    {alt}
+  </DialogTitle>
+  <p id="gallery-modal-desc" className="sr-only">
+    Gallery image viewer with zoom and download capabilities
+  </p>
             <div className="flex items-center gap-3">
               <span className="text-sm text-muted-foreground font-medium truncate max-w-xs">
                 {alt}
@@ -103,7 +110,10 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="bg-muted/80 hover:bg-destructive/90 text-destructive hover:text-destructive-foreground rounded-full p-2.5 sm:p-2 transition-all duration-200 btn-modern focus:outline-none focus:ring-2 focus:ring-destructive"
+  className={cn(
+    "bg-muted/80 hover:bg-destructive/90 text-destructive hover:text-destructive-foreground rounded-full p-2.5 sm:p-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-destructive",
+    "max-[640px]:p-2"
+  )}
                 aria-label="Close gallery"
               >
                 <X className="h-4 w-4" />
@@ -115,9 +125,12 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
           <div className="flex-1 relative overflow-hidden" ref={constraintsRef}>
             <div className="relative w-full h-full flex items-center justify-center p-4">
               {loading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-muted">
-                  <div className="skeleton w-48 h-48 sm:w-64 sm:h-64 rounded-lg"></div>
-                </div>
+  <div className="absolute inset-0 flex items-center justify-center bg-muted">
+    <Skeleton className={cn(
+      "w-48 h-48 sm:w-64 sm:h-64 rounded-lg",
+      "max-[640px]:w-40 max-[640px]:h-40"
+    )} />
+  </div>
               )}
         
               {error ? (
@@ -177,7 +190,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                   size="sm"
                   onClick={zoomOut}
                   disabled={scale <= 0.5}
-                  className="btn-modern"
+  className={cn("transition-all duration-200 ease-in-out")}
                   aria-label="Zoom out"
                 >
                   <ZoomOut className="w-4 h-4" />
@@ -187,7 +200,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                   size="sm"
                   onClick={zoomIn}
                   disabled={scale >= 3}
-                  className="btn-modern"
+  className={cn("transition-all duration-200 ease-in-out")}
                   aria-label="Zoom in"
                 >
                   <ZoomIn className="w-4 h-4" />
@@ -196,7 +209,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                   variant="outline"
                   size="sm"
                   onClick={resetTransform}
-                  className="btn-modern"
+  className={cn("transition-all duration-200 ease-in-out")}
                   aria-label="Reset zoom"
                 >
                   <Minimize2 className="w-4 h-4" />
@@ -206,7 +219,7 @@ export default function GalleryModal({ isOpen, onClose, imageUrl, alt }: Gallery
                 variant="outline"
                 size="sm"
                 onClick={handleDownload}
-                className="btn-modern"
+  className={cn("transition-all duration-200 ease-in-out")}
                 aria-label="Download image"
               >
                 <Download className="w-4 h-4 mr-1" />

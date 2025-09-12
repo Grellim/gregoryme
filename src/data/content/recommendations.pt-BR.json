@@ -1,0 +1,49 @@
+[
+  {
+    "id": "1",
+    "name": "Maria Silva",
+    "role": "CEO & Fundadora",
+    "company": "Tech Solutions Ltda",
+    "message": "Gregory transformou nossa visão em realidade! Sua expertise em React e Next.js entregou uma plataforma que superou todas as expectativas. Profissional excepcional e parceiro estratégico. 🚀",
+    "avatar": "/person1.jpg",
+    "rating": 5
+  },
+  {
+    "id": "2",
+    "name": "João Santos",
+    "role": "Tech Lead",
+    "company": "Digital Innovation",
+    "message": "Trabalhar com Gregory foi uma experiência transformadora. Seu conhecimento profundo em TypeScript e arquitetura de software resolveu problemas que estávamos enfrentando há meses. 👏",
+    "avatar": "/person2.jpg",
+    "rating": 5
+  },
+  {
+    "id": "3",
+    "name": "Ana Oliveira",
+    "role": "Gerente de Projetos",
+    "company": "Web Development Co.",
+    "message": "A comunicação de Gregory é impecável! Sempre disponível, entrega código limpo e bem documentado. Seus projetos são escaláveis e fáceis de manter. Altamente recomendado! 💯",
+    "avatar": "/person3.jpg",
+    "rating": 5
+  },
+  {
+    "id": "4",
+    "name": "Carlos Mendes",
+    "role": "Desenvolvedor Sênior",
+    "company": "Startup Tech",
+    "message": "Colaborar com Gregory em múltiplos projetos foi um prazer. Suas soluções criativas e conhecimento técnico profundo sempre elevam o nível da equipe. Parceiro excepcional! 🌟",
+    "avatar": "/person1.jpg",
+    "rating": 5,
+    "github": "https://github.com"
+  },
+  {
+    "id": "5",
+    "name": "Fernanda Costa",
+    "role": "Product Manager",
+    "company": "Digital Agency",
+    "message": "Gregory não apenas entregou o que foi solicitado, mas sugeriu melhorias inteligentes que transformaram nosso produto. Profissionalismo e visão estratégica em um só desenvolvedor! 👍",
+    "avatar": "/person2.jpg",
+    "rating": 5,
+    "website": "https://um.com"
+  }
+]

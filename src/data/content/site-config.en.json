@@ -1,0 +1,24 @@
+{
+  "title": "Gregory Vallim - Full-Stack Developer",
+  "description": "Passionate full-stack developer creating innovative web solutions with React, Next.js, and modern technologies",
+  "keywords": ["full-stack developer", "react", "next.js", "typescript", "web development", "ui/ux"],
+  "author": "Gregory Vallim",
+  "videoBackgroundUrl": "/videos/background.mp4",
+  "hero": {
+    "title": "Hello, I'm Gregory Vallim",
+    "subtitle": "Full-stack developer creating amazing digital experiences",
+    "ctaText": "View My Work",
+    "ctaUrl": "/portfolio"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "Over 5 years of experience building modern web applications with a focus on performance, accessibility, and user experience.",
+    "skills": ["React", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "Prisma"]
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "email": "gregory@example.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "San Francisco, CA, USA"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "site": {
+    "title": "Gregory Vallim - Desenvolvedor Full-Stack",
+    "description": "Desenvolvedor full-stack apaixonado por criar soluções web inovadoras com React, Next.js e tecnologias modernas",
+    "keywords": ["desenvolvedor full-stack", "react", "next.js", "typescript", "desenvolvimento web", "ui/ux"],
+    "author": "Gregory Vallim"
+  },
+  "hero": {
+    "title": "Olá, sou Gregory Vallim",
+    "subtitle": "Desenvolvedor full-stack criando experiências digitais incríveis",
+    "ctaText": "Ver Meu Trabalho"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "description": "Mais de 5 anos de experiência construindo aplicações web modernas com foco em performance, acessibilidade e experiência do usuário.",
+    "skills": ["React", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "Prisma"]
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "email": "gregory@example.com",
+    "phone": "+55 (11) 99999-9999",
+    "address": "São Paulo, SP, Brasil"
+  },
+  "navbar": {
+    "home": "Início",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "contact": "Contato",
+    "github": "GitHub"
+  },
+  "social": {
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "email": "Email",
+    "discord": "Discord"
+  },
+  "metadata": {
+    "ogTitle": "Gregory Vallim - Desenvolvedor Full-Stack",
+    "ogDescription": "Desenvolvedor full-stack apaixonado por criar soluções web inovadoras",
+    "twitterTitle": "Gregory Vallim - Desenvolvedor Full-Stack",
+    "twitterDescription": "Desenvolvedor full-stack apaixonado por criar soluções web inovadoras"
+  },
+  "ui": {
+    "recommendations": {
+      "title": "Recomendações",
+      "description": "O que as pessoas estão dizendo",
+      "knowMore": "Saiba Mais",
+      "close": "Fechar"
+    },
+    "profile": {
+      "title": "Perfil",
+      "description": "Sobre mim",
+      "name": "Nome",
+      "subtitle": "Subtítulo",
+      "experience": {
+        "title": "Experiência",
+        "description": "Descrição da experiência"
+      },
+      "techStack": {
+        "title": "Stack Tecnológica"
+      },
+      "mission": {
+        "title": "Missão",
+        "description": "Descrição da missão"
+      },
+      "badges": ["Desenvolvedor Full-Stack", "Especialista React", "Design UI/UX"],
+      "close": "Fechar",
+      "closeAria": "Fechar modal do perfil"
+    },
+    "buttons": {
+      "viewProjects": "Ver Projetos",
+      "contact": "Contato",
+      "recommendations": "Recomendações"
+    },
+    "tags": {
+      "innovation": "Inovação",
+      "creativity": "Criatividade",
+      "performance": "Performance",
+      "sustainability": "Sustentabilidade"
+    },
+    "projectDetails": {
+      "knowMore": "Saiba Mais",
+      "visitProject": "Visitar Projeto",
+      "close": "Fechar",
+      "moreAbout": "Mais Sobre",
+      "gallery": "Galeria",
+      "closeDetails": "Fechar Detalhes",
+      "viewGalleryImage": "Ver Imagem da Galeria"
+    }
+  }
+}

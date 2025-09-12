@@ -1,21 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { motion } from "framer-motion";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { X } from "lucide-react";
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaLinkedin, FaGithub, FaDiscord, FaExternalLinkAlt, FaTiktok } from 'react-icons/fa';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { X, Star } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { recommendations } from "@/data/recommendations";
 import { getSiteConfig, getLocale } from "@/data/config";
 import type { Recommendation } from "@/data/types";
-
-const lang = 'pt-BR';
-const siteConfigData = getSiteConfig(lang);
-const locale = getLocale(lang);
-
+import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface RecommendationsModalProps {
   isOpen: boolean;
@@ -23,7 +22,15 @@ interface RecommendationsModalProps {
 }
 
 export default function RecommendationsModal({ isOpen, onClose }: RecommendationsModalProps) {
+  const lang = 'pt-BR';
+  const t = useTranslations("Recommendations");
+  const locale = getLocale(lang);
+  const [isLoading, setIsLoading] = React.useState(true);
 
+  React.useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 400);
+    return () => clearTimeout(timer);
+  }, [isOpen]);
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
@@ -33,7 +40,6 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
 
   const handleCardClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // No external link for recommendations - could add analytics or other functionality here
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -45,172 +51,130 @@ export default function RecommendationsModal({ isOpen, onClose }: Recommendation
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-screen p-0 overflow-y-auto pb-[25px] rounded-2xl focus:outline-none border border-border/50 scrollbar scrollbar-w-4 scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thumb-rounded scrollbar-track-transparent/50"
+        className={cn(
+          "w-full max-w-[60vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl max-h-screen p-0 overflow-y-auto pb-[25px] rounded-2xl focus:outline-none border border-border/50",
+          "max-[640px]:max-w-[95vw] max-[640px]:w-full",
+          "[&_.scrollbar]:w-4 [&_.scrollbar]:scrollbar-thumb-gray-400/50 [&_.scrollbar]:scrollbar-track-transparent"
+        )}
         onKeyDown={handleKeyDown}
         role="dialog"
-        aria-label="Modal de recomendações"
+        aria-labelledby="recommendations-modal-title"
+        aria-describedby="recommendations-modal-desc"
         aria-modal="true"
       >
         <DialogHeader className="p-4 sm:p-6 lg:p-8 border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-10">
           <div className="text-left space-y-4 sm:space-y-6 px-4 sm:px-6">
-            <DialogTitle className="text-xl sm:text-2xl lg:text-3xl font-bold font-poppins leading-tight">
-              {locale.ui.recommendations.title}
+            <DialogTitle id="recommendations-modal-title" className={cn(
+              "text-xl sm:text-2xl lg:text-3xl font-bold leading-tight",
+              "clamp-[1.25rem, 2.5vw + 0.75rem, 2rem]"
+            )}>
+              {t("title") || "Recomendações"}
             </DialogTitle>
-            <DialogDescription className="text-xs sm:text-sm lg:text-base leading-relaxed">
-              {locale.ui.recommendations.description}
+            <DialogDescription id="recommendations-modal-desc" className={cn(
+              "leading-relaxed",
+              "clamp-[0.75rem, 1.5vw + 0.5rem, 1rem]"
+            )}>
+              {t("description") || "O que meus clientes e colegas dizem sobre meu trabalho"}
             </DialogDescription>
           </div>
           <Button
             onClick={onClose}
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 z-20 focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label={locale.ui.recommendations.close}
-            variant="ghost"
-            size="icon"
+            className={cn(
+              "absolute top-4 right-4 sm:top-6 sm:right-6 bg-background/80 hover:bg-background text-foreground border border-border/50 rounded-full p-2 sm:p-3 transition-all duration-200 ease-in-out flex items-center justify-center"
+            )}
+            aria-label="Close recommendations modal"
           >
-            <X className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7" />
+            <X className="w-5 h-5" />
           </Button>
         </DialogHeader>
-        
-        <ScrollArea className="w-full pr-4 flex-1">
-          <div className="w-full h-full pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 lg:px-10 space-y-4 sm:space-y-6 md:space-y-8">
-            <div className="grid grid-cols-1 gap-4 space-y-0">
-              {recommendations.map((item) => {
-                const typedItem = item as any; // Type assertion to handle additional social links
-                return (
-                <Card
-                  key={item.id}
-                  className="border-border/50 hover:shadow-md transition-all duration-200 overflow-hidden"
-                  onClick={handleCardClick}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      handleCardClick(e as any);
-                    }
-                  }}
-                  aria-label={`Visitar ${item.name}`}
-                >
-                  <CardContent className="p-0">
-                    <div className="p-4 relative">
-                      {/* Main content: Image left, content center */}
-                      <div className="flex items-start gap-4">
-                        {/* Image - reduced height for better proportions */}
-                        <div className="flex-shrink-0 w-40 h-40 rounded-lg overflow-hidden shadow-sm ring-1 ring-border/30">
-                          <img
-                            src={typedItem.avatar || "/person1.jpg"}
-                            alt={`${typedItem.name} - Recomendação`}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.src = "/person1.jpg";
-                            }}
-                          />
-                        </div>
 
-                        {/* Content - compact spacing */}
-                        <div className="flex-1 space-y-2 min-w-0">
-                          {/* Type */}
-                          <div className="text-xs font-medium text-muted-foreground">
-                            ⭐ Recomendação
-                          </div>
-                          
-                          {/* Name */}
-                          <h3 className="text-base font-semibold text-foreground leading-tight">
-                            {typedItem.name}
-                          </h3>
-                          
-                          {/* Description */}
-                          <p className="text-sm text-muted-foreground leading-relaxed max-w-none">
-                            {typedItem.message}
-                          </p>
-                          
-                          {/* Social Media Icons */}
-                          <div className="flex items-center gap-2 pt-1 flex-wrap">
-                            {typedItem.company && (
-                              <Badge variant="secondary" className="text-xs">
-                                {typedItem.company}
-                              </Badge>
-                            )}
-                            {typedItem.role && (
-                              <Badge variant="outline" className="text-xs">
-                                {typedItem.role}
-                              </Badge>
-                            )}
-                            {typedItem.rating && (
-                              <Badge variant="default" className="text-xs bg-yellow-500">
-                                {typedItem.rating} ⭐
-                              </Badge>
-                            )}
-                            {item.facebook && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Facebook" onClick={(e) => { e.stopPropagation(); window.open(item.facebook, '_blank'); }}>
-                                <FaFacebook className="h-8 w-8" />
-                              </Button>
-                            )}
-                            {item.instagram && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Instagram" onClick={(e) => { e.stopPropagation(); window.open(item.instagram, '_blank'); }}>
-                                <FaInstagram className="h-8 w-8" />
-                              </Button>
-                            )}
-                            {item.twitter && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Twitter" onClick={(e) => { e.stopPropagation(); window.open(item.twitter, '_blank'); }}>
-                                <FaTwitter className="h-8 w-8" />
-                              </Button>
-                            )}
-                            {item.tiktok && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="TikTok" onClick={(e) => { e.stopPropagation(); window.open(item.tiktok, '_blank'); }}>
-                                <FaTiktok className="h-8 w-8" />
-                              </Button>
-                            )}
-                            {item.discord && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Discord" onClick={(e) => { e.stopPropagation(); window.open(item.discord, '_blank'); }}>
-                                <FaDiscord className="h-8 w-8" />
-                              </Button>
-                            )}
-                            {item.linkedin && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="LinkedIn" onClick={(e) => { e.stopPropagation(); window.open(item.linkedin, '_blank'); }}>
-                                <FaLinkedin className="h-8 w-8" />
-                              </Button>
-                            )}
-                            {item.github && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="GitHub" onClick={(e) => { e.stopPropagation(); window.open(item.github, '_blank'); }}>
-                                <FaGithub className="h-8 w-8" />
-                              </Button>
-                            )}
-                            {item.youtube && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="YouTube" onClick={(e) => { e.stopPropagation(); window.open(item.youtube, '_blank'); }}>
-                                <FaYoutube className="h-8 w-8" />
-                              </Button>
-                            )}
-                            {item.website && (
-                              <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 cursor-pointer transform hover:scale-110" aria-label="Website" onClick={(e) => { e.stopPropagation(); window.open(item.website, '_blank'); }}>
-                                <FaExternalLinkAlt className="h-8 w-8" />
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Conhecer button at bottom of card */}
-                      <div className="pt-3 mt-3 border-t border-border/30">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="w-full px-4 py-2 text-sm font-medium border-primary/50 hover:bg-primary hover:text-primary-foreground transition-all duration-200 cursor-pointer"
-                          onClick={handleCardClick}
-                          aria-label={`${locale.ui.recommendations.knowMore} ${item.name}`}
-                        >
-                          <FaExternalLinkAlt className="w-4 h-4 mr-2" />
-                          {locale.ui.recommendations.knowMore}
-                        </Button>
-                      </div>
-                  </div>
-                </CardContent>
-              </Card>
-                );
-              })}
+        <ScrollArea className="flex-1">
+          {isLoading ? (
+            <div className="w-full p-6 space-y-6">
+              <Skeleton className="h-8 w-3/4" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <Skeleton key={i} className="h-64 rounded-xl" />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-full p-6 space-y-6">
+              {recommendations.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {recommendations.slice(0, 6).map((recommendation, index) => (
+                    <motion.div
+                      key={recommendation.id || index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                      className="group"
+                      whileHover={{ y: -4 }}
+                    >
+                      <Card className="h-full border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden">
+                        <CardContent className="p-6 space-y-4 pt-8">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="flex-shrink-0">
+                              <Avatar className="w-12 h-12">
+                                <AvatarImage src={recommendation.avatar || "/default-avatar.png"} alt={recommendation.name} />
+                                <AvatarFallback className="bg-primary text-primary-foreground text-sm font-medium">
+                                  {recommendation.name?.charAt(0) || "U"}
+                                </AvatarFallback>
+                              </Avatar>
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-foreground">{recommendation.name}</h3>
+                              <p className="text-sm text-muted-foreground">{recommendation.role} - {recommendation.company}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <p className="text-muted-foreground leading-relaxed italic border-l-4 border-primary/20 pl-4">
+                              "{recommendation.message}"
+                            </p>
+                          </div>
+                          
+                          <div className="flex items-center gap-2 pt-4 border-t border-border/50">
+                            {recommendation.rating && (
+                              <div className="flex items-center gap-1 text-sm text-primary">
+                                <Star className="w-4 h-4 fill-current" />
+                                <span>{recommendation.rating}/5</span>
+                              </div>
+                            )}
+                            <span className="text-xs text-muted-foreground ml-auto">
+                              {recommendation.updatedAt ? new Date(recommendation.updatedAt).toLocaleDateString('pt-BR') : 'Recent'}
+                            </span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                  
+                  {recommendations.length > 6 && (
+                    <motion.div
+                      className="col-span-full flex justify-center pt-4"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.6 }}
+                    >
+                      <Button variant="outline" size="sm" className="border-primary/50">
+                        {t("loadMore") || "Carregar mais"} ({recommendations.length - 6})
+                      </Button>
+                    </motion.div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground text-lg mb-4">
+                    {t("noRecommendations") || "Nenhuma recomendação disponível no momento"}
+                  </p>
+                  <p className="text-muted-foreground text-sm">
+                    {t("checkBackLater") || "Volte mais tarde para ver novas recomendações"}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
         </ScrollArea>
       </DialogContent>
     </Dialog>

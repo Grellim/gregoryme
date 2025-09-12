@@ -139,3 +139,179 @@ This scaffold includes a comprehensive set of modern web development tools:
 ---
 
 Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+
+## 📂 File-Based Content Architecture
+
+This project uses a file-based content management system for portfolio data, enabling easy editing without database changes.
+
+### 🎯 Content Structure
+
+All content is stored in `src/data/content/` as JSON files with internationalization support:
+
+```
+src/data/content/
+├── en.json                 # English locale strings
+├── pt-BR.json              # Portuguese (Brazil) locale strings
+├── profile.en.json         # Profile data (English)
+├── profile.pt-BR.json      # Profile data (Portuguese)
+├── projects.en.json        # Portfolio projects (English)
+├── projects.pt-BR.json     # Portfolio projects (Portuguese)
+├── recommendations.en.json # Client testimonials (English)
+├── recommendations.pt-BR.json # Client testimonials (Portuguese)
+├── skills.en.json          # Skills and proficiencies (English)
+├── skills.pt-BR.json       # Skills and proficiencies (Portuguese)
+└── site-config.en.json     # Site configuration (English)
+└── site-config.pt-BR.json  # Site configuration (Portuguese)
+```
+
+### 🔒 Data Validation with Zod
+
+All content files are validated using **Zod schemas** defined in `src/data/types.ts`:
+
+- **Type Safety**: TypeScript types are inferred from Zod schemas (`z.infer<typeof zPortfolioProject>`)
+- **Runtime Validation**: `src/lib/data-loader.ts` validates all loaded data against schemas
+- **Fallback Handling**: Invalid or missing files trigger fallback data to prevent crashes
+- **Centralized Schemas**: All validation logic is centralized for consistency
+
+### ⚡ Static Generation & Performance
+
+The application uses **Next.js static generation** for optimal performance:
+
+- **Server-Side Data Loading**: `src/app/page.tsx` uses `loadAllData()` during build time
+- **Incremental Static Regeneration (ISR)**: `revalidate = 3600` (1 hour) for fresh content
+- **No API Routes**: Direct file loading eliminates API overhead
+- **Hot Module Replacement (HMR)**: Content changes appear instantly in development
+
+### ✏️ Editing Content Instructions
+
+#### 1. **Locale Strings** (`en.json`, `pt-BR.json`)
+Edit UI text, navigation labels, and button text:
+
+```json
+{
+  "hero": {
+    "title": "Hello, I'm Gregory Vallim",
+    "subtitle": "Full-stack developer creating amazing digital experiences",
+    "ctaText": "View My Work"
+  },
+  "ui": {
+    "buttons": {
+      "viewProjects": "View Projects",
+      "contact": "Contact",
+      "recommendations": "Recommendations"
+    }
+  }
+}
+```
+
+#### 2. **Profile Information** (`profile.en.json`, `profile.pt-BR.json`)
+Update personal details and experience:
+
+```json
+{
+  "name": "Gregory Vallim",
+  "subtitle": "Full-Stack Developer & UI/UX Specialist",
+  "badges": ["React Expert", "Next.js Specialist", "TypeScript", "Tailwind CSS"],
+  "experience": {
+    "title": "5+ Years Experience",
+    "description": "Building modern web applications with focus on performance and user experience"
+  },
+  "techStack": {
+    "title": "Technology Stack",
+    "skills": ["React", "Next.js", "TypeScript", "Node.js", "Prisma", "Tailwind"]
+  },
+  "mission": {
+    "title": "My Mission",
+    "description": "Creating innovative digital solutions that make a positive impact"
+  }
+}
+```
+
+#### 3. **Portfolio Projects** (`projects.en.json`, `projects.pt-BR.json`)
+Add/modify projects with rich metadata:
+
+```json
+{
+  "id": "project-1",
+  "title": "E-commerce Platform",
+  "description": "Modern e-commerce solution with real-time inventory management",
+  "image": "/project1.jpg",
+  "technologies": ["React", "Next.js", "TypeScript", "Prisma", "Tailwind"],
+  "tags": ["ecommerce", "fullstack", "realtime"],
+  "githubUrl": "https://github.com/gregoryvallim/ecommerce-platform",
+  "liveUrl": "https://ecommerce.gregoryvallim.com",
+  "featured": true,
+  "moreInfo": "Scalable e-commerce platform serving 10k+ monthly users",
+  "galleryImages": ["/gallery1.jpg", "/gallery2.jpg", "/gallery3.jpg"],
+  "links": [
+    {
+      "name": "Live Demo",
+      "url": "https://ecommerce.gregoryvallim.com",
+      "icon": "external-link"
+    }
+  ]
+}
+```
+
+#### 4. **Client Recommendations** (`recommendations.en.json`, `recommendations.pt-BR.json`)
+Add testimonials with social links:
+
+```json
+{
+  "id": "rec-1",
+  "name": "Maria Silva",
+  "role": "Product Manager",
+  "company": "TechCorp",
+  "message": "Gregory delivered exceptional work that exceeded our expectations. His attention to detail and proactive approach made the entire project a success.",
+  "avatar": "/person1.jpg",
+  "rating": 5,
+  "linkedin": "https://linkedin.com/in/maria-silva",
+  "companyLogo": "/company1.png"
+}
+```
+
+#### 5. **Skills & Proficiencies** (`skills.en.json`, `skills.pt-BR.json`)
+Define technical skills with proficiency levels:
+
+```json
+{
+  "name": "React",
+  "icon": "react",
+  "description": "Building dynamic user interfaces with component-based architecture",
+  "proficiency": 95
+}
+```
+
+### 🔄 Development Workflow
+
+1. **Edit Content**: Modify JSON files in `src/data/content/`
+2. **Hot Reload**: Changes appear instantly in development (`npm run dev`)
+3. **Validation**: Zod automatically validates structure on load
+4. **Type Safety**: TypeScript ensures type consistency across the app
+5. **Build & Deploy**: Static generation creates optimized production builds
+
+### 🛡️ Error Handling & Fallbacks
+
+- **Missing Files**: Graceful fallback to default data structures
+- **Invalid JSON**: Zod validation prevents runtime errors
+- **Type Mismatches**: TypeScript compilation catches issues early
+- **Build Failures**: Comprehensive error messages for debugging
+
+### 📱 Internationalization Support
+
+- **English (`en`)**: Default language
+- **Portuguese (`pt-BR`)**: Brazilian Portuguese localization
+- **Easy Extension**: Add new languages by creating `*.json` files
+- **Consistent Structure**: All locales follow the same schema
+
+### 🚀 Production Deployment
+
+The static generation ensures:
+- **Fast Load Times**: Pre-rendered HTML served from CDN
+- **SEO Friendly**: Server-side rendered content for search engines
+- **Low Server Load**: Minimal runtime computation
+- **Incremental Updates**: ISR revalidates content without full rebuilds
+
+---
+
+**Content Management Made Simple** - Edit JSON files, see instant results, maintain type safety, and deploy with confidence! 🎉

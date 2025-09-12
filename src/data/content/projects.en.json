@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "title": "Modern Web Platform",
+    "description": "A complete web platform with responsive design and advanced features for project management.",
+    "image": "/project1.jpg",
+    "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+    "githubUrl": "https://github.com/gregoryvallim/project1",
+    "liveUrl": "https://plataformaweb.gregoryvallim.com",
+    "featured": true,
+    "moreInfo": "This platform was developed using the most modern technologies on the market, with a focus on performance and user experience. The architecture uses Next.js 13 with App Router for SSR and optimized SSG, TypeScript for robust typing and Tailwind CSS for utility-first styling. The system includes JWT authentication, roles & permissions system, complete administrative dashboard and integration with external APIs. Responsiveness was tested on all devices and modern browsers, ensuring a consistent experience.",
+    "galleryImages": ["/gallery1.jpg", "/gallery2.jpg"]
+  },
+  {
+    "id": "2",
+    "title": "Mobile Application",
+    "description": "Native mobile application with innovative features and user-friendly interface.",
+    "image": "/project2.jpg",
+    "technologies": ["React Native", "Firebase", "Node.js", "MongoDB"],
+    "githubUrl": "https://github.com/gregoryvallim/project2",
+    "liveUrl": "https://appmobile.gregoryvallim.com",
+    "featured": true,
+    "moreInfo": "Developed with React Native for cross-platform (iOS and Android), this app uses Firebase for authentication, push notifications and real-time database. The Node.js backend with Express and MongoDB ensures scalability and performance. Features include real-time geolocation, integrated chat, payment system via Stripe, and integration with third-party APIs. The design follows Material Design 3 and Human Interface Guidelines, with smooth animations using Reanimated 2 and native gestures with React Native Gesture Handler.",
+    "galleryImages": ["/gallery1.jpg"]
+  },
+  {
+    "id": "3",
+    "title": "Analytics Dashboard",
+    "description": "Analytics system with real-time data visualization and custom reports.",
+    "image": "/project3.jpg",
+    "technologies": ["Vue.js", "D3.js", "Python", "PostgreSQL"],
+    "githubUrl": "https://github.com/gregoryvallim/project3",
+    "liveUrl": "https://dashboardanalytics.gregoryvallim.com",
+    "featured": false,
+    "moreInfo": "Dashboard built with Vue 3 Composition API and Vue Router for SPA navigation. Interactive data visualizations with D3.js and Chart.js, Python backend with FastAPI for high-performance APIs. PostgreSQL with TimescaleDB for temporal data and analytical reports. Features include drag & drop widgets, dynamic filters, PDF/Excel report export, and WebSocket integration for real-time updates. Security implements OAuth2 and rate limiting.",
+    "galleryImages": ["/gallery2.jpg", "/gallery1.jpg"]
+  },
+  {
+    "id": "4",
+    "title": "Personal Finance App",
+    "description": "Complete application for financial management with artificial intelligence and personalized insights.",
+    "image": "/project4.jpg",
+    "technologies": ["Flutter", "Dart", "TensorFlow", "SQLite"],
+    "githubUrl": "https://github.com/gregoryvallim/project4",
+    "liveUrl": "https://financaspessoais.gregoryvallim.com",
+    "featured": false,
+    "moreInfo": "Flutter app with MVVM architecture using Provider for state management. Integration with TensorFlow Lite for predictive spending analysis and intelligent recommendations. Local SQLite database with Drift ORM for offline performance. Features include automatic transaction categorization via ML, interactive charts with fl_chart, synchronization with bank APIs via Plaid, and security with biometrics and local encryption. Support for multiple currencies and automatic tax reports.",
+    "galleryImages": ["/gallery1.jpg", "/gallery2.jpg"]
+  },
+  {
+    "id": "5",
+    "title": "AI Platform",
+    "description": "Machine learning system for task automation and predictive data analysis.",
+    "image": "/project5.jpg",
+    "technologies": ["Python", "TensorFlow", "Docker", "AWS"],
+    "githubUrl": "https://github.com/gregoryvallim/project5",
+    "liveUrl": "https://plataformaia.gregoryvallim.com",
+    "featured": false,
+    "moreInfo": "AI platform built with Python 3.11 and TensorFlow 2.x for deep learning models. Deployed in Docker containers with Kubernetes on AWS EKS. ML pipeline with MLflow for experiment tracking and SageMaker for distributed training. Features include natural language processing (NLP), computer vision, workflow automation with Apache Airflow, and monitoring dashboard with Grafana. Serverless architecture uses Lambda and API Gateway for scalability.",
+    "galleryImages": ["/gallery2.jpg"]
+  },
+  {
+    "id": "6",
+    "title": "Revolutionary E-commerce",
+    "description": "E-commerce platform with immersive shopping experience and advanced personalization.",
+    "image": "/project6.jpg",
+    "technologies": ["Next.js", "Stripe", "Prisma", "Redis"],
+    "githubUrl": "https://github.com/gregoryvallim/project6",
+    "liveUrl": "https://ecommercerevolucionario.gregoryvallim.com",
+    "featured": false,
+    "moreInfo": "Full-stack e-commerce with Next.js 13, TypeScript and Prisma ORM for PostgreSQL. Payment processing with Stripe Connect and webhooks. Distributed cache with Redis and session management. Features include Algolia search, ML personalized recommendations, persistent cart, one-page checkout, and logistics integration (FedEx/UPS). Performance optimized with ISR and image optimization. Advanced SEO with structured data and dynamic sitemap. Support for multiple marketplaces and sellers.",
+    "galleryImages": ["/gallery1.jpg", "/gallery2.jpg"]
+  }
+]

@@ -13,6 +13,12 @@ import SkillsGridCarousel from "@/components/ui/SkillsGridCarousel";
 import { skillsData } from "@/data/skills";
 import { profileData } from "@/data/profile";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
+
+// Modular sections
+import HeroSection from "@/components/portfolio/HeroSection";
+import AboutSection from "@/components/portfolio/AboutSection";
+import PortfolioSection from "@/components/portfolio/PortfolioSection";
+import ContactSection from "@/components/portfolio/ContactSection";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import { FaDiscord, FaInstagram, FaTiktok, FaTwitter, FaEnvelope } from "react-icons/fa";
 import { SiteConfig, Locale, SocialLink, FooterButton, PortfolioProject } from "@/data/types";
@@ -81,140 +87,20 @@ export default function ClientHome({
       <Navbar />
       
       <main className="pt-16">
-        {/* Hero Section */}
-        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden parallax parallax-bg" style={{ backgroundImage: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(16, 185, 129, 0.1) 100%)' }}>
-          <VideoBackground
-            videoSrc={siteConfigData.videoBackgroundUrl}
-            fallbackImage="/videos/placeholder.jpg"
-            className="absolute inset-0"
-          >
-            <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
-            <div className="relative text-center text-white px-4 flex flex-col items-center justify-center h-full max-w-7xl mx-auto z-10">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 text-gradient-hero leading-none tracking-tight animate-fade-in">
-                {siteConfigData.hero.title}
-              </h1>
+        <HeroSection
+          siteConfigData={siteConfigData}
+          locale={locale}
+          visitCount={visitCount}
+          loading={loading}
+        />
 
-              {visitCount > 0 && !loading && (
-                <div className="mb-8 p-4 bg-card/90 backdrop-blur-md rounded-lg border border-border shadow-lg">
-                  <p className="text-sm font-medium text-muted-foreground flex items-center justify-center gap-2">
-                    <span className="text-primary font-semibold">{visitCount}</span>
-                    visitas únicas
-                  </p>
-                </div>
-              )}
-
-              <p className="text-xl sm:text-2xl md:text-3xl mb-12 leading-relaxed max-w-5xl mx-auto text-muted-foreground">
-                {siteConfigData.hero.subtitle}
-              </p>
-              
-              <div className="flex flex-col lg:flex-row gap-6 justify-center w-full max-w-2xl">
-                <Button
-                  onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  size="lg"
-                  className="btn-clean text-base font-semibold px-10 py-5 rounded-lg"
-                  aria-label={locale.ui.buttons.viewProjects}
-                >
-                  {siteConfigData.hero.ctaText}
-                </Button>
-                <Button
-                  onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  variant="outline"
-                  size="lg"
-                  className="border-border text-base font-semibold px-10 py-5 rounded-lg"
-                  aria-label={locale.ui.buttons.contact}
-                >
-                  {siteConfigData.contact.title}
-                </Button>
-              </div>
-            </div>
-          </VideoBackground>
-        </section>
-
-        {/* About Section */}
-        <section id="about" className="py-16 md:py-24 px-4 relative overflow-hidden">
-          <div className="parallax-bg absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(ellipse at 20% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%)',
-            backgroundSize: '400px 400px, 300px 300px',
-            backgroundPosition: '0 0, 100% 100%',
-            zIndex: -1
-          }} />
-          <div className="relative max-w-7xl mx-auto">
-            <div className="text-center mb-12 md:mb-16 section-fade">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gradient-hero">
-                {siteConfigData.about.title}
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                {siteConfigData.about.description}
-              </p>
-            </div>
-            
-            <div className="grid grid-hero gap-8 md:gap-12 mb-16 md:mb-20 items-center">
-              <div className="flex justify-center lg:justify-start order-2 lg:order-1">
-                <div className="relative cursor-pointer group" onClick={openProfileModal}>
-                  <img
-                    src="/profile.jpg"
-                    alt="Foto de perfil de Gregory Vallim"
-                    className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover shadow-2xl border-4 border-border/50 group-hover:border-primary transition-all duration-300 animate-glow"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-6 text-center lg:text-left">
-                <h3 className="text-3xl font-bold">{profileData.name}</h3>
-                <p className="text-xl text-muted-foreground leading-relaxed">
-                  {siteConfigData.about.description}
-                </p>
-                <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                  <TagTooltip emoji="🚀" title={locale.ui.tags.innovation} description="Sempre buscando inovar">
-                    <Badge variant="secondary" className="px-4 py-2 text-sm">
-                      {locale.ui.tags.innovation}
-                    </Badge>
-                  </TagTooltip>
-                  <TagTooltip emoji="💡" title={locale.ui.tags.creativity} description="Criatividade essencial">
-                    <Badge variant="secondary" className="px-4 py-2 text-sm">
-                      {locale.ui.tags.creativity}
-                    </Badge>
-                  </TagTooltip>
-                  <TagTooltip emoji="⚡" title={locale.ui.tags.performance} description="Performance obrigatória">
-                    <Badge variant="secondary" className="px-4 py-2 text-sm">
-                      {locale.ui.tags.performance}
-                    </Badge>
-                  </TagTooltip>
-                  <TagTooltip emoji="🌱" title={locale.ui.tags.sustainability} description="Desenvolvimento sustentável">
-                    <Badge variant="secondary" className="px-4 py-2 text-sm">
-                      {locale.ui.tags.sustainability}
-                    </Badge>
-                  </TagTooltip>
-                </div>
-                
-                <div className="pt-4">
-                  <Button
-                    onClick={openRecommendationsModal}
-                    size="lg"
-                    className="btn-clean text-primary-foreground font-semibold px-8 py-4 rounded-lg"
-                    aria-label={locale.ui.buttons.recommendations}
-                  >
-                    {locale.ui.buttons.recommendations}
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center mb-12 relative z-10">
-              <h3 className="text-3xl font-bold mb-6 text-gradient-hero animate-fade-in">Minhas Habilidades</h3>
-            </div>
-            <SkillsGridCarousel
-              skills={skillsData.map((skill, index) => ({
-                title: skill.name,
-                description: skill.description,
-                icon: skill.icon,
-                color: ["bg-primary", "bg-secondary", "bg-accent", "bg-destructive", "bg-muted", "bg-card"][index % 6],
-                emoji: ["🚀", "📱", "🎨", "🤖", "☁️", "🗄️"][index % 6],
-                proficiency: skill.proficiency,
-              }))}
-            />
-          </div>
-        </section>
+        <AboutSection
+          siteConfigData={siteConfigData}
+          locale={locale}
+          profileData={profileData}
+          onOpenProfileModal={openProfileModal}
+          onOpenRecommendationsModal={openRecommendationsModal}
+        />
 
         {/* Portfolio Section */}
         <section id="projects" className="py-16 md:py-24 px-4 bg-background/95">
