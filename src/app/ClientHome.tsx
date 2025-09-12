@@ -15,7 +15,7 @@ import { profileData } from "@/data/profile";
 import RecommendationsModal from "@/components/ui/RecommendationsModal";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import { FaDiscord, FaInstagram, FaTiktok, FaTwitter, FaEnvelope } from "react-icons/fa";
-import { SiteConfig, Locale, SocialLink, FooterButton } from "@/data/types";
+import { SiteConfig, Locale, SocialLink, FooterButton, PortfolioProject } from "@/data/types";
 import { ProfileData } from "@/data/profile";
 
 
@@ -24,18 +24,7 @@ interface ClientHomeProps {
   locale: Locale;
   socialLinks: SocialLink[];
   footerButtons: FooterButton[];
-  portfolioData: Array<{
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-    technologies: string[];
-    githubUrl?: string;
-    liveUrl?: string;
-    featured?: boolean;
-    moreInfo?: string;
-    galleryImages?: string[];
-  }>;
+  portfolioData: PortfolioProject[];
   profileData: ProfileData;
 }
 
@@ -242,15 +231,7 @@ export default function ClientHome({
               {portfolioData.map((project) => (
                 <PortfolioCard
                   key={project.id}
-                  project={{
-                    id: project.id,
-                    title: project.title,
-                    description: project.description,
-                    image: project.image,
-                    technologies: project.technologies,
-                    moreInfo: project.moreInfo,
-                    galleryImages: project.galleryImages,
-                  }}
+                  project={project}
                   locale={locale}
                   onOpenProjectModal={() => {}}
                 />

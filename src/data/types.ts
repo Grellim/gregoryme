@@ -10,9 +10,12 @@ export interface PortfolioProject {
   title: string;
   description: string;
   image: string;
+  imageUrl?: string; // Legacy field for backward compatibility
   technologies: string[];
+  tags?: string[]; // Alternative naming for technologies
   githubUrl?: string;
   liveUrl?: string;
+  projectUrl?: string; // Direct URL to project (alternative to liveUrl)
   featured?: boolean;
   moreInfo?: string;
   galleryImages: string[];

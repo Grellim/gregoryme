@@ -11,18 +11,10 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Skeleton } from "@/components/ui/skeleton";
 import GalleryModal from "@/components/ui/GalleryModal";
 
+import type { PortfolioProject } from "@/data/types";
+
 interface PortfolioCardProps {
-  project: {
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-    technologies: string[];
-    githubUrl?: string;
-    liveUrl?: string;
-    moreInfo?: string;
-    galleryImages?: string[];
-  };
+  project: PortfolioProject;
   locale: Locale;
   onOpenProjectModal: (projectId: string) => void;
 }

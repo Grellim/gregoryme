@@ -33,9 +33,14 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ isOpen, onClose, project, locale }: ProjectModalProps) {
-  const { links = [] } = project;
+  const {
+    links = [],
+    imageUrl = project.image, // Fallback to image if imageUrl not provided
+    tags = project.technologies, // Fallback to technologies if tags not provided
+    projectUrl = project.liveUrl // Fallback to liveUrl if projectUrl not provided
+  } = project;
   console.log('Project data received:', project);
-  console.log('Links extracted:', links);
+  console.log('Processed project data:', { imageUrl, tags, projectUrl, links });
   const [isGalleryOpen, setIsGalleryOpen] = React.useState(false);
   const [selectedGalleryImage, setSelectedGalleryImage] = React.useState("");
   const [selectedGalleryAlt, setSelectedGalleryAlt] = React.useState("");
@@ -116,12 +121,12 @@ export default function ProjectModal({ isOpen, onClose, project, locale }: Proje
                 whileHover={{ y: -2 }}
               >
                 <Image
-                  src={project.imageUrl}
+                  src={imageUrl}
                   alt={`${project.title} - Cover image`}
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-500 cursor-pointer"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                  onClick={() => handleOpenGallery(project.imageUrl, `${project.title} - Cover`)}
+                  onClick={() => handleOpenGallery(imageUrl, `${project.title} - Cover`)}
                   priority
                 />
                 <div className="absolute inset-0 bg-black/20 hover:bg-black/30 transition-all duration-300" />
@@ -161,7 +166,7 @@ export default function ProjectModal({ isOpen, onClose, project, locale }: Proje
                       Tecnologias
                     </h4>
                     <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, index) => (
+                      {(tags || project.technologies).map((tag, index) => (
                         <motion.div
                           key={index}
                           whileHover={{ scale: 1.05, y: -1 }}
@@ -190,7 +195,7 @@ export default function ProjectModal({ isOpen, onClose, project, locale }: Proje
                       Galeria
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {project.galleryImages.slice(0, 6).map((image, index) => (
+                      {(project.galleryImages || []).slice(0, 6).map((image, index) => (
                         <motion.div
                           key={index}
                           className="relative aspect-square rounded-lg overflow-hidden cursor-pointer group"
@@ -210,11 +215,11 @@ export default function ProjectModal({ isOpen, onClose, project, locale }: Proje
                           </div>
                         </motion.div>
                       ))}
-                      {project.galleryImages.length > 6 && (
+                      {(project.galleryImages || []).length > 6 && (
                         <motion.div
                           className="relative aspect-square rounded-lg overflow-hidden bg-muted flex items-center justify-center cursor-pointer group"
                           whileHover={{ scale: 1.02 }}
-                          onClick={() => handleOpenGallery(project.galleryImages[0], `${project.title} - Ver todas`)}
+                          onClick={() => handleOpenGallery((project.galleryImages || [])[0], `${project.title} - Ver todas`)}
                         >
                           <div className="text-center text-muted-foreground">
                             <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" />
@@ -283,7 +288,7 @@ export default function ProjectModal({ isOpen, onClose, project, locale }: Proje
                       variant="default"
                     >
                       <a
-                        href={project.projectUrl}
+                        href={projectUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
