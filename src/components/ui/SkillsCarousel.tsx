@@ -19,6 +19,15 @@ interface SkillsCarouselProps {
   skills: Skill[];
 }
 
+function areEqual(prevProps: SkillsCarouselProps, nextProps: SkillsCarouselProps) {
+  return prevProps.skills === nextProps.skills ||
+         prevProps.skills.length === nextProps.skills.length &&
+         prevProps.skills.every((skill, index) =>
+           skill.title === nextProps.skills[index]?.title &&
+           skill.description === nextProps.skills[index]?.description
+         );
+}
+
 const SkillsCarouselComponent = memo(function SkillsCarousel({ skills }: SkillsCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -405,4 +414,6 @@ const SkillsCarouselComponent = memo(function SkillsCarousel({ skills }: SkillsC
       </div>
     </div>
   );
-}
+}, areEqual);
+
+export default SkillsCarouselComponent;
