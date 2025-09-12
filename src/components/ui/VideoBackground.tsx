@@ -1,14 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface VideoBackgroundProps {
   videoSrc: string;
   fallbackImage: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export default function VideoBackground({ videoSrc, fallbackImage, children }: VideoBackgroundProps) {
+export default function VideoBackground({ videoSrc, fallbackImage, children, className }: VideoBackgroundProps) {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -22,7 +24,7 @@ export default function VideoBackground({ videoSrc, fallbackImage, children }: V
   }, []);
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+  <div className={cn("relative w-full h-full overflow-hidden", className)}>
       {/* Video Background */}
       <video
         ref={videoRef}
