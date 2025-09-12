@@ -16,6 +16,11 @@ export interface PortfolioProject {
   featured?: boolean;
   moreInfo?: string;
   galleryImages: string[];
+  links?: Array<{
+    name: string;
+    url: string;
+    icon?: React.ReactNode;
+  }>;
 }
 
 export interface Recommendation {

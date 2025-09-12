@@ -39,25 +39,13 @@ export function getPersonSchema(): PersonSchema {
   };
 }
 
-export function getContentHash(data: any): string {
-  // Simple hash for content integrity (in production, use crypto.subtle.digest)
-  const hash = crypto.createHash('sha256');
-  hash.update(JSON.stringify(data));
-  return hash.digest('hex').slice(0, 16); // Shortened for demo
-}
 
 // Generate JSON-LD script tag
 export function generateJsonLdScript(): string {
   const personSchema = getPersonSchema();
-  const profileHash = getContentHash(profileData);
   
   const ldJson = {
-    ...personSchema,
-    additionalProperty: {
-      '@type': 'PropertyValue',
-      name: 'contentHash',
-      value: profileHash
-    }
+    ...personSchema
   };
 
   return `<script type="application/ld+json">${JSON.stringify(ldJson, null, 2)}</script>`;

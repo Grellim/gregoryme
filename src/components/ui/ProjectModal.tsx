@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, X, Image as ImageIcon, Github, Globe, Youtube, FileText } from "lucide-react";
 import Image from "next/image";
 import GalleryModal from "./GalleryModal";
-import { Locale } from "@/data/types";
+import { Locale, PortfolioProject } from "@/data/types";
 
 interface Project {
   id: string;
@@ -33,6 +33,9 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ isOpen, onClose, project, locale }: ProjectModalProps) {
+  const { links = [] } = project;
+  console.log('Project data received:', project);
+  console.log('Links extracted:', links);
   const [isGalleryOpen, setIsGalleryOpen] = React.useState(false);
   const [selectedGalleryImage, setSelectedGalleryImage] = React.useState("");
   const [selectedGalleryAlt, setSelectedGalleryAlt] = React.useState("");
