@@ -16,16 +16,12 @@ interface PortfolioCardProps {
     id: string;
     title: string;
     description: string;
-    imageUrl: string;
-    tags: string[];
-    projectUrl?: string;
-    moreInfo: string;
-    galleryImages: string[];
-    links?: Array<{
-      name: string;
-      url: string;
-      icon?: React.ReactNode;
-    }>;
+    image: string;
+    technologies: string[];
+    githubUrl?: string;
+    liveUrl?: string;
+    moreInfo?: string;
+    galleryImages?: string[];
   };
   locale: Locale;
   onOpenProjectModal: (projectId: string) => void;
@@ -41,7 +37,7 @@ project,
 locale,
 onOpenProjectModal,
 }: PortfolioCardProps) {
-  const { id, title, description, imageUrl, tags, moreInfo, galleryImages, links = [] } = project;
+  const { id, title, description, image, technologies, moreInfo = '', galleryImages = [] } = project;
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState("");
@@ -70,8 +66,8 @@ onOpenProjectModal,
       setIsLoading(false);
       handleImageError();
     };
-    img.src = imageUrl;
-  }, [imageUrl]);
+    img.src = image;
+  }, [image]);
 
   const handleImageError = useCallback(() => {
     setHasImageError(true);
@@ -132,7 +128,7 @@ onOpenProjectModal,
                 ) : (
                   <motion.img
                     key="image"
-                    src={imageUrl}
+                    src={image}
                     alt={title}
                     className="w-full h-full object-cover"
                     initial={{ scale: 1.1, opacity: 0 }}
@@ -176,7 +172,7 @@ onOpenProjectModal,
             </motion.p>
 
             <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-2">
-              {tags.slice(0, 3).map((tag, index) => (
+              {technologies.slice(0, 3).map((tech, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 10 }}
@@ -184,13 +180,13 @@ onOpenProjectModal,
                   transition={{ delay: 0.1 + index * 0.05 }}
                 >
                   <Badge variant="secondary" className="text-xs px-2 py-1">
-                    {tag}
+                    {tech}
                   </Badge>
                 </motion.div>
               ))}
-              {tags.length > 3 && (
+              {technologies.length > 3 && (
                 <Badge variant="outline" className="text-xs px-2 py-1">
-                  +{tags.length - 3} more
+                  +{technologies.length - 3} more
                 </Badge>
               )}
             </div>
@@ -247,7 +243,7 @@ onOpenProjectModal,
               </div>
             ) : (
               <img
-                src={imageUrl}
+                src={image}
                 alt={title}
                 className="max-w-full max-h-[80vh] w-auto h-auto max-h-[60vh] sm:max-h-[80vh] object-contain rounded-lg"
                 onError={handleImageError}
@@ -272,10 +268,6 @@ onOpenProjectModal,
     </>
   );
 
-  function areEqual(prevProps: PortfolioCardProps, nextProps: PortfolioCardProps) {
-    return prevProps.project.id === nextProps.project.id &&
-           prevProps.locale === nextProps.locale;
-  }
 }, areEqual);
 
 export default PortfolioCard;

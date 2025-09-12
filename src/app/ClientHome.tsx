@@ -18,16 +18,6 @@ import { FaDiscord, FaInstagram, FaTiktok, FaTwitter, FaEnvelope } from "react-i
 import { SiteConfig, Locale, SocialLink, FooterButton } from "@/data/types";
 import { ProfileData } from "@/data/profile";
 
-interface PortfolioItem {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  tags: string[];
-  projectUrl: string;
-  moreInfo: string;
-  galleryImages: string[];
-}
 
 interface ClientHomeProps {
   siteConfigData: SiteConfig;
@@ -252,15 +242,17 @@ export default function ClientHome({
               {portfolioData.map((project) => (
                 <PortfolioCard
                   key={project.id}
-                  id={project.id}
-                  title={project.title}
-                  description={project.description}
-                  imageUrl={project.imageUrl}
-                  tags={project.tags}
-                  projectUrl={project.projectUrl}
-                  moreInfo={project.moreInfo}
-                  galleryImages={project.galleryImages}
+                  project={{
+                    id: project.id,
+                    title: project.title,
+                    description: project.description,
+                    image: project.image,
+                    technologies: project.technologies,
+                    moreInfo: project.moreInfo,
+                    galleryImages: project.galleryImages,
+                  }}
                   locale={locale}
+                  onOpenProjectModal={() => {}}
                 />
               ))}
             </div>

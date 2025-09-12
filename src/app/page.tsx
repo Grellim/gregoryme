@@ -24,24 +24,12 @@ async function getPageProps() {
   const socialLinks = getSocialLinks(lang);
   const footerButtons = getFooterButtons(lang);
 
-  const portfolioData = (portfolioProjects || []).map(project => ({
-    id: project?.id || '',
-    title: project?.title || 'Untitled Project',
-    description: project?.description || '',
-    imageUrl: project?.image || '/project-placeholder.jpg',
-    tags: project?.technologies || [],
-    projectUrl: project?.githubUrl || project?.liveUrl || '#',
-    moreInfo: project?.description || '',
-    galleryImages: project?.galleryImages || [],
-    links: []
-  }));
-
   return {
     siteConfigData,
     locale,
     socialLinks,
     footerButtons,
-    portfolioData,
+    portfolioData: portfolioProjects,
     profileData,
   };
 }
