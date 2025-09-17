@@ -10,33 +10,24 @@ import {
   zSiteConfig,
   zLocale
 } from '@/data/types';
-import path from 'path';
-import { promises as fs } from 'fs';
-
-// Base directory for content files
-const CONTENT_DIR = path.join(process.cwd(), 'src/data/content');
 
 
-// Generic loader function with fallback support (JSON only)
-async function loadDataFile<T>(filePath: string, schema: z.ZodSchema<T>, fallback?: T): Promise<T> {
+async function loadDataFile<T>(filename: string, schema: z.ZodSchema<T>, fallback?: T): Promise<T> {
   try {
-    // Check if file exists
-    await fs.access(filePath);
-    
-    // JSON file
-    const content = await fs.readFile(filePath, 'utf-8');
-    const data = JSON.parse(content);
+    // Use dynamic import for JSON module (relative to src/lib/)
+    const module = await import(`../data/content/${filename}`);
+    const data = module.default || module;
     return schema.parse(data);
   } catch (error) {
-    console.warn(`Warning: Failed to load ${filePath}, using fallback data:`, error);
+    console.warn(`Warning: Failed to load ${filename}, using fallback data:`, error);
     
     if (fallback) {
-      console.log(`Using fallback data for ${filePath}`);
+      console.log(`Using fallback data for ${filename}`);
       return schema.parse(fallback);
     }
     
     // Throw if no fallback provided
-    throw new Error(`Failed to load or validate data from ${filePath}. No fallback available.`);
+    throw new Error(`Failed to load or validate data from ${filename}. No fallback available.`);
   }
 }
 
@@ -50,36 +41,30 @@ export function validateData<T>(data: unknown, schema: z.ZodSchema<T>): T {
   }
 }
 
-// Load projects with optional locale
 export async function loadProjects(locale: string = 'en'): Promise<PortfolioProject[]> {
   if (!['en', 'pt-BR'].includes(locale)) {
     throw new Error(`Unsupported locale: ${locale}. Supported: en, pt-BR`);
   }
   const fileName = locale === 'en' ? 'projects.en.json' : `projects.${locale}.json`;
-  const filePath = path.join(CONTENT_DIR, fileName);
-  const data = await loadDataFile(filePath, z.array(zPortfolioProject), []);
+  const data = await loadDataFile(fileName, z.array(zPortfolioProject), []);
   return data;
 }
 
-// Load recommendations with optional locale
 export async function loadRecommendations(locale: string = 'en'): Promise<Recommendation[]> {
   if (!['en', 'pt-BR'].includes(locale)) {
     throw new Error(`Unsupported locale: ${locale}. Supported: en, pt-BR`);
   }
   const fileName = locale === 'en' ? 'recommendations.en.json' : `recommendations.${locale}.json`;
-  const filePath = path.join(CONTENT_DIR, fileName);
-  const data = await loadDataFile(filePath, z.array(zRecommendation), []);
+  const data = await loadDataFile(fileName, z.array(zRecommendation), []);
   return data;
 }
 
-// Load site config with optional locale
 export async function loadSiteConfig(locale: string = 'en'): Promise<SiteConfig> {
   if (!['en', 'pt-BR'].includes(locale)) {
     throw new Error(`Unsupported locale: ${locale}. Supported: en, pt-BR`);
   }
   const fileName = locale === 'en' ? 'site-config.en.json' : `site-config.${locale}.json`;
-  const filePath = path.join(CONTENT_DIR, fileName);
-  return loadDataFile(filePath, zSiteConfig, {
+  return loadDataFile(fileName, zSiteConfig, {
     title: 'Default Portfolio',
     description: 'A portfolio website',
     keywords: [],
@@ -91,14 +76,12 @@ export async function loadSiteConfig(locale: string = 'en'): Promise<SiteConfig>
   });
 }
 
-// Load profile data with optional locale
 export async function loadProfile(locale: string = 'en'): Promise<ProfileData> {
   if (!['en', 'pt-BR'].includes(locale)) {
     throw new Error(`Unsupported locale: ${locale}. Supported: en, pt-BR`);
   }
   const fileName = locale === 'en' ? 'profile.en.json' : `profile.${locale}.json`;
-  const filePath = path.join(CONTENT_DIR, fileName);
-  const data = await loadDataFile(filePath, zProfileData, {
+  const data = await loadDataFile(fileName, zProfileData, {
     name: 'Default Developer',
     subtitle: 'Full Stack Developer',
     badges: ['React', 'Next.js', 'TypeScript'],
@@ -114,19 +97,16 @@ export async function loadSkills(locale: string = 'en'): Promise<Skill[]> {
     throw new Error(`Unsupported locale: ${locale}. Supported: en, pt-BR`);
   }
   const fileName = locale === 'en' ? 'skills.en.json' : `skills.${locale}.json`;
-  const filePath = path.join(CONTENT_DIR, fileName);
-  const data = await loadDataFile(filePath, z.array(zSkill), []);
+  const data = await loadDataFile(fileName, z.array(zSkill), []);
   return data;
 }
 
-// Load locale data
 export async function loadLocale(locale: string): Promise<Locale> {
   if (!['en', 'pt-BR'].includes(locale)) {
     throw new Error(`Unsupported locale: ${locale}. Supported: en, pt-BR`);
   }
   const fileName = `${locale}.json`;
-  const filePath = path.join(CONTENT_DIR, fileName);
-  return loadDataFile(filePath, zLocale, {
+  return loadDataFile(fileName, zLocale, {
     site: { title: '', description: '', keywords: [], author: '' },
     hero: { title: '', subtitle: '', ctaText: '' },
     about: { title: '', description: '', skills: [] },

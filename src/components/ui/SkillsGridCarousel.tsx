@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSwipeable } from "react-swipeable";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 interface Skill {
   title: string;
@@ -10,6 +12,7 @@ interface Skill {
   icon: React.ReactNode;
   color: string;
   emoji: string;
+  proficiency: number;
 }
 
 interface SkillsGridCarouselProps {
@@ -38,6 +41,16 @@ export default function SkillsGridCarousel({ skills }: SkillsGridCarouselProps) 
     }
   }, [isPaused]);
 
+  // Swipe handlers
+  const handlers = useSwipeable({
+    onSwipedLeft: nextSlide,
+    onSwipedRight: prevSlide,
+    trackMouse: true,
+    preventScrollOnSwipe: true,
+    swipeDurationThreshold: 500,
+    swipeVelocityThreshold: 0.5
+  });
+
   const getVisibleCards = (): Skill[] => {
     const cards: Skill[] = [];
     const totalCards = skills.length;
@@ -53,8 +66,11 @@ export default function SkillsGridCarousel({ skills }: SkillsGridCarouselProps) 
 
   return (
     <div className="relative w-full max-w-6xl mx-auto">
-      <div 
-        className="relative overflow-hidden"
+      <div
+        {...handlers}
+        className="relative overflow-hidden touch-manipulation"
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setTimeout(() => setIsPaused(false), 1000)}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
@@ -63,7 +79,7 @@ export default function SkillsGridCarousel({ skills }: SkillsGridCarouselProps) 
           {getVisibleCards().map((skill, index) => (
             <div
               key={`${skill.title}-${index}`}
-              className={`card-friendly bg-white dark:bg-card p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg border-2 transition-all duration-300 ${
+              className={`card-friendly bg-white dark:bg-card p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg border-2 transition-all duration-300 touch-manipulation ${
                 index === 1
                   ? 'border-purple-400 dark:border-purple-400 scale-105 shadow-xl'
                   : 'border-transparent'
@@ -78,7 +94,10 @@ export default function SkillsGridCarousel({ skills }: SkillsGridCarouselProps) 
                   {skill.description}
                 </p>
                 <div className="mt-3 sm:mt-4">
-                  <span className="text-xl sm:text-2xl">{skill.emoji}</span>
+                  <Progress value={skill.proficiency} className="h-2" indicatorClassName="bg-gradient-to-r from-primary to-secondary" />
+                  <p className="text-xs text-muted-foreground text-center mt-1">
+                    {skill.proficiency}%
+                  </p>
                 </div>
               </div>
             </div>
@@ -89,21 +108,21 @@ export default function SkillsGridCarousel({ skills }: SkillsGridCarouselProps) 
       {/* Navigation Buttons */}
       <Button
         variant="outline"
-        size="icon"
+        size="lg"
         onClick={prevSlide}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 sm:-translate-x-4 z-10 bg-white dark:bg-card border-2 border-purple-400 dark:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20"
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 sm:-translate-x-4 z-10 bg-white dark:bg-card border-2 border-purple-400 dark:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 min-w-[48px] min-h-[48px]"
         aria-label="Slide anterior"
       >
-        <ChevronLeft className="h-4 w-4" />
+        <ChevronLeft className="h-5 w-5" />
       </Button>
       <Button
         variant="outline"
-        size="icon"
+        size="lg"
         onClick={nextSlide}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 sm:translate-x-4 z-10 bg-white dark:bg-card border-2 border-purple-400 dark:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 sm:translate-x-4 z-10 bg-white dark:bg-card border-2 border-purple-400 dark:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 min-w-[48px] min-h-[48px]"
         aria-label="Próximo slide"
       >
-        <ChevronRight className="h-4 w-4" />
+        <ChevronRight className="h-5 w-5" />
       </Button>
 
       {/* Indicators */}

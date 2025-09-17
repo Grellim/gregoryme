@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient, Prisma } from '@prisma/client';
+import db from '@/lib/db';
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
-
-const prisma = new PrismaClient();
-
-// Cache for visit count (simple in-memory, consider Redis for production)
-let cachedVisitCount = 0;
-let cacheTimestamp = 0;
-const CACHE_DURATION = 30 * 1000; // 30 seconds
 
 // Custom IP validation schema
 const ipSchema = z.string().refine((val) => {
@@ -17,19 +11,7 @@ const ipSchema = z.string().refine((val) => {
 
 export async function GET(request: NextRequest) {
   try {
-    const now = Date.now();
-    
-    // Use cache if valid
-    if (now - cacheTimestamp < CACHE_DURATION) {
-      return NextResponse.json({ count: cachedVisitCount }, {
-        status: 200,
-        headers: { 'Cache-Control': 'public, s-maxage=30' }
-      });
-    }
-
-    const count = await prisma.visit.count();
-    cachedVisitCount = count;
-    cacheTimestamp = now;
+    const count = await db.visit.count();
 
     return NextResponse.json({ count }, {
       status: 200,
@@ -54,7 +36,7 @@ export async function POST(request: NextRequest) {
     const ip = ipSchema.parse(body.ip);
     
     // Rate limit: simple IP-based (consider Redis for production)
-    const recentVisits = await prisma.visit.count({
+    const recentVisits = await db.visit.count({
       where: {
         ip: ip,
         createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) } // 24h
@@ -66,7 +48,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Use transaction for atomicity
-    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    await db.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.visit.create({
         data: {
           ip: ip,
@@ -74,11 +56,7 @@ export async function POST(request: NextRequest) {
       });
     });
 
-    // Invalidate cache
-    cachedVisitCount = 0;
-    cacheTimestamp = 0;
-
-    const count = await prisma.visit.count();
+    const count = await db.visit.count();
     return NextResponse.json({ count }, {
       status: 201,
       headers: { 'Cache-Control': 'no-store' }

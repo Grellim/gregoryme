@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, memo } from "react";
+import { useState, useCallback, useEffect, useRef, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Share2, ExternalLink, Expand, X } from "lucide-react";
 import { Locale } from "@/data/types";
@@ -19,6 +19,7 @@ interface PortfolioCardProps {
   project: PortfolioProject;
   locale: Locale;
   onOpenProjectModal: (projectId: string) => void;
+  gridSpan?: number;
 }
 
 function areEqual(prevProps: PortfolioCardProps, nextProps: PortfolioCardProps) {
@@ -30,6 +31,7 @@ const PortfolioCard = memo(function PortfolioCard({
   project,
   locale,
   onOpenProjectModal,
+  gridSpan = 1,
 }: PortfolioCardProps) {
   const t = useTranslations("Portfolio");
   const { id, title, description, image, technologies, moreInfo = '', galleryImages = [] } = project;
@@ -80,6 +82,7 @@ const PortfolioCard = memo(function PortfolioCard({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="group"
+        style={{ gridRowEnd: `span ${gridSpan}` }}
       >
         <Card className={cn(
           "h-full overflow-hidden border-0 card-lift shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer",
@@ -258,28 +261,32 @@ const PortfolioCard = memo(function PortfolioCard({
       </motion.div>
 
       {/* Simple Image Modal */}
-      {isImageModalOpen && (
-        <div
+      <div
+        className={cn(
+          "fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4",
+          "max-[640px]:p-2",
+          !isImageModalOpen && "hidden"
+        )}
+        onClick={closeImageModal}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="image-modal-title"
+        id="image-modal"
+        style={{ display: isImageModalOpen ? 'flex' : 'none' }}
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
           className={cn(
-            "fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4",
-            "max-[640px]:p-2"
+            "relative max-h-[90vh] p-2 sm:p-4",
+            "max-w-[95vw] max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl max-[640px]:p-2"
           )}
-          onClick={closeImageModal}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="image-modal-title"
-          id="image-modal"
+          onClick={(e) => e.stopPropagation()}
+          ref={useRef<HTMLDivElement>(null)}
         >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className={cn(
-              "relative max-h-[90vh] p-2 sm:p-4",
-              "max-w-[95vw] max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl max-[640px]:p-2"
-            )}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div ref={useRef<HTMLDivElement>(null)}>
+            <FocusTrapContainer onClose={closeImageModal} />
             <button
               onClick={closeImageModal}
               className={cn(
@@ -328,9 +335,9 @@ const PortfolioCard = memo(function PortfolioCard({
                 {title}
               </h3>
             </div>
-          </motion.div>
-        </div>
-      )}
+          </div>
+        </motion.div>
+      </div>
 
       {/* Gallery Modal */}
       {isGalleryModalOpen && (
@@ -344,5 +351,55 @@ const PortfolioCard = memo(function PortfolioCard({
     </>
   );
 }, areEqual);
+
+// Focus trap for modals
+function FocusTrapContainer({ onClose }: { onClose: () => void }) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstFocusable = focusableElements[0] as HTMLElement;
+    const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    firstFocusable?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
+      }
+    };
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [onClose]);
+
+  return null;
+}
 
 export default PortfolioCard;

@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getNavbarMenu } from "@/data/navbar";
 import { getSiteConfig } from "@/data/config";
+import { useTheme } from "@/lib/theme";
+
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const { theme, toggleTheme } = useTheme();
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const handleScroll = () => {
@@ -100,6 +102,18 @@ export default function Navbar() {
             </Button>
           </div>
 
+          {/* Theme Toggle - Desktop */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="hidden md:flex h-9 w-9 rounded-full hover:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-primary"
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            <Sun className={`h-4 w-4 ${theme === "light" ? "text-foreground" : "text-muted-foreground"}`} />
+            <Moon className={`h-4 w-4 ${theme === "dark" ? "text-foreground" : "text-muted-foreground"}`} />
+          </Button>
+
           {/* Mobile menu button */}
           <div className="md:hidden">
             <Button
@@ -159,6 +173,23 @@ export default function Navbar() {
                       aria-label="Entrar em contato"
                     >
                       <span className="font-poppins">{siteConfigData.hero.ctaText}</span>
+                    </Button>
+                  </div>
+
+                  {/* Theme Toggle - Mobile */}
+                  <div className="px-3 py-3 border-t border-border/50">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={toggleTheme}
+                      className="w-full h-12 rounded-lg hover:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-primary"
+                      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                    >
+                      <Sun className={`h-5 w-5 ${theme === "light" ? "text-foreground" : "text-muted-foreground"} mr-2`} />
+                      <Moon className={`h-5 w-5 ${theme === "dark" ? "text-foreground" : "text-muted-foreground"} mr-2`} />
+                      <span className="text-sm font-medium">
+                        {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                      </span>
                     </Button>
                   </div>
                 </div>

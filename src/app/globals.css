@@ -8,6 +8,31 @@
  * Edge cases: Variable fallbacks; mobile parallax fallback; print overrides.
  */
 
+/* Reduced motion support - Global disable for animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .parallax-bg {
+    background-attachment: scroll !important;
+  }
+
+  .animate-fade-in,
+  .animate-glow,
+  .animate-float,
+  .card-lift,
+  .btn-modern {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 /* Tailwind CSS imports - Split for better PostCSS processing and purging */
 @tailwind base;
 @tailwind components;
@@ -147,19 +172,21 @@
   }
 }
 
-/* Clean animations */
+/* Clean animations - Respect reduced motion */
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -168,9 +195,11 @@
   transition: all 0.2s ease;
 }
 
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+@media (prefers-reduced-motion: no-preference) {
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
 }
 
 /* Clean button */
@@ -178,8 +207,10 @@
   transition: all 0.2s ease;
 }
 
-.btn-hover:hover {
-  transform: translateY(-1px);
+@media (prefers-reduced-motion: no-preference) {
+  .btn-hover:hover {
+    transform: translateY(-1px);
+  }
 }
 
 /* Heart beat for reactions */
@@ -259,6 +290,12 @@
       grid-template-columns: 1fr;
       gap: 1rem;
     }
+  }
+
+  /* Touch optimizations */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -405,6 +442,9 @@ html {
 .parallax {
   position: relative;
   overflow: hidden;
+  will-change: transform;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .parallax::before {
@@ -475,26 +515,30 @@ html {
   }
 }
 
-/* Professional Animations for New Gen */
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+/* Professional Animations for New Gen - Respect reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
-  to {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    to {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+    }
   }
 }
 
