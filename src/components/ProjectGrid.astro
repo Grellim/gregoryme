@@ -1,0 +1,77 @@
+---
+// ProjectGrid.astro — Project cards with parallax and hover effects
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const sorted = projects
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+---
+
+<section
+  data-section="projects"
+  class="py-section bg-ink text-paper relative overflow-hidden"
+>
+  <!-- Subtle texture -->
+  <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_50%,_#F4F1EA_1px,_transparent_1px)] bg-[length:40px_40px]"></div>
+
+  <div class="grid-container relative z-10">
+    <!-- Section label -->
+    <div class="col-span-full mb-8 md:mb-12">
+      <span class="section-label text-paper/30">Projects & Freelance</span>
+      <h2 class="font-display text-display-sm md:text-display text-paper mt-2">
+        Work that <span class="text-accent">speaks</span>
+      </h2>
+    </div>
+  </div>
+
+  <!-- Project cards -->
+  <div class="grid-container relative z-10">
+    {
+      sorted.map((proj) => (
+        <div
+          data-project-card
+          class="col-span-full md:col-span-6 mb-6 md:mb-0"
+        >
+          <div class="group relative bg-ink border border-paper/10 rounded-lg p-6 md:p-8 transition-all duration-300 cursor-default">
+            <!-- Feeling word badge -->
+            <div class="inline-block mb-4">
+              <span class="feeling-word text-accent text-sm">
+                {proj.data.feeling_word}
+              </span>
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-display text-display-sm text-paper leading-tight mb-2">
+              {proj.data.title}
+            </h3>
+
+            <!-- Client + Year -->
+            <div class="flex items-center gap-3 text-body-sm text-paper/40 mb-4">
+              <span>{proj.data.client}</span>
+              <span aria-hidden="true">·</span>
+              <span>{proj.data.year}</span>
+              <span aria-hidden="true">·</span>
+              <span>{proj.data.role}</span>
+            </div>
+
+            <!-- Description -->
+            <p class="text-body text-paper/60 leading-relaxed mb-5">
+              {proj.data.challenge.slice(0, 150)}{proj.data.challenge.length > 150 ? '…' : ''}
+            </p>
+
+            <!-- Stack tags -->
+            {proj.data.stack.length > 0 && (
+              <div class="flex flex-wrap gap-2">
+                {proj.data.stack.map((tech: string) => (
+                  <span class="text-feeling px-2 py-1 rounded border border-paper/10 text-paper/30 font-medium">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
