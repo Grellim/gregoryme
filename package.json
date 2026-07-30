@@ -8,6 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "publish": "bun run build && sudo sh -c 'lsof -t -iTCP:3000 -sTCP:LISTEN | xargs -r kill' 2>/dev/null; sleep 1; nohup python3 -m http.server 3000 --directory dist > /dev/null 2>&1 &",
     "astro": "astro"
   },
   "dependencies": {
