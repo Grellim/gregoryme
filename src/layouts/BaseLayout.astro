@@ -19,9 +19,14 @@ const { title = 'Gregory Vallim', description = 'Hospitality professional turned
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <!-- GSAP + ScrollTrigger will be loaded in components -->
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
     <slot />
+
+    <!-- GSAP Animations — loaded via Vite-processed script -->
+    <script src="../scripts/animations.ts"></script>
   </body>
 </html>

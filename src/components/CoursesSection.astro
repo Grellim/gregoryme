@@ -1,0 +1,78 @@
+---
+// CoursesSection.astro — Courses & learning grid
+import { getCollection } from 'astro:content';
+
+const courses = await getCollection('courses');
+const sorted = courses.sort((a, b) => (b.data.year || 0) - (a.data.year || 0));
+---
+
+<section
+  data-section="courses"
+  class="py-section bg-paper relative"
+>
+  <!-- Top border divider -->
+  <div class="absolute top-0 left-[var(--grid-margin)] right-[var(--grid-margin)] h-px bg-ink/5"></div>
+
+  <div class="grid-container">
+    <!-- Section label -->
+    <div class="col-span-full mb-8 md:mb-12">
+      <span class="section-label">Learning</span>
+      <h2 class="font-display text-display-sm md:text-display text-ink mt-2">
+        Courses &amp;&nbsp;<span class="text-accent">certifications</span>
+      </h2>
+    </div>
+  </div>
+
+  <!-- Courses grid -->
+  <div class="grid-container">
+    {
+      sorted.map((course) => (
+        <div
+          data-course-card
+          class="col-span-full sm:col-span-6"
+        >
+          <div class="group border border-ink/10 rounded-lg p-6 hover:border-accent/30 transition-colors duration-300 bg-paper h-full flex flex-col">
+            <!-- Type badge -->
+            <div class="mb-3">
+              <span class={`text-feeling px-2 py-0.5 rounded font-medium ${
+                course.data.type === 'cert'
+                  ? 'bg-accent/10 text-accent'
+                  : 'bg-ink/5 text-ink/40'
+              }`}>
+                {course.data.type === 'cert' ? 'Certificate' : 'Course'}
+              </span>
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-display text-xl md:text-2xl text-ink font-semibold leading-tight mb-2">
+              {course.data.title}
+            </h3>
+
+            <!-- Issuer + Year -->
+            <p class="text-body-sm text-ink/40 mb-3">
+              {course.data.issuer} · {course.data.year}
+            </p>
+
+            <!-- Description -->
+            {course.data.description && (
+              <p class="text-body-sm text-ink/50 leading-relaxed mb-4 flex-1">
+                {course.data.description}
+              </p>
+            )}
+
+            <!-- Skills -->
+            {course.data.skills.length > 0 && (
+              <div class="flex flex-wrap gap-1.5 mt-auto">
+                {course.data.skills.map((skill: string) => (
+                  <span class="text-feeling px-2 py-0.5 bg-ink/[0.04] text-ink/30 rounded">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,65 @@
+---
+// Hero.astro — Fullscreen hero with split-text animation
+export interface Props {
+  headline?: string;
+  subHeadline?: string;
+  cta?: string;
+}
+
+const {
+  headline = 'Gregory Vallim',
+  subHeadline = 'I make people feel taken care of — under pressure.',
+  cta = 'Scroll to explore ↓',
+} = Astro.props;
+
+// Split headline into words for animation
+const words = headline.split(' ');
+---
+
+<section
+  data-section="hero"
+  class="relative min-h-screen flex items-center justify-center overflow-hidden bg-ink"
+>
+  <!-- Subtle background texture -->
+  <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_50%,_#F4F1EA_1px,_transparent_1px)] bg-[length:40px_40px]"></div>
+
+  <div class="hero-inner relative z-10 text-center px-4 sm:px-6 max-w-6xl mx-auto pt-16 pb-20">
+    <!-- Giant headline with split words -->
+    <h1
+      class="font-display font-bold text-paper leading-[0.9] tracking-tight"
+      style="font-size: clamp(3.5rem, 10vw, 10rem);"
+    >
+      {words.map((word, i) => (
+        <span
+          data-hero-word
+          class="inline-block mr-[0.3em]"
+          style="perspective: 800px;"
+        >
+          {i === 1 && (
+            <br class="hidden sm:block" />
+          )}
+          {word}
+        </span>
+      ))}
+    </h1>
+
+    <!-- Sub-headline -->
+    <p
+      data-hero-sub
+      class="mt-8 sm:mt-10 text-lg sm:text-xl md:text-2xl text-paper/60 max-w-2xl mx-auto text-balance leading-relaxed font-body font-light"
+    >
+      {subHeadline}
+      <span class="text-accent">.</span>
+    </p>
+
+    <!-- CTA -->
+    <div data-hero-cta class="mt-12 sm:mt-16">
+      <span class="text-feeling uppercase tracking-widest text-paper/30 font-display animate-bounce inline-block">
+        {cta}
+      </span>
+    </div>
+  </div>
+
+  <!-- Bottom gradient fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-paper to-transparent pointer-events-none"></div>
+</section>

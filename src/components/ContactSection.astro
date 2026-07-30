@@ -1,0 +1,68 @@
+---
+// ContactSection.astro — Footer with contact info & social links
+// Settings are loaded from src/content/settings/settings.yml, but since it's YAML
+// and not markdown, we'll hard-code the values here for now.
+// In production, this can be wired to a settings loader.
+
+const email = 'gregory@ogreg.online';
+const socials = [
+  { platform: 'Instagram', url: 'https://instagram.com/ogregvallim', handle: '@ogregvallim' },
+  { platform: 'LinkedIn', url: 'https://linkedin.com/in/gregoryvallim', handle: 'Gregory Vallim' },
+  { platform: 'GitHub', url: 'https://github.com/Grellim', handle: 'Grellim' },
+];
+---
+
+<section
+  data-section="contact"
+  class="py-section bg-ink text-paper relative overflow-hidden"
+>
+  <!-- Subtle texture -->
+  <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_50%,_#F4F1EA_1px,_transparent_1px)] bg-[length:40px_40px]"></div>
+
+  <div class="grid-container relative z-10">
+    <div class="col-span-full text-center">
+      <!-- Let's talk CTA -->
+      <div data-contact-reveal>
+        <span class="section-label text-paper/30">Get in touch</span>
+        <h2 class="font-display text-display-sm md:text-display text-paper mt-2 mb-6">
+          Let's <span class="text-accent">talk</span>
+        </h2>
+      </div>
+
+      <!-- Email -->
+      <div data-contact-reveal class="mb-10">
+        <a
+          href={`mailto:${email}`}
+          class="inline-block text-body-lg md:text-2xl text-paper/70 hover:text-accent transition-colors duration-300 font-body ink-link after:bg-accent"
+        >
+          {email}
+        </a>
+      </div>
+
+      <!-- Social links -->
+      <div data-contact-reveal class="flex flex-wrap justify-center gap-6 md:gap-10">
+        {socials.map((s) => (
+          <a
+            href={s.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center gap-1 text-paper/50 hover:text-accent transition-colors duration-300"
+          >
+            <span class="text-body-sm font-medium font-display tracking-wide">{s.platform}</span>
+            <span class="text-feeling text-paper/30 group-hover:text-accent/70 transition-colors">{s.handle}</span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Footer line -->
+      <div data-contact-reveal class="mt-16 pt-8 border-t border-paper/5">
+        <p class="text-feeling text-paper/20 font-display">
+          Gregory Vallim · {new Date().getFullYear()}
+        </p>
+        <p class="text-feeling text-paper/15 mt-1">
+          Hospitality · Support · Experience Design
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

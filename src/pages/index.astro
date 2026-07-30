@@ -1,23 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import FeelingList from '../components/FeelingList.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import JourneyTimeline from '../components/JourneyTimeline.astro';
+import CoursesSection from '../components/CoursesSection.astro';
+import ContactSection from '../components/ContactSection.astro';
 ---
 
 <BaseLayout>
-  <main class="min-h-screen bg-paper text-ink">
-    <!-- Hero section placeholder — to be built in next task -->
-    <section class="min-h-screen flex items-center justify-center px-4">
-      <div class="text-center">
-        <h1 class="font-display text-hero-sm md:text-hero lg:text-hero-lg font-bold text-ink leading-[0.9] tracking-tight">
-          Gregory<br />Vallim
-        </h1>
-        <p class="mt-6 text-body-lg text-ink/60 max-w-xl mx-auto text-balance">
-          Hospitality professional turned experience designer.
-          7+ years making people feel taken care of.
-        </p>
-        <p class="mt-4 feeling-word">
-          Coming soon
-        </p>
-      </div>
-    </section>
+  <main>
+    <!-- 1. HERO -->
+    <Hero
+      headline="Gregory Vallim"
+      subHeadline="I make people feel taken care of — under pressure."
+      cta="Scroll to explore ↓"
+    />
+
+    <!-- 2. FEELING LIST — DNA tinywins -->
+    <FeelingList />
+
+    <!-- 3. PROJECTS — Animated cards -->
+    <ProjectGrid />
+
+    <!-- 4. JOURNEY TIMELINE — DNA heynesh -->
+    <JourneyTimeline />
+
+    <!-- 5. COURSES & LEARNING -->
+    <CoursesSection />
+
+    <!-- 6. CONTACT / FOOTER -->
+    <ContactSection />
   </main>
 </BaseLayout>
