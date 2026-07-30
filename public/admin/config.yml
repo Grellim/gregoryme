@@ -1,0 +1,125 @@
+backend:
+  name: git-gateway
+  branch: main
+  repo: Grellim/gregoryme
+
+# Use local backend for dev
+local_backend: true
+
+# Where media files are stored
+media_folder: "public/images"
+public_folder: "/images"
+
+# CMS collections
+collections:
+  - name: "experiences"
+    label: "Experiences"
+    label_singular: "Experience"
+    folder: "src/content/experiences"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Role", name: "role", widget: "string" }
+      - { label: "Company", name: "company", widget: "string" }
+      - { label: "Location", name: "location", widget: "string", required: false }
+      - { label: "Start Date", name: "start", widget: "date" }
+      - { label: "End Date", name: "end", widget: "date", required: false }
+      - { label: "Current Position", name: "current", widget: "boolean", default: false }
+      - { label: "Feeling Word", name: "feeling_word", widget: "string", hint: "One word that captures how people feel interacting with you in this role" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Key Bullets", name: "bullets", widget: "list", summary: "{{fields.bullet}}" }
+      - { label: "Media", name: "media", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", default: 0 }
+
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Client", name: "client", widget: "string" }
+      - { label: "Year", name: "year", widget: "number", value_type: "int" }
+      - { label: "Role", name: "role", widget: "string" }
+      - { label: "Feeling Word", name: "feeling_word", widget: "string", hint: "What feeling does this project evoke?" }
+      - { label: "Challenge", name: "challenge", widget: "text" }
+      - { label: "Solution", name: "solution", widget: "text" }
+      - { label: "Outcome", name: "outcome", widget: "text" }
+      - { label: "Tech Stack", name: "stack", widget: "list" }
+      - { label: "Cover Image", name: "cover", widget: "image" }
+      - { label: "Gallery", name: "gallery", widget: "list", summary: "{{fields.image}}", field: { label: "Image", name: "image", widget: "image" }, required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", default: 0 }
+
+  - name: "courses"
+    label: "Courses & Certifications"
+    label_singular: "Course"
+    folder: "src/content/courses"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Issuer", name: "issuer", widget: "string" }
+      - { label: "Year", name: "year", widget: "number", value_type: "int" }
+      - { label: "Type", name: "type", widget: "select", options: ["course", "cert"], default: "course" }
+      - { label: "Credential URL", name: "credential_url", widget: "string", required: false }
+      - { label: "Skills", name: "skills", widget: "list", required: false }
+      - { label: "Badge", name: "badge", widget: "image", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+
+  - name: "posts"
+    label: "Posts"
+    label_singular: "Post"
+    folder: "src/content/posts"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Kind", name: "kind", widget: "select", options: ["article", "update"], default: "article" }
+      - { label: "Date", name: "date", widget: "date" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", required: false }
+      - { label: "Cover Image", name: "cover", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    folder: "src/content/pages"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Template", name: "template", widget: "select", options: ["default", "narrow", "full"], default: "default" }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "src/content/settings/settings.yml"
+        label: "Main Settings"
+        name: "settings"
+        fields:
+          - { label: "Site Title", name: "site_title", widget: "string", default: "Gregory Vallim" }
+          - { label: "Accent Color", name: "accent_color", widget: "string", default: "#E8632A" }
+          - { label: "Hero Headline", name: "hero_headline", widget: "string", default: "I make people feel\ntaken care of." }
+          - { label: "Hero Subtext", name: "hero_subtext", widget: "text", default: "7+ years in hospitality, support & experience design — from cruise ships to coworking, from cafés to freelance web." }
+          - { label: "Availability", name: "availability", widget: "string", default: "Open to opportunities" }
+          - { label: "CV PDF URL", name: "cv_pdf_url", widget: "string", required: false }
+          - { label: "Email", name: "email", widget: "string", default: "gregory@ogreg.online" }
+          - label: "Social Links"
+            name: "socials"
+            widget: "list"
+            summary: "{{platform}}: {{url}}"
+            fields:
+              - { label: "Platform", name: "platform", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }

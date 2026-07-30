@@ -1,0 +1,27 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = 'Gregory Vallim', description = 'Hospitality professional turned experience designer. 7+ years making people feel taken care of.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <!-- GSAP + ScrollTrigger will be loaded in components -->
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
